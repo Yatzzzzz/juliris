@@ -1,0 +1,25 @@
+# Dependency directories
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Production
+build/
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Project-specific exclusions
+X8N0w5ZIchO-1774267935440.zip
+zip_contents/
