@@ -1,40 +1,71 @@
 "use client"
 
-import { createContext, useContext, useState, type ReactNode } from "react"
+import { createContext, useContext, useState, useMemo, type ReactNode } from "react"
+import type { CartLine } from "@/types/order"
+import {
+  calculatePricing,
+  formatMoney,
+  getShippingMessage,
+  type PricingBreakdown,
+} from "@/lib/pricing"
+import { validateCoupon, getCouponDiscount, formatDiscountPercent } from "@/lib/coupons"
 
-export interface CartItem {
-  id: string
-  name: string
-  description: string
-  price: number
-  quantity: number
-  image: string
-}
+// Re-export CartLine type for consumers
+export type { CartLine }
+
+// Legacy CartItem alias for backwards compatibility
+export type CartItem = CartLine
 
 interface CartContextType {
-  items: CartItem[]
-  addItem: (item: Omit<CartItem, "quantity">) => void
+  // Cart state
+  items: CartLine[]
+  itemCount: number
+
+  // Cart actions
+  addItem: (item: Omit<CartLine, "quantity">) => void
   removeItem: (id: string) => void
   updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
+
+  // Drawer state
   isOpen: boolean
   setIsOpen: (open: boolean) => void
-  itemCount: number
+
+  // Promo code
+  promoCode: string | null
+  promoError: string | null
+  applyPromoCode: (code: string) => boolean
+  clearPromoCode: () => void
+
+  // Pricing (computed from shared helpers)
   subtotal: number
+  discount: number
+  shipping: number
+  tax: number
+  total: number
+  pricing: PricingBreakdown
+  shippingMessage: string | null
+  discountLabel: string | null
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([])
+  const [items, setItems] = useState<CartLine[]>([])
   const [isOpen, setIsOpen] = useState(false)
+  const [promoCode, setPromoCode] = useState<string | null>(null)
+  const [promoError, setPromoError] = useState<string | null>(null)
 
-  const addItem = (newItem: Omit<CartItem, "quantity">) => {
-    setItems(currentItems => {
-      const existingItem = currentItems.find(item => item.id === newItem.id)
+  // ─────────────────────────────────────────────────────────────────────────
+  // Cart actions
+  // ─────────────────────────────────────────────────────────────────────────
+
+  const addItem = (newItem: Omit<CartLine, "quantity">) => {
+    setItems((currentItems) => {
+      const existingItem = currentItems.find((item) => item.productId === newItem.productId)
       if (existingItem) {
-        return currentItems.map(item =>
-          item.id === newItem.id
+        return currentItems.map((item) =>
+          item.productId === newItem.productId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
@@ -45,7 +76,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }
 
   const removeItem = (id: string) => {
-    setItems(currentItems => currentItems.filter(item => item.id !== id))
+    setItems((currentItems) => currentItems.filter((item) => item.productId !== id))
   }
 
   const updateQuantity = (id: string, quantity: number) => {
@@ -53,37 +84,101 @@ export function CartProvider({ children }: { children: ReactNode }) {
       removeItem(id)
       return
     }
-    setItems(currentItems =>
-      currentItems.map(item =>
-        item.id === id ? { ...item, quantity } : item
+    setItems((currentItems) =>
+      currentItems.map((item) =>
+        item.productId === id ? { ...item, quantity } : item
       )
     )
   }
 
   const clearCart = () => {
     setItems([])
+    setPromoCode(null)
+    setPromoError(null)
   }
 
-  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0)
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  // ─────────────────────────────────────────────────────────────────────────
+  // Promo code actions
+  // ─────────────────────────────────────────────────────────────────────────
 
-  return (
-    <CartContext.Provider
-      value={{
-        items,
-        addItem,
-        removeItem,
-        updateQuantity,
-        clearCart,
-        isOpen,
-        setIsOpen,
-        itemCount,
-        subtotal
-      }}
-    >
-      {children}
-    </CartContext.Provider>
+  const applyPromoCode = (code: string): boolean => {
+    const subtotal = items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0)
+    const result = validateCoupon(code, subtotal)
+
+    if (result.valid) {
+      setPromoCode(code.trim().toUpperCase())
+      setPromoError(null)
+      return true
+    } else {
+      setPromoCode(null)
+      setPromoError(result.error)
+      return false
+    }
+  }
+
+  const clearPromoCode = () => {
+    setPromoCode(null)
+    setPromoError(null)
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Computed values (using shared pricing helpers)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  const itemCount = useMemo(
+    () => items.reduce((sum, item) => sum + item.quantity, 0),
+    [items]
   )
+
+  const discountPercent = useMemo(() => {
+    if (!promoCode) return 0
+    const subtotal = items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0)
+    return getCouponDiscount(promoCode, subtotal)
+  }, [items, promoCode])
+
+  const pricing = useMemo(
+    () => calculatePricing(items, discountPercent),
+    [items, discountPercent]
+  )
+
+  const shippingMessage = useMemo(
+    () => getShippingMessage(pricing.subtotal),
+    [pricing.subtotal]
+  )
+
+  const discountLabel = useMemo(
+    () => (discountPercent > 0 ? `Discount (${formatDiscountPercent(discountPercent)})` : null),
+    [discountPercent]
+  )
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Context value
+  // ─────────────────────────────────────────────────────────────────────────
+
+  const value: CartContextType = {
+    items,
+    itemCount,
+    addItem,
+    removeItem,
+    updateQuantity,
+    clearCart,
+    isOpen,
+    setIsOpen,
+    promoCode,
+    promoError,
+    applyPromoCode,
+    clearPromoCode,
+    subtotal: pricing.subtotal,
+    discount: pricing.discount,
+    shipping: pricing.shipping,
+    tax: pricing.tax,
+    total: pricing.total,
+    pricing,
+    shippingMessage,
+    discountLabel,
+  }
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 
 export function useCart() {

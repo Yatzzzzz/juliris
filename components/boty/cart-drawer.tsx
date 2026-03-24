@@ -15,10 +15,7 @@ import {
 import { useCart } from "./cart-context"
 
 export function CartDrawer() {
-  const { items, removeItem, updateQuantity, isOpen, setIsOpen, itemCount, subtotal } = useCart()
-
-  const shipping = 0
-  const total = subtotal + shipping
+  const { items, removeItem, updateQuantity, isOpen, setIsOpen, itemCount, subtotal, shipping, total } = useCart()
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right">
@@ -46,7 +43,7 @@ export function CartDrawer() {
           ) : (
             <div className="space-y-6">
               {items.map((item) => (
-                <div key={item.id} className="flex gap-4">
+                <div key={item.productId} className="flex gap-4">
                   {/* Product Image */}
                   <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
                     <Image
@@ -67,7 +64,7 @@ export function CartDrawer() {
                       <div className="flex items-center border border-border rounded-full">
                         <button
                           type="button"
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() => updateQuantity(item.productId, item.quantity - 1)}
                           className="p-1.5 hover:bg-muted boty-transition rounded-l-full"
                           aria-label="Decrease quantity"
                         >
@@ -76,7 +73,7 @@ export function CartDrawer() {
                         <span className="px-3 text-sm font-medium">{item.quantity}</span>
                         <button
                           type="button"
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() => updateQuantity(item.productId, item.quantity + 1)}
                           className="p-1.5 hover:bg-muted boty-transition rounded-r-full"
                           aria-label="Increase quantity"
                         >
@@ -86,7 +83,7 @@ export function CartDrawer() {
 
                       <button
                         type="button"
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => removeItem(item.productId)}
                         className="p-1.5 text-muted-foreground hover:text-destructive boty-transition"
                         aria-label="Remove item"
                       >
@@ -97,7 +94,7 @@ export function CartDrawer() {
 
                   {/* Price */}
                   <div className="text-right">
-                    <p className="font-medium text-foreground">${item.price * item.quantity}</p>
+                    <p className="font-medium text-foreground">${(item.unitPrice * item.quantity).toFixed(2)}</p>
                   </div>
                 </div>
               ))}
@@ -111,15 +108,15 @@ export function CartDrawer() {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between text-muted-foreground">
                 <span>Subtotal</span>
-                <span>${subtotal}</span>
+                <span>${subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-muted-foreground">
                 <span>Shipping</span>
-                <span>{shipping === 0 ? 'Free' : `$${shipping}`}</span>
+                <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
               </div>
               <div className="flex justify-between text-base font-medium text-foreground pt-2 border-t border-border/50">
                 <span>Total</span>
-                <span>${total}</span>
+                <span>${total.toFixed(2)}</span>
               </div>
             </div>
 

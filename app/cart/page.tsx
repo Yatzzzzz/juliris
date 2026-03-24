@@ -17,24 +17,27 @@ const trustItems = [
 ]
 
 export default function CartPage() {
-  const { items, removeItem, updateQuantity, subtotal, clearCart } = useCart()
-  const [promoCode, setPromoCode] = useState("")
-  const [promoApplied, setPromoApplied] = useState(false)
-  const [promoError, setPromoError] = useState("")
+  const {
+    items,
+    removeItem,
+    updateQuantity,
+    subtotal,
+    discount,
+    shipping,
+    total,
+    clearCart,
+    promoCode,
+    promoError,
+    applyPromoCode,
+    clearPromoCode,
+    shippingMessage,
+    discountLabel,
+  } = useCart()
+  const [promoInput, setPromoInput] = useState("")
   const router = useRouter()
 
-  const shipping = subtotal >= 50 || subtotal === 0 ? 0 : 6.99
-  const discount = promoApplied ? Math.round(subtotal * 0.1 * 100) / 100 : 0
-  const total = subtotal - discount + shipping
-
   const handlePromo = () => {
-    if (promoCode.trim().toUpperCase() === "BOTY10") {
-      setPromoApplied(true)
-      setPromoError("")
-    } else {
-      setPromoError("Invalid promo code. Try BOTY10.")
-      setPromoApplied(false)
-    }
+    applyPromoCode(promoInput)
   }
 
   return (

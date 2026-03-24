@@ -1,0 +1,56 @@
+[
+  {
+    "id": "serums",
+    "slug": "serums",
+    "name": "Serums",
+    "description": "Concentrated formulas with active ingredients for targeted skin concerns.",
+    "image": "/images/products/serum-bottles-1.png",
+    "parentId": null,
+    "position": 0
+  },
+  {
+    "id": "moisturizers",
+    "slug": "moisturizers",
+    "name": "Moisturizers",
+    "description": "Hydrating creams and lotions for all-day skin nourishment.",
+    "image": "/images/products/cream-jars-colored.png",
+    "parentId": null,
+    "position": 1
+  },
+  {
+    "id": "cleansers",
+    "slug": "cleansers",
+    "name": "Cleansers",
+    "description": "Gentle formulas to cleanse without stripping natural oils.",
+    "image": "/images/products/tube-bottles.png",
+    "parentId": null,
+    "position": 2
+  },
+  {
+    "id": "oils",
+    "slug": "oils",
+    "name": "Oils",
+    "description": "Pure botanical oils for deep nourishment and radiance.",
+    "image": "/images/products/amber-dropper-bottles.png",
+    "parentId": null,
+    "position": 3
+  },
+  {
+    "id": "masks",
+    "slug": "masks",
+    "name": "Masks",
+    "description": "Weekly treatments for deep cleansing and rejuvenation.",
+    "image": "/images/products/mask.jpg",
+    "parentId": null,
+    "position": 4
+  },
+  {
+    "id": "toners",
+    "slug": "toners",
+    "name": "Toners",
+    "description": "pH-balancing mists to prep skin for better absorption.",
+    "image": "/images/products/toner.jpg",
+    "parentId": null,
+    "position": 5
+  }
+]
