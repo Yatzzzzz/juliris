@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ShoppingBag, SlidersHorizontal, X } from "lucide-react"
+import { useSearchParams } from "next/navigation"
+import { ShoppingBag, SlidersHorizontal, X, Search } from "lucide-react"
 import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
 
@@ -157,14 +158,32 @@ const products = [
 const categories = ["all", "serums", "moisturizers", "cleansers", "oils", "masks", "toners"]
 
 export default function ShopPage() {
+  const searchParams = useSearchParams()
+  const initialSearch = searchParams.get("search") ?? ""
+
   const [selectedCategory, setSelectedCategory] = useState("all")
+  const [searchQuery, setSearchQuery] = useState(initialSearch)
   const [showFilters, setShowFilters] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const gridRef = useRef<HTMLDivElement>(null)
 
-  const filteredProducts = selectedCategory === "all"
-    ? products
-    : products.filter(p => p.category === selectedCategory)
+  // Sync search param on navigation (e.g. from overlay)
+  useEffect(() => {
+    const s = searchParams.get("search") ?? ""
+    setSearchQuery(s)
+    if (s) setSelectedCategory("all")
+  }, [searchParams])
+
+  const filteredProducts = products.filter((p) => {
+    const matchesCategory = selectedCategory === "all" || p.category === selectedCategory
+    const q = searchQuery.trim().toLowerCase()
+    const matchesSearch =
+      !q ||
+      p.name.toLowerCase().includes(q) ||
+      p.description.toLowerCase().includes(q) ||
+      p.category.toLowerCase().includes(q)
+    return matchesCategory && matchesSearch
+  })
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -187,12 +206,12 @@ export default function ShopPage() {
     }
   }, [])
 
-  // Reset animation when category changes
+  // Reset animation when category or search changes
   useEffect(() => {
     setIsVisible(false)
     const timer = setTimeout(() => setIsVisible(true), 50)
     return () => clearTimeout(timer)
-  }, [selectedCategory])
+  }, [selectedCategory, searchQuery])
 
   return (
     <main className="min-h-screen">
@@ -211,6 +230,40 @@ export default function ShopPage() {
             <p className="text-lg text-muted-foreground max-w-md mx-auto">
               Discover our complete range of natural skincare essentials
             </p>
+          </div>
+
+          {/* Search bar */}
+          <div className="max-w-lg mx-auto mb-8">
+            <div className="flex items-center gap-3 bg-card rounded-full px-5 py-3 boty-shadow border border-border/50">
+              <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value)
+                  if (e.target.value) setSelectedCategory("all")
+                }}
+                placeholder="Search products..."
+                className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="text-muted-foreground hover:text-foreground boty-transition"
+                  aria-label="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+            {searchQuery && (
+              <p className="text-center text-sm text-muted-foreground mt-3">
+                {filteredProducts.length === 0
+                  ? `No results for "${searchQuery}"`
+                  : `${filteredProducts.length} result${filteredProducts.length === 1 ? "" : "s"} for "${searchQuery}"`}
+              </p>
+            )}
           </div>
 
           {/* Filter Bar */}
@@ -285,6 +338,7 @@ export default function ShopPage() {
           )}
 
           {/* Product Grid */}
+          {filteredProducts.length > 0 ? (
           <div 
             ref={gridRef}
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -298,6 +352,24 @@ export default function ShopPage() {
               />
             ))}
           </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-20 text-center">
+              <div className="w-16 h-16 rounded-full bg-card flex items-center justify-center mb-4 boty-shadow">
+                <Search className="w-7 h-7 text-muted-foreground" />
+              </div>
+              <p className="font-serif text-2xl text-foreground mb-2">No products found</p>
+              <p className="text-sm text-muted-foreground mb-6 max-w-xs">
+                Try adjusting your search or browse all categories.
+              </p>
+              <button
+                type="button"
+                onClick={() => { setSearchQuery(""); setSelectedCategory("all") }}
+                className="px-6 py-3 rounded-full bg-primary text-primary-foreground text-sm hover:bg-primary/90 boty-transition"
+              >
+                Clear Search
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

@@ -5,9 +5,11 @@ import Link from "next/link"
 import { Menu, X, ShoppingBag, Search, User } from "lucide-react"
 import { CartDrawer } from "./cart-drawer"
 import { useCart } from "./cart-context"
+import { SearchOverlay } from "./search-overlay"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const { setIsOpen, itemCount } = useCart()
 
   return (
@@ -55,6 +57,7 @@ export function Header() {
           <div className="flex items-center gap-4">
             <button
               type="button"
+              onClick={() => setIsSearchOpen(true)}
               className="p-2 text-foreground/70 hover:text-foreground boty-transition"
               aria-label="Search"
             >
@@ -84,6 +87,8 @@ export function Header() {
         </div>
 
         <CartDrawer />
+
+        <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
         {/* Mobile Navigation */}
         <div
