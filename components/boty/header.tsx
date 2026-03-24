@@ -33,16 +33,16 @@ export function Header() {
               Shop
             </Link>
             <Link
-              href="/"
+              href="/about"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
               About
             </Link>
             <Link
-              href="/"
+              href="/faq"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              Ingredients
+              FAQ
             </Link>
           </div>
 
@@ -99,22 +99,22 @@ export function Header() {
               Shop
             </Link>
             <Link
-              href="/"
+              href="/about"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
               About
             </Link>
             <Link
-              href="/"
+              href="/faq"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              Ingredients
+              FAQ
             </Link>
             <Link
-              href="/"
+              href="/contact"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              Account
+              Contact
             </Link>
           </div>
         </div>

@@ -12,16 +12,16 @@ const footerLinks = {
     { name: "Gift Sets", href: "/shop" }
   ],
   about: [
-    { name: "Our Story", href: "/" },
-    { name: "Ingredients", href: "/" },
-    { name: "Sustainability", href: "/" },
-    { name: "Press", href: "/" }
+    { name: "Our Story", href: "/about" },
+    { name: "Ingredients", href: "/about#values" },
+    { name: "Sustainability", href: "/about#values" },
+    { name: "Press", href: "/contact" }
   ],
   support: [
-    { name: "Contact Us", href: "/" },
-    { name: "FAQ", href: "/" },
-    { name: "Shipping", href: "/" },
-    { name: "Returns", href: "/" }
+    { name: "Contact Us", href: "/contact" },
+    { name: "FAQ", href: "/faq" },
+    { name: "Shipping", href: "/shipping-returns" },
+    { name: "Returns", href: "/shipping-returns#returns" }
   ]
 }
 
@@ -133,10 +133,10 @@ export function Footer() {
               © {new Date().getFullYear()} Boty. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <Link href="/" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
+              <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
                 Privacy Policy
               </Link>
-              <Link href="/" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
+              <Link href="/shipping-returns" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
                 Terms of Service
               </Link>
             </div>
