@@ -8,6 +8,7 @@ import { Minus, Plus, Trash2, ShoppingBag, Tag, ArrowRight, ChevronLeft, Leaf, R
 import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
 import { useCart } from "@/components/boty/cart-context"
+import { formatMoney } from "@/lib/pricing"
 
 const trustItems = [
   { icon: Truck, label: "Free Shipping", sub: "On orders over $50" },
@@ -35,6 +36,8 @@ export default function CartPage() {
   } = useCart()
   const [promoInput, setPromoInput] = useState("")
   const router = useRouter()
+
+  const promoApplied = promoCode !== null && discount > 0
 
   const handlePromo = () => {
     applyPromoCode(promoInput)
@@ -96,10 +99,10 @@ export default function CartPage() {
 
                 <div className="divide-y divide-border/50">
                   {items.map((item) => (
-                    <div key={item.id} className="py-6 grid sm:grid-cols-[1fr_120px_80px] gap-4 items-center">
+                    <div key={item.productId} className="py-6 grid sm:grid-cols-[1fr_120px_80px] gap-4 items-center">
                       {/* Product */}
                       <div className="flex gap-4 items-center">
-                        <Link href={`/product/${item.id}`} className="relative w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 rounded-2xl overflow-hidden bg-card boty-shadow">
+                        <Link href={`/product/${item.productId}`} className="relative w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 rounded-2xl overflow-hidden bg-card boty-shadow">
                           <Image
                             src={item.image || "/placeholder.svg"}
                             alt={item.name}
@@ -108,17 +111,17 @@ export default function CartPage() {
                           />
                         </Link>
                         <div className="min-w-0">
-                          <Link href={`/product/${item.id}`} className="font-serif text-lg text-foreground hover:text-primary boty-transition block">
+                          <Link href={`/product/${item.productId}`} className="font-serif text-lg text-foreground hover:text-primary boty-transition block">
                             {item.name}
                           </Link>
                           <p className="text-sm text-muted-foreground mt-0.5">{item.description}</p>
-                          <p className="text-sm font-medium text-foreground mt-1">${item.price}</p>
+                          <p className="text-sm font-medium text-foreground mt-1">{formatMoney(item.unitPrice)}</p>
                           {/* Mobile quantity & remove */}
                           <div className="flex items-center gap-3 mt-3 sm:hidden">
                             <div className="flex items-center border border-border rounded-full">
                               <button
                                 type="button"
-                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                onClick={() => updateQuantity(item.productId, item.quantity - 1)}
                                 className="p-1.5 hover:bg-muted boty-transition rounded-l-full"
                                 aria-label="Decrease quantity"
                               >
@@ -127,7 +130,7 @@ export default function CartPage() {
                               <span className="px-3 text-sm font-medium w-8 text-center">{item.quantity}</span>
                               <button
                                 type="button"
-                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                onClick={() => updateQuantity(item.productId, item.quantity + 1)}
                                 className="p-1.5 hover:bg-muted boty-transition rounded-r-full"
                                 aria-label="Increase quantity"
                               >
@@ -136,7 +139,7 @@ export default function CartPage() {
                             </div>
                             <button
                               type="button"
-                              onClick={() => removeItem(item.id)}
+                              onClick={() => removeItem(item.productId)}
                               className="p-1.5 text-muted-foreground hover:text-destructive boty-transition"
                               aria-label="Remove item"
                             >
@@ -151,7 +154,7 @@ export default function CartPage() {
                         <div className="flex items-center border border-border rounded-full">
                           <button
                             type="button"
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            onClick={() => updateQuantity(item.productId, item.quantity - 1)}
                             className="p-2 hover:bg-muted boty-transition rounded-l-full"
                             aria-label="Decrease quantity"
                           >
@@ -160,7 +163,7 @@ export default function CartPage() {
                           <span className="px-3 text-sm font-medium w-8 text-center">{item.quantity}</span>
                           <button
                             type="button"
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            onClick={() => updateQuantity(item.productId, item.quantity + 1)}
                             className="p-2 hover:bg-muted boty-transition rounded-r-full"
                             aria-label="Increase quantity"
                           >
@@ -169,7 +172,7 @@ export default function CartPage() {
                         </div>
                         <button
                           type="button"
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => removeItem(item.productId)}
                           className="p-2 text-muted-foreground hover:text-destructive boty-transition"
                           aria-label="Remove item"
                         >
@@ -180,7 +183,7 @@ export default function CartPage() {
                       {/* Line Total */}
                       <div className="hidden sm:block text-right">
                         <span className="font-medium text-foreground">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          {formatMoney(item.unitPrice * item.quantity)}
                         </span>
                       </div>
                     </div>
@@ -209,34 +212,46 @@ export default function CartPage() {
                     <label className="text-sm font-medium text-foreground mb-2 block">
                       Promo Code
                     </label>
-                    <div className="flex gap-2">
-                      <div className="relative flex-1">
-                        <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                        <input
-                          type="text"
-                          value={promoCode}
-                          onChange={(e) => {
-                            setPromoCode(e.target.value)
-                            setPromoError("")
-                            if (promoApplied) setPromoApplied(false)
-                          }}
-                          placeholder="Enter code"
-                          className="w-full pl-9 pr-4 py-3 rounded-full bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring boty-transition"
-                        />
+                    {promoApplied ? (
+                      <div className="flex items-center justify-between bg-primary/10 border border-primary/20 rounded-full px-4 py-3">
+                        <div className="flex items-center gap-2">
+                          <Tag className="w-4 h-4 text-primary" />
+                          <span className="text-sm font-medium text-primary">{promoCode}</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={clearPromoCode}
+                          className="text-xs text-muted-foreground hover:text-foreground boty-transition"
+                        >
+                          Remove
+                        </button>
                       </div>
-                      <button
-                        type="button"
-                        onClick={handlePromo}
-                        className="px-4 py-3 rounded-full bg-primary text-primary-foreground text-sm hover:bg-primary/90 boty-transition boty-shadow"
-                      >
-                        Apply
-                      </button>
-                    </div>
+                    ) : (
+                      <div className="flex gap-2">
+                        <div className="relative flex-1">
+                          <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                          <input
+                            type="text"
+                            value={promoInput}
+                            onChange={(e) => setPromoInput(e.target.value)}
+                            placeholder="Enter code"
+                            className="w-full pl-9 pr-4 py-3 rounded-full bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring boty-transition"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handlePromo}
+                          className="px-4 py-3 rounded-full bg-primary text-primary-foreground text-sm hover:bg-primary/90 boty-transition boty-shadow"
+                        >
+                          Apply
+                        </button>
+                      </div>
+                    )}
                     {promoError && (
                       <p className="text-xs text-destructive mt-2">{promoError}</p>
                     )}
                     {promoApplied && (
-                      <p className="text-xs text-primary mt-2">10% discount applied!</p>
+                      <p className="text-xs text-primary mt-2">{discountLabel} applied!</p>
                     )}
                   </div>
 
@@ -244,23 +259,23 @@ export default function CartPage() {
                   <div className="space-y-3 pb-5 border-b border-border/50">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Subtotal</span>
-                      <span className="text-foreground">${subtotal.toFixed(2)}</span>
+                      <span className="text-foreground">{formatMoney(subtotal)}</span>
                     </div>
-                    {promoApplied && (
+                    {promoApplied && discountLabel && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-primary">Discount (10%)</span>
-                        <span className="text-primary">-${discount.toFixed(2)}</span>
+                        <span className="text-primary">{discountLabel}</span>
+                        <span className="text-primary">-{formatMoney(discount)}</span>
                       </div>
                     )}
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Shipping</span>
                       <span className="text-foreground">
-                        {shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}
+                        {shipping === 0 ? "Free" : formatMoney(shipping)}
                       </span>
                     </div>
-                    {subtotal < 50 && subtotal > 0 && (
+                    {shippingMessage && (
                       <p className="text-xs text-muted-foreground">
-                        Add ${(50 - subtotal).toFixed(2)} more for free shipping
+                        {shippingMessage}
                       </p>
                     )}
                   </div>
@@ -268,7 +283,7 @@ export default function CartPage() {
                   {/* Total */}
                   <div className="flex justify-between items-center pt-5 mb-6">
                     <span className="font-medium text-foreground text-base">Total</span>
-                    <span className="font-serif text-2xl text-foreground">${total.toFixed(2)}</span>
+                    <span className="font-serif text-2xl text-foreground">{formatMoney(total)}</span>
                   </div>
 
                   {/* Checkout Button */}
