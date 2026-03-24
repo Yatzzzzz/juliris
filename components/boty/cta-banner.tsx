@@ -38,34 +38,33 @@ export function CTABanner() {
             isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           }`}
         >
-          {/* Background Image */}
           <Image
             src="/images/bf965cf4-e728-4e72-ab1b-16b1cd8f1822.png"
-            alt="Natural ingredients"
+            alt="תכשיטי Juliris"
             fill
             className="object-cover"
           />
           
           <div className="relative z-10 text-left max-w-2xl">
             <h3 className="text-4xl md:text-5xl text-white mb-4 lg:text-5xl">
-              100% Natural
+              עדין על העור
             </h3>
             <h3 className="text-3xl md:text-4xl lg:text-5xl text-white/70 mb-8">
-              100% You
+              אלגנטי בכל יום
             </h3>
             
             <div className="flex flex-col items-start gap-4">
               <div className="flex items-center gap-3 text-white/90">
                 <Leaf className="w-5 h-5 flex-shrink-0" strokeWidth={1} />
-                <span className="text-base">No Harsh Chemicals</span>
+                <span className="text-base">מתאים לעור רגיש</span>
               </div>
               <div className="flex items-center gap-3 text-white/90">
                 <Flower2 className="w-5 h-5 flex-shrink-0" strokeWidth={1} />
-                <span className="text-base">Plant-Based Goodness</span>
+                <span className="text-base">עיצוב עדין ונשי</span>
               </div>
               <div className="flex items-center gap-3 text-white/90">
                 <Globe className="w-5 h-5 flex-shrink-0" strokeWidth={1} />
-                <span className="text-base">Ethically Sourced</span>
+                <span className="text-base">לקהל ישראלי בלבד</span>
               </div>
             </div>
           </div>

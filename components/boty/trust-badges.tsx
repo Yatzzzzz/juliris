@@ -6,23 +6,23 @@ import { Leaf, Droplets, Sparkles, Flower2 } from "lucide-react"
 const badges = [
   {
     icon: Leaf,
-    title: "Organic Certified",
-    description: "100% organic ingredients"
+    title: "מתאים לעור רגיש",
+    description: "נבחר בקפידה לנוחות יומיומית"
   },
   {
     icon: Droplets,
-    title: "Natural Extracts",
-    description: "Pure botanical formulas"
+    title: "חומרים איכותיים",
+    description: "דגש על תחושה נעימה לאורך היום"
   },
   {
     icon: Sparkles,
-    title: "Clean Beauty",
-    description: "No toxic chemicals"
+    title: "עיצוב אלגנטי",
+    description: "מראה נקי, נשי ועל-זמני"
   },
   {
     icon: Flower2,
-    title: "Vegan Formula",
-    description: "Plant-powered skincare"
+    title: "קולקציה נשית",
+    description: "תכשיטים עדינים לשגרה וליציאה"
   }
 ]
 

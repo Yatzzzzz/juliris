@@ -6,75 +6,75 @@ import { Star } from "lucide-react"
 const testimonials = [
   {
     id: 1,
-    name: "Sarah M.",
-    location: "New York",
+    name: "נועה",
+    location: "תל אביב",
     rating: 5,
-    text: "My skin has never felt so soft and nourished. The Radiance Serum is now a permanent part of my morning routine.",
-    product: "Radiance Serum"
+    text: "סוף סוף מצאתי תכשיט שנראה עדין ואלגנטי וגם מרגיש נוח לאורך כל היום.",
+    product: "שרשרת אלה"
   },
   {
     id: 2,
-    name: "Emma L.",
-    location: "Los Angeles",
+    name: "יעל",
+    location: "חיפה",
     rating: 5,
-    text: "Finally, skincare that actually feels natural. No more harsh chemicals. My sensitive skin loves Boty products.",
-    product: "Gentle Cleanser"
+    text: "העגילים נראים מעולה והכי חשוב — הם לא הכבידו ולא הרגישו מציקים גם אחרי שעות.",
+    product: "עגילי תמר"
   },
   {
     id: 3,
-    name: "Jessica R.",
-    location: "Chicago",
+    name: "מיה",
+    location: "ירושלים",
     rating: 5,
-    text: "The Hydra Cream is absolutely divine. It absorbs beautifully and keeps my skin hydrated all day long.",
-    product: "Hydra Cream"
+    text: "הטבעת עדינה, יושבת יפה, ומוסיפה בדיוק את הנגיעה האלגנטית שחיפשתי.",
+    product: "טבעת נועה"
   },
   {
     id: 4,
-    name: "Maria K.",
-    location: "Miami",
+    name: "שירה",
+    location: "רמת גן",
     rating: 5,
-    text: "I've tried countless serums but nothing compares to the glow I get from Boty. Absolutely transformative.",
-    product: "Glow Serum"
+    text: "השרשרת קיבלה המון מחמאות. היא נראית יוקרתית אבל עדיין מאוד יומיומית.",
+    product: "שרשרת דניאל"
   },
   {
     id: 5,
-    name: "Sophie T.",
-    location: "Seattle",
+    name: "דניאל",
+    location: "נתניה",
     rating: 5,
-    text: "The packaging is beautiful and sustainable. I feel good knowing I'm choosing eco-friendly skincare.",
-    product: "Night Cream"
+    text: "העיצוב עדין ומוקפד, וכל החוויה מרגישה נשית, נקייה ומדויקת.",
+    product: "טבעת יעל"
   },
   {
     id: 6,
-    name: "Anna P.",
-    location: "Boston",
+    name: "ליאור",
+    location: "ראשון לציון",
     rating: 5,
-    text: "My acne-prone skin has cleared up since switching to Boty. Natural ingredients really make a difference.",
-    product: "Gentle Cleanser"
+    text: "חיפשתי פריטים שירגישו נוחים יותר לעור רגיש, וזו הייתה בחירה מעולה בשבילי.",
+    product: "עגילי מאי"
   },
   {
     id: 7,
-    name: "Claire B.",
-    location: "Austin",
+    name: "רוני",
+    location: "הרצליה",
     rating: 5,
-    text: "The texture of the Renewal Oil is perfection. It absorbs quickly and leaves my skin glowing.",
-    product: "Renewal Oil"
+    text: "העגילים קלים, מחמיאים, ומשתלבים כמעט עם כל דבר שאני לובשת.",
+    product: "עגילי ליה"
   },
   {
     id: 8,
-    name: "Lily W.",
-    location: "Portland",
+    name: "טל",
+    location: "כפר סבא",
     rating: 5,
-    text: "I love that Boty is cruelty-free and vegan. Great products that align with my values.",
-    product: "Hydra Cream"
+    text: "יש ב-Juliris איזון מדויק בין מראה אלגנטי לנוחות אמיתית, וזה בדיוק מה שחיפשתי.",
+    product: "טבעת ליה"
   },
   {
     id: 9,
-    name: "Rachel D.",
-    location: "Denver",
+    name: "אור",
+    location: "מודיעין",
     rating: 5,
-    text: "The scent is so subtle and natural. No overpowering fragrances, just pure botanical goodness.",
-    product: "Radiance Serum"
+    text: "אני אוהבת את הקו הנקי ואת התחושה העדינה. זה נראה טוב ומרגיש נכון.",
+    product: "שרשרת נעם"
   }
 ]
 
@@ -140,10 +140,10 @@ export function Testimonials() {
         {/* Header */}
         <div ref={headerRef} className="text-center mb-16">
           <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
-            Kind Words
+            לקוחות מספרות
           </span>
           <h2 className={`font-serif text-4xl leading-tight text-foreground text-balance md:text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
-            Loved by thousands
+            אהוב על לקוחות Juliris
           </h2>
         </div>
 

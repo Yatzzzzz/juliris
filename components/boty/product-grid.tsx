@@ -9,21 +9,21 @@ import { useCart } from "./cart-context"
 type Category = "cream" | "oil" | "serum"
 
 const products = [
-  // Serums
+  // Serums (displayed as שרשראות)
   {
     id: "radiance-serum",
-    name: "Radiance Serum",
-    description: "Vitamin C brightening formula",
+    name: "שרשרת אלה",
+    description: "שרשרת עדינה במראה נקי ואלגנטי ליום יום.",
     price: 68,
     originalPrice: null,
     image: "/images/products/serum-bottles-1.png",
-    badge: "Bestseller",
+    badge: "נמכר ביותר",
     category: "serum" as Category
   },
   {
     id: "hydrating-serum",
-    name: "Hydrating Serum",
-    description: "Hyaluronic acid moisture boost",
+    name: "שרשרת נעם",
+    description: "שרשרת נשית בקו מינימליסטי ונוח לענידה.",
     price: 62,
     originalPrice: null,
     image: "/images/products/eye-serum-bottles.png",
@@ -32,29 +32,29 @@ const products = [
   },
   {
     id: "age-defense-serum",
-    name: "Age Defense Serum",
-    description: "Retinol & peptide complex",
+    name: "שרשרת יובל",
+    description: "שרשרת אלגנטית עם נוכחות עדינה ומעודנת.",
     price: 78,
     originalPrice: null,
     image: "/images/products/amber-dropper-bottles.png",
-    badge: "New",
+    badge: "חדש",
     category: "serum" as Category
   },
   {
     id: "glow-serum",
-    name: "Glow Serum",
-    description: "Niacinamide brightening boost",
+    name: "שרשרת דניאל",
+    description: "שרשרת יומיומית שמשתלבת בקלות עם כל לוק.",
     price: 58,
     originalPrice: 68,
     image: "/images/products/spray-bottles.png",
-    badge: "Sale",
+    badge: "מבצע",
     category: "serum" as Category
   },
-  // Creams
+  // Creams (displayed as טבעות)
   {
     id: "hydra-cream",
-    name: "Hydra Cream",
-    description: "Deep moisture with hyaluronic acid",
+    name: "טבעת נועה",
+    description: "טבעת עדינה במראה נקי שמתאימה לשימוש יומיומי.",
     price: 54,
     originalPrice: null,
     image: "/images/products/cream-jars-colored.png",
@@ -63,49 +63,49 @@ const products = [
   },
   {
     id: "gentle-cleanser",
-    name: "Gentle Cleanser",
-    description: "Soothing botanical wash",
+    name: "טבעת ליה",
+    description: "טבעת אלגנטית עם גימור מעודן ונוכחות שקטה.",
     price: 38,
     originalPrice: 48,
     image: "/images/products/tube-bottles.png",
-    badge: "Sale",
+    badge: "מבצע",
     category: "cream" as Category
   },
   {
     id: "night-cream",
-    name: "Night Cream",
-    description: "Restorative overnight treatment",
+    name: "טבעת יעל",
+    description: "טבעת נשית ועדינה שמשלימה מראה יומיומי אלגנטי.",
     price: 64,
     originalPrice: null,
     image: "/images/products/jars-wooden-lid.png",
-    badge: "Bestseller",
+    badge: "נמכר ביותר",
     category: "cream" as Category
   },
   {
     id: "day-cream-spf",
-    name: "Day Cream SPF 30",
-    description: "Protection & hydration",
+    name: "טבעת מאיה",
+    description: "טבעת מינימליסטית ונוחה לענידה לאורך היום.",
     price: 58,
     originalPrice: null,
     image: "/images/products/pump-bottles-lavender.png",
     badge: null,
     category: "cream" as Category
   },
-  // Oils
+  // Oils (displayed as עגילים)
   {
     id: "renewal-oil",
-    name: "Renewal Oil",
-    description: "Nourishing facial oil blend",
+    name: "עגילי תמר",
+    description: "עגילים היפואלרגניים בעיצוב אלגנטי ונוח.",
     price: 72,
     originalPrice: null,
     image: "/images/products/amber-dropper-bottles.png",
-    badge: "New",
+    badge: "חדש",
     category: "oil" as Category
   },
   {
     id: "rosehip-oil",
-    name: "Rosehip Oil",
-    description: "Pure organic rosehip extract",
+    name: "עגילי שירה",
+    description: "עגילים עדינים שמתאימים למראה יומיומי נקי.",
     price: 48,
     originalPrice: null,
     image: "/images/products/serum-bottles-1.png",
@@ -114,8 +114,8 @@ const products = [
   },
   {
     id: "jojoba-oil",
-    name: "Jojoba Oil",
-    description: "Balancing & lightweight",
+    name: "עגילי מאי",
+    description: "עגילים קלילים עם מראה נשי ומעודן.",
     price: 42,
     originalPrice: null,
     image: "/images/products/spray-bottles.png",
@@ -124,20 +124,20 @@ const products = [
   },
   {
     id: "argan-oil",
-    name: "Argan Oil",
-    description: "Moroccan beauty elixir",
+    name: "עגילי ליה",
+    description: "עגילים אלגנטים לנשים שמחפשות נוחות ועיצוב עדין.",
     price: 56,
     originalPrice: null,
     image: "/images/products/pump-bottles-cream.png",
-    badge: "Bestseller",
+    badge: "נמכר ביותר",
     category: "oil" as Category
   }
 ]
 
 const categories = [
-  { value: "cream" as Category, label: "Cream" },
-  { value: "oil" as Category, label: "Oil" },
-  { value: "serum" as Category, label: "Serum" }
+  { value: "cream" as Category, label: "טבעות" },
+  { value: "oil" as Category, label: "עגילים" },
+  { value: "serum" as Category, label: "שרשראות" }
 ]
 
 export function ProductGrid() {
@@ -214,13 +214,13 @@ export function ProductGrid() {
         {/* Header */}
         <div ref={headerRef} className="text-center mb-16">
           <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
-            Our Collection
+            הקולקציה שלנו
           </span>
           <h2 className={`font-serif leading-tight text-foreground mb-4 text-balance text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
-            Gentle essentials
+            פריטים נבחרים
           </h2>
           <p className={`text-lg text-muted-foreground max-w-md mx-auto ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.6s', animationFillMode: 'forwards' } : {}}>
-            Thoughtfully crafted products for your daily skincare ritual
+            תכשיטים היפואלרגניים בעיצוב אלגנטי, שנבחרו לנוחות יומיומית ולעור רגיש.
           </p>
         </div>
 
@@ -279,9 +279,9 @@ export function ProductGrid() {
                   {product.badge && (
                     <span
                       className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs tracking-wide bg-white text-black ${
-                        product.badge === "Sale"
+                        product.badge === "מבצע"
                           ? "bg-destructive/10 text-destructive"
-                          : product.badge === "New"
+                          : product.badge === "חדש"
                           ? "bg-primary/10 text-primary"
                           : "bg-accent text-accent-foreground"
                       }`}
@@ -304,7 +304,7 @@ export function ProductGrid() {
                         image: product.image
                       })
                     }}
-                    aria-label="Add to cart"
+                    aria-label="הוספה לסל"
                   >
                     <ShoppingBag className="w-4 h-4 text-foreground" />
                   </button>
@@ -315,10 +315,10 @@ export function ProductGrid() {
                   <h3 className="font-serif text-lg text-foreground mb-1">{product.name}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{product.description}</p>
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-foreground">${product.price}</span>
+                    <span className="font-medium text-foreground">₪{product.price}</span>
                     {product.originalPrice && (
                       <span className="text-sm text-muted-foreground line-through">
-                        ${product.originalPrice}
+                        ₪{product.originalPrice}
                       </span>
                     )}
                   </div>
@@ -334,7 +334,7 @@ export function ProductGrid() {
             href="/shop"
             className="inline-flex items-center justify-center gap-2 bg-transparent border border-foreground/20 text-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-foreground/5"
           >
-            View All Products
+            לכל המוצרים
           </Link>
         </div>
       </div>

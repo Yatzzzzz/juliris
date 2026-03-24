@@ -7,23 +7,23 @@ import { Recycle, Leaf, Flower2, Globe } from "lucide-react"
 const features = [
   {
     icon: Recycle,
-    title: "Eco-Friendly Packaging",
-    description: "Recyclable and biodegradable materials"
+    title: "נוחות יומיומית",
+    description: "תכשיטים שנועדו להרגיש טוב גם לאורך שעות."
   },
   {
     icon: Leaf,
-    title: "100% Natural",
-    description: "No synthetic chemicals or parabens"
+    title: "מתאים לעור רגיש",
+    description: "בחירה מדויקת לנשים שמחפשות ענידה נעימה יותר."
   },
   {
     icon: Flower2,
-    title: "Plant-Based",
-    description: "Botanical extracts and essential oils"
+    title: "עיצוב אלגנטי",
+    description: "קווים נשיים, נקיים ועל-זמניים ליום יום."
   },
   {
     icon: Globe,
-    title: "Ethical Sourcing",
-    description: "Fair trade certified ingredients"
+    title: "משלוח בישראל",
+    description: "חוויית קנייה בעברית, לקהל ישראלי בלבד."
   }
 ]
 
@@ -120,10 +120,10 @@ export function FeatureSection() {
                 </div>
                 <div>
                   <h3 className="text-xl text-foreground mb-2 font-medium">
-                    100% <span className="">Plant-Based</span>
+                    היפואלרגני ועדין
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Formulated exclusively with botanical ingredients and natural plant extracts.
+                    עיצובים אלגנטיים עם דגש על נוחות יומיומית והתאמה טובה יותר לעור רגיש.
                   </p>
                 </div>
               </div>
@@ -140,7 +140,7 @@ export function FeatureSection() {
             {/* Background Image */}
             <Image
               src="/images/products/0ed61900-dd29-4dd2-bc2d-abc2db54c352.png"
-              alt="Natural ingredients"
+              alt="תכשיטי Juliris"
               fill
               className="object-cover"
             />
@@ -148,24 +148,24 @@ export function FeatureSection() {
             
             <div className="relative z-10">
               <h3 className="text-3xl md:text-4xl text-white mb-2">
-                100% Natural
+                עדין על העור
               </h3>
               <h3 className="text-2xl md:text-3xl text-white/70 mb-4">
-                100% You
+                מדויק בשבילך
               </h3>
               
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-white/90 text-sm">
                   <Leaf className="w-4 h-4 flex-shrink-0" />
-                  <span>No Harsh Chemicals</span>
+                  <span>מתאים לעור רגיש</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/90 text-sm">
                   <Flower2 className="w-4 h-4 flex-shrink-0" />
-                  <span>Plant-Based Goodness</span>
+                  <span>עיצוב נקי ואלגנטי</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/90 text-sm">
                   <Globe className="w-4 h-4 flex-shrink-0" />
-                  <span>Ethically Sourced</span>
+                  <span>חומרים איכותיים</span>
                 </div>
               </div>
             </div>
@@ -196,10 +196,10 @@ export function FeatureSection() {
                 <Recycle className="w-8 h-8 text-black" />
               </div>
               <h3 className="font-sans text-base mb-1 text-black">
-                Eco-Friendly
+                נוחות יומיומית
               </h3>
               <h3 className="text-2xl md:text-3xl mb-2 text-black">
-                Packaging
+                בעיצוב אלגנטי
               </h3>
             </div>
           </div>
@@ -235,14 +235,13 @@ export function FeatureSection() {
             style={{ transitionDelay: '100ms' }}
           >
             <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
-              Why Boty
+              למה Juliris
             </span>
             <h2 className={`font-serif text-4xl leading-tight text-foreground mb-6 text-balance md:text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
-              Care that breathes.
+              תכשיטים שמרגישים נכון.
             </h2>
             <p className={`text-lg text-muted-foreground leading-relaxed mb-10 max-w-md ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.6s', animationFillMode: 'forwards' } : {}}>
-              We believe skincare should be a gentle ritual, not a complicated routine. 
-              Every product is crafted with intention and love for your skin.
+              ב-Juliris אנחנו מאמינות שתכשיט יפה צריך להיות גם נעים לענידה. לכן אנחנו בוחרות עיצובים אלגנטיים עם דגש על תחושה נוחה יותר לעור רגיש ושימוש יומיומי.
             </p>
 
             {/* Feature Cards */}

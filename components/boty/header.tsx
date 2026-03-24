@@ -30,25 +30,25 @@ export function Header() {
               href="/shop"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              Shop
+              חנות
             </Link>
             <Link
-              href="/"
+              href="/about"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              About
+              אודות
             </Link>
             <Link
-              href="/"
+              href="/faq"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              Ingredients
+              שאלות נפוצות
             </Link>
           </div>
 
           {/* Logo */}
           <Link href="/" className="absolute left-1/2 -translate-x-1/2">
-            <h1 className="font-serif text-3xl tracking-wider text-foreground">Boty</h1>
+            <h1 className="font-serif text-3xl tracking-wider text-foreground">Juliris</h1>
           </Link>
 
           {/* Right Actions */}
@@ -56,14 +56,14 @@ export function Header() {
             <button
               type="button"
               className="p-2 text-foreground/70 hover:text-foreground boty-transition"
-              aria-label="Search"
+              aria-label="חיפוש"
             >
               <Search className="w-5 h-5" />
             </button>
             <Link
               href="/account"
               className="hidden sm:block p-2 text-foreground/70 hover:text-foreground boty-transition"
-              aria-label="Account"
+              aria-label="החשבון שלי"
             >
               <User className="w-5 h-5" />
             </Link>
@@ -71,7 +71,7 @@ export function Header() {
               type="button"
               onClick={() => setIsOpen(true)}
               className="relative p-2 text-foreground/70 hover:text-foreground boty-transition"
-              aria-label="Cart"
+              aria-label="סל"
             >
               <ShoppingBag className="w-5 h-5" />
               {itemCount > 0 && (
@@ -96,25 +96,25 @@ export function Header() {
               href="/shop"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              Shop
+              חנות
             </Link>
             <Link
-              href="/"
+              href="/about"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              About
+              אודות
             </Link>
             <Link
-              href="/"
+              href="/faq"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              Ingredients
+              שאלות נפוצות
             </Link>
             <Link
-              href="/"
+              href="/contact"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              Account
+              יצירת קשר 
             </Link>
           </div>
         </div>

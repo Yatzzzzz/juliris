@@ -24,67 +24,67 @@ const products: Record<string, {
 }> = {
   "radiance-serum": {
     id: "radiance-serum",
-    name: "Radiance Serum",
-    tagline: "Illuminate your natural glow",
-    description: "A lightweight, fast-absorbing serum infused with Vitamin C and botanical extracts. Designed to brighten, even skin tone, and reveal your skin's natural radiance.",
+    name: "שרשרת אלה",
+    tagline: "שרשרת עדינה למראה אלגנטי יומיומי.",
+    description: "שרשרת היפואלרגנית בקו נקי ונשי, שנועדה להשתלב בקלות במראה יומיומי ולהרגיש נוח לאורך שעות.",
     price: 68,
     originalPrice: null,
     image: "/images/products/serum.jpg",
-    sizes: ["30ml", "50ml"],
-    details: "Our Radiance Serum combines 15% stabilized Vitamin C with rosehip seed oil and sea buckthorn extract. The formula is designed to penetrate deep into the skin, targeting dark spots and uneven tone while protecting against environmental stressors. Suitable for all skin types, this serum is your daily dose of luminosity.",
-    howToUse: "Apply 3-4 drops to cleansed face and neck morning and evening. Gently pat into skin until absorbed. Follow with your favorite Boty moisturizer. For best results, use consistently for 4-6 weeks.",
-    ingredients: "Aqua, Ascorbic Acid (Vitamin C), Rosa Canina Seed Oil, Hippophae Rhamnoides Oil, Glycerin, Niacinamide, Tocopherol (Vitamin E), Ferulic Acid, Aloe Barbadensis Leaf Juice, Citrus Aurantium Dulcis Peel Oil, Lavandula Angustifolia Oil.",
-    delivery: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed."
+    sizes: ["עדין", "קלאסי"],
+    details: "שרשרת אלה משלבת מראה מינימליסטי עם נוכחות אלגנטית ושקטה. היא מתאימה למי שמחפשת פריט נשי ועדין שאפשר לענוד ביום יום או לשלב עם שכבות נוספות.",
+    howToUse: "אפשר לענוד לבד למראה נקי או לשלב עם שרשראות נוספות ליצירת שכבות עדינות. מתאימה לשגרה היומיומית וגם ליציאה בערב.",
+    ingredients: "חומר איכותי בגימור אלגנטי, עם דגש על נוחות יומיומית והתאמה טובה יותר לעור רגיש.",
+    delivery: "משלוח לכל הארץ. הזמנות נשלחות בתוך כמה ימי עסקים, וניתן לפנות אלינו במקרה של שאלה או צורך בבדיקה נוספת לפני ההזמנה."
   },
   "hydra-cream": {
     id: "hydra-cream",
-    name: "Hydra Cream",
-    tagline: "Deep moisture, lasting comfort",
-    description: "A rich yet lightweight moisturizer that delivers intense hydration without heaviness. Formulated with hyaluronic acid and botanical butters for all-day nourishment.",
+    name: "טבעת נועה",
+    tagline: "טבעת עדינה עם נוכחות נקייה.",
+    description: "טבעת אלגנטית במראה מינימליסטי שמוסיפה גימור עדין ונשי בלי להכביד על הלוק.",
     price: 54,
     originalPrice: null,
     image: "/images/products/moisturizer.jpg",
-    sizes: ["50ml", "100ml"],
-    details: "Hydra Cream features multi-weight hyaluronic acid to hydrate at every level of the skin. Shea butter and jojoba oil lock in moisture while squalane provides a silky, non-greasy finish. Perfect for normal to dry skin seeking lasting comfort.",
-    howToUse: "After cleansing and serum, apply a small amount to face and neck. Massage gently in upward motions. Use morning and evening as the final step of your skincare routine.",
-    ingredients: "Aqua, Butyrospermum Parkii Butter, Simmondsia Chinensis Seed Oil, Sodium Hyaluronate, Squalane, Glycerin, Cetearyl Alcohol, Calendula Officinalis Extract, Chamomilla Recutita Extract, Tocopherol.",
-    delivery: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed."
+    sizes: ["קטן", "בינוני"],
+    details: "טבעת נועה נועדה להשתלב בקלות עם פריטים נוספים או לבלוט בעדינות בפני עצמה. היא מתאימה לנשים שמחפשות איזון בין מראה אלגנטי לנוחות יומיומית.",
+    howToUse: "ענדי אותה לבד למראה נקי או שלבי עם טבעות נוספות למראה שכבות אלגנטי ועדין.",
+    ingredients: "חומר איכותי עם גימור נקי ונשי, שנבחר למראה מדויק ולתחושת ענידה נוחה יותר.",
+    delivery: "משלוח לכל הארץ. הזמנות נארזות בקפידה ונשלחות בתוך כמה ימי עסקים."
   },
   "gentle-cleanser": {
     id: "gentle-cleanser",
-    name: "Gentle Cleanser",
-    tagline: "Cleanse without compromise",
-    description: "A soothing botanical wash that removes impurities while respecting your skin's natural balance. Perfect for sensitive skin and daily use.",
+    name: "עגילי תמר",
+    tagline: "עגילים היפואלרגניים בקו נקי.",
+    description: "עגילים עדינים למראה נשי ואלגנטי, עם דגש על תחושת ענידה נוחה יותר גם לאורך שעות.",
     price: 38,
     originalPrice: 48,
     image: "/images/products/cleanser.jpg",
-    sizes: ["150ml", "250ml"],
-    details: "Our Gentle Cleanser uses coconut-derived surfactants that cleanse effectively without stripping. Enriched with chamomile, oat extract, and aloe vera, it calms and soothes as it cleanses. pH-balanced and dermatologist tested for sensitive skin.",
-    howToUse: "Wet face with lukewarm water. Apply a small amount to fingertips and massage onto face in circular motions. Rinse thoroughly. Use morning and evening.",
-    ingredients: "Aqua, Coco-Glucoside, Glycerin, Avena Sativa Kernel Extract, Aloe Barbadensis Leaf Juice, Chamomilla Recutita Extract, Panthenol, Allantoin, Citric Acid, Benzyl Alcohol, Potassium Sorbate.",
-    delivery: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed."
+    sizes: ["קטן", "קלאסי"],
+    details: "עגילי תמר מציעים מראה מדויק, נקי ולא מתאמץ. הם מתאימים ליום יום, לעבודה, ולמי שמחפשת תכשיט עדין שלא מרגיש כבד.",
+    howToUse: "ענדי אותם כפריט מרכזי ללוק עדין או שלבי עם שרשרת וטבעת למראה שלם ואלגנטי.",
+    ingredients: "חומר איכותי בגימור עדין, עם דגש על התאמה טובה יותר לעור רגיש ונוחות לענידה יומיומית.",
+    delivery: "משלוח לכל הארץ. ניתן ליצור קשר לפני ההזמנה לכל שאלה על התאמה, גודל או סגנון."
   },
   "renewal-oil": {
     id: "renewal-oil",
-    name: "Renewal Oil",
-    tagline: "Nourish deeply, glow eternally",
-    description: "A luxurious blend of precious botanical oils that deeply nourish and restore skin overnight. Wake up to softer, more supple skin.",
+    name: "צמיד ליה",
+    tagline: "צמיד קליל עם גימור אלגנטי.",
+    description: "צמיד נשי ונוח לענידה, שמתאים ללוק יומיומי נקי וגם לשילוב עם פריטים נוספים.",
     price: 72,
     originalPrice: null,
     image: "/images/products/oil.jpg",
-    sizes: ["30ml", "50ml"],
-    details: "Renewal Oil combines argan, rosehip, and marula oils with vitamin E for intensive overnight nourishment. This dry oil absorbs quickly, leaving skin soft without residue. Ideal for mature or dehydrated skin seeking restoration.",
-    howToUse: "Apply 4-6 drops to palms and warm between hands. Press gently onto face and neck as the final step of your evening routine. Can also be mixed with moisturizer for added hydration.",
-    ingredients: "Argania Spinosa Kernel Oil, Rosa Canina Seed Oil, Sclerocarya Birrea Seed Oil, Tocopherol, Rosa Damascena Flower Oil, Lavandula Angustifolia Oil, Helianthus Annuus Seed Oil, Limonene, Linalool.",
-    delivery: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed."
+    sizes: ["עדין", "בינוני"],
+    details: "צמיד ליה נבנה למראה אלגנטי ולא מתאמץ, עם נוכחות עדינה שמשתלבת בקלות בשגרה היומיומית.",
+    howToUse: "ענדי אותו לבד למראה מינימליסטי או שלבי עם צמידים נוספים ליצירת מראה שכבות נשי.",
+    ingredients: "חומר איכותי וגימור נקי עם דגש על תחושה נוחה, אלגנטיות יומיומית והתאמה טובה יותר לעור רגיש.",
+    delivery: "משלוח לכל הארץ. ההזמנה נארזות בקפידה ונשלחות בתוך כמה ימי עסקים."
   }
 }
 
 const benefits = [
-  { icon: Leaf, label: "100% Natural" },
-  { icon: Heart, label: "Cruelty-Free" },
-  { icon: Recycle, label: "Eco-Friendly" },
-  { icon: Award, label: "Expert Approved" }
+  { icon: Leaf, label: "מתאים לעור רגיש" },
+  { icon: Heart, label: "נוח לענידה" },
+  { icon: Recycle, label: "עיצוב אלגנטי" },
+  { icon: Award, label: "אהוב על לקוחות" }
 ]
 
 type AccordionSection = "details" | "howToUse" | "ingredients" | "delivery"
@@ -113,10 +113,10 @@ export default function ProductPage() {
   }
 
   const accordionItems: { key: AccordionSection; title: string; content: string }[] = [
-    { key: "details", title: "Details", content: product.details },
-    { key: "howToUse", title: "How to Use", content: product.howToUse },
-    { key: "ingredients", title: "Ingredients", content: product.ingredients },
-    { key: "delivery", title: "Delivery & Returns", content: product.delivery }
+    { key: "details", title: "פרטים", content: product.details },
+    { key: "howToUse", title: "איך לענוד", content: product.howToUse },
+    { key: "ingredients", title: "חומר וגימור", content: product.ingredients },
+    { key: "delivery", title: "משלוחים והחזרות", content: product.delivery }
   ]
 
   return (
@@ -131,7 +131,7 @@ export default function ProductPage() {
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground boty-transition mb-8"
           >
             <ChevronLeft className="w-4 h-4" />
-            Back to Shop
+            חזרה לחנות
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
@@ -151,7 +151,7 @@ export default function ProductPage() {
               {/* Header */}
               <div className="mb-8">
                 <span className="text-sm tracking-[0.3em] uppercase text-primary mb-2 block">
-                  Boty Essentials
+                  קולקציית Juliris
                 </span>
                 <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-3">
                   {product.name}
@@ -167,7 +167,7 @@ export default function ProductPage() {
                       <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                     ))}
                   </div>
-                  <span className="text-sm text-muted-foreground">(128 reviews)</span>
+                  <span className="text-sm text-muted-foreground">(128 חוות דעת)</span>
                 </div>
 
                 <p className="text-foreground/80 leading-relaxed">
@@ -177,17 +177,17 @@ export default function ProductPage() {
 
               {/* Price */}
               <div className="flex items-center gap-3 mb-8">
-                <span className="text-3xl font-medium text-foreground">${product.price}</span>
+                <span className="text-3xl font-medium text-foreground">₪{product.price}</span>
                 {product.originalPrice && (
                   <span className="text-xl text-muted-foreground line-through">
-                    ${product.originalPrice}
+                    ₪{product.originalPrice}
                   </span>
                 )}
               </div>
 
               {/* Size Selector */}
               <div className="mb-6">
-                <label className="text-sm font-medium text-foreground mb-3 block">Size</label>
+                <label className="text-sm font-medium text-foreground mb-3 block">בחירה</label>
                 <div className="flex gap-3">
                   {product.sizes.map((size) => (
                     <button
@@ -208,13 +208,13 @@ export default function ProductPage() {
 
               {/* Quantity Selector */}
               <div className="mb-8">
-                <label className="text-sm font-medium text-foreground mb-3 block">Quantity</label>
+                <label className="text-sm font-medium text-foreground mb-3 block">כמות</label>
                 <div className="inline-flex items-center gap-4 bg-card rounded-full px-2 py-2 boty-shadow">
                   <button
                     type="button"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     className="w-10 h-10 rounded-full bg-background flex items-center justify-center text-foreground/60 hover:text-foreground boty-transition"
-                    aria-label="Decrease quantity"
+                    aria-label="הפחתת כמות"
                   >
                     <Minus className="w-4 h-4" />
                   </button>
@@ -223,7 +223,7 @@ export default function ProductPage() {
                     type="button"
                     onClick={() => setQuantity(quantity + 1)}
                     className="w-10 h-10 rounded-full bg-background flex items-center justify-center text-foreground/60 hover:text-foreground boty-transition"
-                    aria-label="Increase quantity"
+                    aria-label="הגדלת כמות"
                   >
                     <Plus className="w-4 h-4" />
                   </button>
@@ -244,17 +244,17 @@ export default function ProductPage() {
                   {isAdded ? (
                     <>
                       <Check className="w-4 h-4" />
-                      Added to Cart
+                      נוסף לסל
                     </>
                   ) : (
-                    "Add to Cart"
+                    "הוספה לסל"
                   )}
                 </button>
                 <button
                   type="button"
                   className="flex-1 inline-flex items-center justify-center gap-2 bg-transparent border border-foreground/20 text-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-foreground/5"
                 >
-                  Buy Now
+                  קנייה מהירה
                 </button>
               </div>
 
