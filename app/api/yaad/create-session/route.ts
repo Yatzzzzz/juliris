@@ -1,0 +1,125 @@
+/**
+ * POST /api/yaad/create-session
+ * Creates a Yaad Pay payment session using merchant config.
+ */
+
+import { NextRequest, NextResponse } from "next/server"
+import { getOrderById, attachPaymentProviderId } from "@/lib/orders"
+
+const YAAD_MERCHANT_ID = process.env.YAAD_MERCHANT_ID
+const YAAD_PASSPORT_KEY = process.env.YAAD_PASSPORT_KEY
+const YAAD_API_URL = process.env.YAAD_API_URL || "https://icom.yaad.net/p/"
+
+interface CreateYaadSessionRequest {
+  orderId: string
+}
+
+function generateYaadSignature(params: Record<string, string>, passportKey: string): string {
+  // Yaad Pay uses a specific signature algorithm
+  // Sort params, concatenate, and hash with passport key
+  const sortedKeys = Object.keys(params).sort()
+  const signatureString = sortedKeys.map((key) => `${key}=${params[key]}`).join("&")
+  
+  // In production, use crypto.createHmac for proper HMAC-SHA256
+  // For now, return a placeholder that would be replaced with actual implementation
+  const crypto = require("crypto")
+  return crypto.createHmac("sha256", passportKey).update(signatureString).digest("hex")
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body: CreateYaadSessionRequest = await request.json()
+
+    if (!body.orderId) {
+      return NextResponse.json(
+        { error: "Order ID is required" },
+        { status: 400 }
+      )
+    }
+
+    // Get the internal order
+    const order = getOrderById(body.orderId)
+    if (!order) {
+      return NextResponse.json(
+        { error: "Order not found" },
+        { status: 404 }
+      )
+    }
+
+    // Check if Yaad is configured
+    if (!YAAD_MERCHANT_ID || !YAAD_PASSPORT_KEY) {
+      // Return mock response for development
+      const mockTransactionId = `YAAD-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
+      
+      // Attach mock Yaad ID to order
+      attachPaymentProviderId(order.id, mockTransactionId)
+
+      const mockRedirectUrl = `/thank-you?orderId=${order.id}&yaadMock=true`
+
+      return NextResponse.json({
+        success: true,
+        transactionId: mockTransactionId,
+        redirectUrl: mockRedirectUrl,
+        mock: true,
+      })
+    }
+
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+
+    // Build Yaad Pay parameters
+    const yaadParams: Record<string, string> = {
+      Masof: YAAD_MERCHANT_ID,
+      action: "pay",
+      Order: order.orderNumber,
+      Info: `Boty Order ${order.orderNumber}`,
+      Amount: order.totals.total.amount.toFixed(2),
+      Currency: "1", // 1 = ILS, use appropriate code for your currency
+      UTF8: "True",
+      UTF8out: "True",
+      UserId: order.email,
+      ClientName: `${order.shippingAddress.firstName} ${order.shippingAddress.lastName}`,
+      ClientLName: order.shippingAddress.lastName,
+      email: order.email,
+      phone: order.shippingAddress.phone || "",
+      city: order.shippingAddress.city,
+      street: order.shippingAddress.address1,
+      zip: order.shippingAddress.postalCode,
+      Tash: "1", // Number of payments
+      MoreData: "True",
+      sendemail: "True",
+      // Callback URLs
+      SuccessUrl: `${baseUrl}/api/yaad/callback?type=success`,
+      ErrorUrl: `${baseUrl}/api/yaad/callback?type=error`,
+      CancelUrl: `${baseUrl}/checkout`,
+      // Internal reference
+      J5: "False", // Redirect mode
+      Postpone: "False",
+      PageLang: "ENG",
+      tmp: order.id, // Pass internal order ID for callback reference
+    }
+
+    // Generate signature
+    yaadParams.Sign = generateYaadSignature(yaadParams, YAAD_PASSPORT_KEY)
+
+    // Build redirect URL
+    const queryString = new URLSearchParams(yaadParams).toString()
+    const redirectUrl = `${YAAD_API_URL}?${queryString}`
+
+    // Generate a transaction reference
+    const transactionId = `YAAD-${order.orderNumber}`
+    attachPaymentProviderId(order.id, transactionId)
+
+    return NextResponse.json({
+      success: true,
+      transactionId,
+      redirectUrl,
+      params: yaadParams, // Include params for debugging
+    })
+  } catch (error) {
+    console.error("Error creating Yaad session:", error)
+    return NextResponse.json(
+      { error: "Failed to create Yaad payment session" },
+      { status: 500 }
+    )
+  }
+}

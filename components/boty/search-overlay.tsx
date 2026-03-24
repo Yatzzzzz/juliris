@@ -1,27 +1,12 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Search, X, ArrowRight } from "lucide-react"
-
-const allProducts = [
-  { id: "radiance-serum", name: "Radiance Serum", description: "Vitamin C brightening formula", price: 68, image: "/images/products/serum-bottles-1.png", category: "serums" },
-  { id: "hydrating-serum", name: "Hydrating Serum", description: "Hyaluronic acid moisture boost", price: 62, image: "/images/products/eye-serum-bottles.png", category: "serums" },
-  { id: "age-defense-serum", name: "Age Defense Serum", description: "Retinol & peptide complex", price: 78, image: "/images/products/amber-dropper-bottles.png", category: "serums" },
-  { id: "glow-serum", name: "Glow Serum", description: "Niacinamide brightening boost", price: 58, image: "/images/products/spray-bottles.png", category: "serums" },
-  { id: "hydra-cream", name: "Hydra Cream", description: "Deep moisture with hyaluronic acid", price: 54, image: "/images/products/cream-jars-colored.png", category: "moisturizers" },
-  { id: "gentle-cleanser", name: "Gentle Cleanser", description: "Soothing botanical wash", price: 38, image: "/images/products/tube-bottles.png", category: "cleansers" },
-  { id: "night-cream", name: "Night Cream", description: "Restorative overnight treatment", price: 64, image: "/images/products/jars-wooden-lid.png", category: "moisturizers" },
-  { id: "day-cream-spf", name: "Day Cream SPF 30", description: "Protection & hydration", price: 58, image: "/images/products/pump-bottles-lavender.png", category: "moisturizers" },
-  { id: "renewal-oil", name: "Renewal Oil", description: "Nourishing facial oil blend", price: 72, image: "/images/products/amber-dropper-bottles.png", category: "oils" },
-  { id: "rosehip-oil", name: "Rosehip Oil", description: "Pure organic rosehip extract", price: 48, image: "/images/products/serum-bottles-1.png", category: "oils" },
-  { id: "jojoba-oil", name: "Jojoba Oil", description: "Balancing & lightweight", price: 42, image: "/images/products/spray-bottles.png", category: "oils" },
-  { id: "argan-oil", name: "Argan Oil", description: "Moroccan beauty elixir", price: 56, image: "/images/products/pump-bottles-cream.png", category: "oils" },
-  { id: "glow-mask", name: "Glow Mask", description: "Weekly brightening treatment", price: 45, image: "/images/products/mask.jpg", category: "masks" },
-  { id: "balance-toner", name: "Balance Toner", description: "pH restoring mist", price: 32, image: "/images/products/toner.jpg", category: "toners" },
-]
+import { searchProducts, getAllCategories } from "@/lib/catalog"
+import { formatMoney } from "@/lib/pricing"
 
 const popularSearches = ["serum", "moisturizer", "oil", "cleanser", "vitamin C"]
 
@@ -35,14 +20,11 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
-  const results = query.trim().length > 0
-    ? allProducts.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query.toLowerCase()) ||
-          p.description.toLowerCase().includes(query.toLowerCase()) ||
-          p.category.toLowerCase().includes(query.toLowerCase())
-      ).slice(0, 6)
-    : []
+  // Search against canonical catalog
+  const results = useMemo(() => {
+    if (query.trim().length === 0) return []
+    return searchProducts(query).slice(0, 6)
+  }, [query])
 
   const handleClose = useCallback(() => {
     setQuery("")
@@ -150,7 +132,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
               {results.map((product) => (
                 <Link
                   key={product.id}
-                  href={`/product/${product.id}`}
+                  href={`/product/${product.slug}`}
                   onClick={handleProductClick}
                   className="flex items-center gap-4 px-3 py-3 rounded-2xl hover:bg-card boty-transition group"
                 >
@@ -168,7 +150,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     <p className="text-xs text-muted-foreground capitalize">{product.category}</p>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className="text-sm font-medium text-foreground">${product.price}</span>
+                    <span className="text-sm font-medium text-foreground">{formatMoney(product.price)}</span>
                     <ArrowRight className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 boty-transition" />
                   </div>
                 </Link>

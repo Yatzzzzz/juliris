@@ -13,7 +13,7 @@ export type OrderStatus =
   | "cancelled"
   | "refunded"
 
-export type PaymentProvider = "stripe" | "paypal" | "apple_pay" | "manual"
+export type PaymentProvider = "stripe" | "paypal" | "apple_pay" | "yaad" | "card" | "manual"
 
 export interface CartLine {
   productId: string

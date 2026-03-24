@@ -1,157 +1,43 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ShoppingBag } from "lucide-react"
 import { useCart } from "./cart-context"
+import { getFeaturedProducts, getProductsByCategory, getAllCategories } from "@/lib/catalog"
+import type { ProductListItem } from "@/types/catalog"
+import { formatMoney } from "@/lib/pricing"
 
-type Category = "cream" | "oil" | "serum"
-
-const products = [
-  // Serums
-  {
-    id: "radiance-serum",
-    name: "Radiance Serum",
-    description: "Vitamin C brightening formula",
-    price: 68,
-    originalPrice: null,
-    image: "/images/products/serum-bottles-1.png",
-    badge: "Bestseller",
-    category: "serum" as Category
-  },
-  {
-    id: "hydrating-serum",
-    name: "Hydrating Serum",
-    description: "Hyaluronic acid moisture boost",
-    price: 62,
-    originalPrice: null,
-    image: "/images/products/eye-serum-bottles.png",
-    badge: null,
-    category: "serum" as Category
-  },
-  {
-    id: "age-defense-serum",
-    name: "Age Defense Serum",
-    description: "Retinol & peptide complex",
-    price: 78,
-    originalPrice: null,
-    image: "/images/products/amber-dropper-bottles.png",
-    badge: "New",
-    category: "serum" as Category
-  },
-  {
-    id: "glow-serum",
-    name: "Glow Serum",
-    description: "Niacinamide brightening boost",
-    price: 58,
-    originalPrice: 68,
-    image: "/images/products/spray-bottles.png",
-    badge: "Sale",
-    category: "serum" as Category
-  },
-  // Creams
-  {
-    id: "hydra-cream",
-    name: "Hydra Cream",
-    description: "Deep moisture with hyaluronic acid",
-    price: 54,
-    originalPrice: null,
-    image: "/images/products/cream-jars-colored.png",
-    badge: null,
-    category: "cream" as Category
-  },
-  {
-    id: "gentle-cleanser",
-    name: "Gentle Cleanser",
-    description: "Soothing botanical wash",
-    price: 38,
-    originalPrice: 48,
-    image: "/images/products/tube-bottles.png",
-    badge: "Sale",
-    category: "cream" as Category
-  },
-  {
-    id: "night-cream",
-    name: "Night Cream",
-    description: "Restorative overnight treatment",
-    price: 64,
-    originalPrice: null,
-    image: "/images/products/jars-wooden-lid.png",
-    badge: "Bestseller",
-    category: "cream" as Category
-  },
-  {
-    id: "day-cream-spf",
-    name: "Day Cream SPF 30",
-    description: "Protection & hydration",
-    price: 58,
-    originalPrice: null,
-    image: "/images/products/pump-bottles-lavender.png",
-    badge: null,
-    category: "cream" as Category
-  },
-  // Oils
-  {
-    id: "renewal-oil",
-    name: "Renewal Oil",
-    description: "Nourishing facial oil blend",
-    price: 72,
-    originalPrice: null,
-    image: "/images/products/amber-dropper-bottles.png",
-    badge: "New",
-    category: "oil" as Category
-  },
-  {
-    id: "rosehip-oil",
-    name: "Rosehip Oil",
-    description: "Pure organic rosehip extract",
-    price: 48,
-    originalPrice: null,
-    image: "/images/products/serum-bottles-1.png",
-    badge: null,
-    category: "oil" as Category
-  },
-  {
-    id: "jojoba-oil",
-    name: "Jojoba Oil",
-    description: "Balancing & lightweight",
-    price: 42,
-    originalPrice: null,
-    image: "/images/products/spray-bottles.png",
-    badge: null,
-    category: "oil" as Category
-  },
-  {
-    id: "argan-oil",
-    name: "Argan Oil",
-    description: "Moroccan beauty elixir",
-    price: 56,
-    originalPrice: null,
-    image: "/images/products/pump-bottles-cream.png",
-    badge: "Bestseller",
-    category: "oil" as Category
-  }
-]
-
-const categories = [
-  { value: "cream" as Category, label: "Cream" },
-  { value: "oil" as Category, label: "Oil" },
-  { value: "serum" as Category, label: "Serum" }
-]
+type CategorySlug = "all" | "serums" | "moisturizers" | "cleansers" | "oils" | "masks" | "toners"
 
 export function ProductGrid() {
-  const [selectedCategory, setSelectedCategory] = useState<Category>("cream")
+  const [selectedCategory, setSelectedCategory] = useState<CategorySlug>("serums")
   const [isVisible, setIsVisible] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(false)
   const gridRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const { addItem } = useCart()
-  
-  const filteredProducts = products.filter(product => product.category === selectedCategory)
 
-  const handleCategoryChange = (category: Category) => {
+  // Load categories from catalog
+  const categories = useMemo(() => {
+    const catalogCategories = getAllCategories()
+    return catalogCategories.slice(0, 3).map((c) => ({
+      value: c.slug as CategorySlug,
+      label: c.name,
+    }))
+  }, [])
+
+  // Load products from catalog based on selected category
+  const filteredProducts = useMemo(() => {
+    if (selectedCategory === "all") {
+      return getFeaturedProducts(8)
+    }
+    return getProductsByCategory(selectedCategory).slice(0, 4)
+  }, [selectedCategory])
+
+  const handleCategoryChange = (category: CategorySlug) => {
     if (category !== selectedCategory) {
       setIsTransitioning(true)
       setTimeout(() => {
@@ -165,11 +51,11 @@ export function ProductGrid() {
 
   // Preload all product images on mount
   useEffect(() => {
-    products.forEach((product) => {
+    filteredProducts.forEach((product) => {
       const img = new window.Image()
       img.src = product.image
     })
-  }, [])
+  }, [filteredProducts])
 
   useEffect(() => {
     const gridObserver = new IntersectionObserver(
@@ -208,6 +94,19 @@ export function ProductGrid() {
     }
   }, [])
 
+  const handleAddToCart = (product: ProductListItem, e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    addItem({
+      productId: product.id,
+      variantId: `${product.id}-default`,
+      name: product.name,
+      description: product.description,
+      unitPrice: product.price,
+      image: product.image,
+    })
+  }
+
   return (
     <section className="py-24 bg-card">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -231,7 +130,11 @@ export function ProductGrid() {
             <div
               className="absolute top-1 bottom-1 bg-foreground rounded-full transition-all duration-300 ease-out shadow-sm"
               style={{
-                left: selectedCategory === 'cream' ? '4px' : selectedCategory === 'oil' ? 'calc(33.333% + 2px)' : 'calc(66.666%)',
+                left: categories.findIndex((c) => c.value === selectedCategory) === 0 
+                  ? '4px' 
+                  : categories.findIndex((c) => c.value === selectedCategory) === 1 
+                  ? 'calc(33.333% + 2px)' 
+                  : 'calc(66.666%)',
                 width: 'calc(33.333% - 4px)'
               }}
             />
@@ -260,7 +163,7 @@ export function ProductGrid() {
           {filteredProducts.map((product, index) => (
             <Link
               key={`${selectedCategory}-${product.id}`}
-              href={`/product/${product.id}`}
+              href={`/product/${product.slug}`}
               className={`group transition-all duration-500 ease-out ${
                 isVisible && !isTransitioning ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
               }`}
@@ -293,17 +196,7 @@ export function ProductGrid() {
                   <button
                     type="button"
                     className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 boty-transition boty-shadow"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      e.stopPropagation()
-                      addItem({
-                        id: product.id,
-                        name: product.name,
-                        description: product.description,
-                        price: product.price,
-                        image: product.image
-                      })
-                    }}
+                    onClick={(e) => handleAddToCart(product, e)}
                     aria-label="Add to cart"
                   >
                     <ShoppingBag className="w-4 h-4 text-foreground" />
@@ -315,10 +208,10 @@ export function ProductGrid() {
                   <h3 className="font-serif text-lg text-foreground mb-1">{product.name}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{product.description}</p>
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-foreground">${product.price}</span>
+                    <span className="font-medium text-foreground">{formatMoney(product.price)}</span>
                     {product.originalPrice && (
                       <span className="text-sm text-muted-foreground line-through">
-                        ${product.originalPrice}
+                        {formatMoney(product.originalPrice)}
                       </span>
                     )}
                   </div>

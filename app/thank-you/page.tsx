@@ -1,12 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { Check, Package, Mail, ArrowRight, Leaf, Heart, Recycle, Award } from "lucide-react"
 import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
-
-const orderNumber = `BOTY-${Math.floor(100000 + Math.random() * 900000)}`
+import { getOrderById, getOrderByNumber } from "@/lib/orders"
+import { formatMoney } from "@/lib/pricing"
+import type { Order } from "@/types/order"
 
 const steps = [
   { icon: Check, label: "Order Confirmed", sub: "We've received your order" },
@@ -40,12 +42,36 @@ const values = [
 ]
 
 export default function ThankYouPage() {
+  const searchParams = useSearchParams()
   const [animate, setAnimate] = useState(false)
+  const [order, setOrder] = useState<Order | null>(null)
+
+  // Get order from query params or internal lookup
+  const orderId = searchParams.get("orderId")
+  const orderNumber = searchParams.get("orderNumber")
+
+  useEffect(() => {
+    // Try to load order details
+    if (orderId) {
+      const foundOrder = getOrderById(orderId)
+      if (foundOrder) setOrder(foundOrder)
+    } else if (orderNumber) {
+      const foundOrder = getOrderByNumber(orderNumber)
+      if (foundOrder) setOrder(foundOrder)
+    }
+  }, [orderId, orderNumber])
 
   useEffect(() => {
     const t = setTimeout(() => setAnimate(true), 100)
     return () => clearTimeout(t)
   }, [])
+
+  // Generate display order number
+  const displayOrderNumber = useMemo(() => {
+    if (order?.orderNumber) return order.orderNumber
+    if (orderNumber) return orderNumber
+    return `BOTY-${Math.floor(100000 + Math.random() * 900000)}`
+  }, [order, orderNumber])
 
   return (
     <main className="min-h-screen">
@@ -86,9 +112,60 @@ export default function ThankYouPage() {
             </p>
             <p className="text-sm text-muted-foreground">
               Order{" "}
-              <span className="font-medium text-foreground font-mono">{orderNumber}</span>
+              <span className="font-medium text-foreground font-mono">{displayOrderNumber}</span>
             </p>
+            {order?.email && (
+              <p className="text-sm text-muted-foreground mt-1">
+                Confirmation sent to{" "}
+                <span className="font-medium text-foreground">{order.email}</span>
+              </p>
+            )}
           </div>
+
+          {/* Order Summary (if available) */}
+          {order && (
+            <div
+              className={`mt-8 transition-all duration-700 delay-250 ease-out ${
+                animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+            >
+              <div className="bg-card rounded-2xl p-6 boty-shadow text-left max-w-md mx-auto">
+                <h3 className="font-medium text-foreground mb-4">Order Details</h3>
+                <div className="space-y-3 text-sm">
+                  {order.lines.map((line) => (
+                    <div key={line.productId} className="flex justify-between">
+                      <span className="text-muted-foreground">
+                        {line.name} x {line.quantity}
+                      </span>
+                      <span className="text-foreground">{formatMoney(line.unitPrice * line.quantity)}</span>
+                    </div>
+                  ))}
+                  <div className="pt-3 border-t border-border/50">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Subtotal</span>
+                      <span className="text-foreground">{formatMoney(order.totals.subtotal.amount)}</span>
+                    </div>
+                    {order.totals.discount.amount > 0 && (
+                      <div className="flex justify-between text-primary">
+                        <span>Discount</span>
+                        <span>-{formatMoney(order.totals.discount.amount)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Shipping</span>
+                      <span className="text-foreground">
+                        {order.totals.shipping.amount === 0 ? "Free" : formatMoney(order.totals.shipping.amount)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between font-medium pt-2">
+                      <span className="text-foreground">Total</span>
+                      <span className="text-foreground">{formatMoney(order.totals.total.amount)}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Order Progress */}
           <div

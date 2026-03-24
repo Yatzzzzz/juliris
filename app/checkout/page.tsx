@@ -1,38 +1,179 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { ChevronLeft, ChevronDown, Lock, CreditCard, Smartphone } from "lucide-react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { ChevronLeft, ChevronDown, Lock, CreditCard, Smartphone, AlertCircle } from "lucide-react"
 import { Header } from "@/components/boty/header"
 import { useCart } from "@/components/boty/cart-context"
+import { formatMoney } from "@/lib/pricing"
+import type { PaymentProvider, Address } from "@/types/order"
 
-type PaymentMethod = "card" | "paypal" | "apple"
+type PaymentMethod = "card" | "paypal" | "yaad"
 
 const inputClass =
   "w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring boty-transition"
 
 export default function CheckoutPage() {
-  const { items, subtotal, clearCart } = useCart()
+  const { items, subtotal, discount, shipping, total, clearCart, promoCode, discountLabel } = useCart()
   const router = useRouter()
+  const searchParams = useSearchParams()
 
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("card")
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("paypal")
   const [sameAddress, setSameAddress] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const shipping = subtotal >= 50 || subtotal === 0 ? 0 : 6.99
-  const total = subtotal + shipping
+  // Form state
+  const [email, setEmail] = useState("")
+  const [shippingAddress, setShippingAddress] = useState<Address>({
+    firstName: "",
+    lastName: "",
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    country: "US",
+    phone: "",
+  })
+  const [billingAddress, setBillingAddress] = useState<Address>({
+    firstName: "",
+    lastName: "",
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    country: "US",
+    phone: "",
+  })
+  const [shippingMethodId, setShippingMethodId] = useState("standard")
+
+  // Check for error in URL
+  useEffect(() => {
+    const errorParam = searchParams.get("error")
+    if (errorParam) {
+      const errorMessages: Record<string, string> = {
+        payment_failed: "Payment failed. Please try again.",
+        missing_order: "Order not found. Please try again.",
+        order_not_found: "Order not found. Please try again.",
+        invalid_signature: "Payment verification failed. Please try again.",
+        callback_error: "An error occurred. Please try again.",
+        unknown_callback: "An unexpected error occurred. Please try again.",
+      }
+      setError(errorMessages[errorParam] || "An error occurred. Please try again.")
+    }
+  }, [searchParams])
 
   const steps = ["Cart", "Checkout", "Confirmation"]
 
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    // Simulate order processing
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    clearCart()
-    router.push("/thank-you")
+    setError(null)
+
+    try {
+      // Step 1: Create internal order
+      const orderResponse = await fetch("/api/checkout/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          lines: items.map((item) => ({
+            productId: item.productId,
+            variantId: item.variantId,
+            quantity: item.quantity,
+          })),
+          email,
+          shippingAddress,
+          billingAddress: sameAddress ? null : billingAddress,
+          shippingMethodId,
+          paymentProvider: paymentMethod as PaymentProvider,
+          promoCode,
+        }),
+      })
+
+      const orderData = await orderResponse.json()
+
+      if (!orderResponse.ok) {
+        throw new Error(orderData.error || "Failed to create order")
+      }
+
+      const orderId = orderData.order.id
+
+      // Step 2: Branch based on payment method
+      if (paymentMethod === "paypal") {
+        // Create PayPal order
+        const paypalResponse = await fetch("/api/paypal/create-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ orderId }),
+        })
+
+        const paypalData = await paypalResponse.json()
+
+        if (!paypalResponse.ok) {
+          throw new Error(paypalData.error || "Failed to create PayPal order")
+        }
+
+        // For mock mode or if no approval URL, simulate success
+        if (paypalData.mock || !paypalData.approvalUrl) {
+          // Capture the mock payment
+          const captureResponse = await fetch("/api/paypal/capture-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              paypalOrderId: paypalData.paypalOrderId,
+              orderId,
+            }),
+          })
+
+          const captureData = await captureResponse.json()
+
+          if (captureResponse.ok) {
+            clearCart()
+            router.push(`/thank-you?orderId=${orderId}&orderNumber=${orderData.order.orderNumber}`)
+          } else {
+            throw new Error(captureData.error || "Payment capture failed")
+          }
+        } else {
+          // Redirect to PayPal
+          window.location.href = paypalData.approvalUrl
+        }
+      } else if (paymentMethod === "yaad") {
+        // Create Yaad session
+        const yaadResponse = await fetch("/api/yaad/create-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ orderId }),
+        })
+
+        const yaadData = await yaadResponse.json()
+
+        if (!yaadResponse.ok) {
+          throw new Error(yaadData.error || "Failed to create payment session")
+        }
+
+        // For mock mode, redirect to thank you page
+        if (yaadData.mock) {
+          clearCart()
+          router.push(`/thank-you?orderId=${orderId}&orderNumber=${orderData.order.orderNumber}`)
+        } else {
+          // Redirect to Yaad payment page
+          window.location.href = yaadData.redirectUrl
+        }
+      } else {
+        // Card payment (placeholder - would integrate with Stripe or similar)
+        // For now, simulate success
+        clearCart()
+        router.push(`/thank-you?orderId=${orderId}&orderNumber=${orderData.order.orderNumber}`)
+      }
+    } catch (err) {
+      console.error("Checkout error:", err)
+      setError(err instanceof Error ? err.message : "An error occurred")
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -52,6 +193,21 @@ export default function CheckoutPage() {
               Back to Cart
             </Link>
           </div>
+
+          {/* Error message */}
+          {error && (
+            <div className="mb-6 p-4 rounded-xl bg-destructive/10 border border-destructive/20 flex items-center gap-3">
+              <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0" />
+              <p className="text-sm text-destructive">{error}</p>
+              <button
+                type="button"
+                onClick={() => setError(null)}
+                className="ml-auto text-destructive/60 hover:text-destructive"
+              >
+                &times;
+              </button>
+            </div>
+          )}
 
           {/* Step indicator */}
           <div className="flex items-center gap-3 mb-10">
@@ -104,6 +260,8 @@ export default function CheckoutPage() {
                       type="email"
                       placeholder="Email address"
                       required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       className={inputClass}
                     />
                     <label className="flex items-center gap-3 cursor-pointer">
@@ -137,18 +295,71 @@ export default function CheckoutPage() {
                   <h2 className="font-serif text-2xl text-foreground mb-6">Shipping Address</h2>
                   <div className="space-y-4">
                     <div className="grid sm:grid-cols-2 gap-4">
-                      <input type="text" placeholder="First name" required className={inputClass} />
-                      <input type="text" placeholder="Last name" required className={inputClass} />
+                      <input
+                        type="text"
+                        placeholder="First name"
+                        required
+                        value={shippingAddress.firstName}
+                        onChange={(e) => setShippingAddress({ ...shippingAddress, firstName: e.target.value })}
+                        className={inputClass}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Last name"
+                        required
+                        value={shippingAddress.lastName}
+                        onChange={(e) => setShippingAddress({ ...shippingAddress, lastName: e.target.value })}
+                        className={inputClass}
+                      />
                     </div>
-                    <input type="text" placeholder="Address" required className={inputClass} />
-                    <input type="text" placeholder="Apartment, suite, etc. (optional)" className={inputClass} />
+                    <input
+                      type="text"
+                      placeholder="Address"
+                      required
+                      value={shippingAddress.address1}
+                      onChange={(e) => setShippingAddress({ ...shippingAddress, address1: e.target.value })}
+                      className={inputClass}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Apartment, suite, etc. (optional)"
+                      value={shippingAddress.address2}
+                      onChange={(e) => setShippingAddress({ ...shippingAddress, address2: e.target.value })}
+                      className={inputClass}
+                    />
                     <div className="grid sm:grid-cols-3 gap-4">
-                      <input type="text" placeholder="City" required className={inputClass} />
-                      <input type="text" placeholder="State" required className={inputClass} />
-                      <input type="text" placeholder="ZIP code" required className={inputClass} />
+                      <input
+                        type="text"
+                        placeholder="City"
+                        required
+                        value={shippingAddress.city}
+                        onChange={(e) => setShippingAddress({ ...shippingAddress, city: e.target.value })}
+                        className={inputClass}
+                      />
+                      <input
+                        type="text"
+                        placeholder="State"
+                        required
+                        value={shippingAddress.state}
+                        onChange={(e) => setShippingAddress({ ...shippingAddress, state: e.target.value })}
+                        className={inputClass}
+                      />
+                      <input
+                        type="text"
+                        placeholder="ZIP code"
+                        required
+                        value={shippingAddress.postalCode}
+                        onChange={(e) => setShippingAddress({ ...shippingAddress, postalCode: e.target.value })}
+                        className={inputClass}
+                      />
                     </div>
                     <div className="relative">
-                      <select required className={`${inputClass} appearance-none pr-10`}>
+                      <select
+                        required
+                        value={shippingAddress.country}
+                        onChange={(e) => setShippingAddress({ ...shippingAddress, country: e.target.value })}
+                        className={`${inputClass} appearance-none pr-10`}
+                      >
                         <option value="">Country</option>
                         <option value="US">United States</option>
                         <option value="CA">Canada</option>
@@ -156,10 +367,17 @@ export default function CheckoutPage() {
                         <option value="AU">Australia</option>
                         <option value="FR">France</option>
                         <option value="DE">Germany</option>
+                        <option value="IL">Israel</option>
                       </select>
                       <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
                     </div>
-                    <input type="tel" placeholder="Phone (optional)" className={inputClass} />
+                    <input
+                      type="tel"
+                      placeholder="Phone (optional)"
+                      value={shippingAddress.phone}
+                      onChange={(e) => setShippingAddress({ ...shippingAddress, phone: e.target.value })}
+                      className={inputClass}
+                    />
                   </div>
                 </section>
 
@@ -168,7 +386,7 @@ export default function CheckoutPage() {
                   <h2 className="font-serif text-2xl text-foreground mb-6">Shipping Method</h2>
                   <div className="space-y-3">
                     {[
-                      { id: "standard", label: "Standard Shipping", sub: "5-7 business days", price: shipping === 0 ? "Free" : `$${shipping.toFixed(2)}` },
+                      { id: "standard", label: "Standard Shipping", sub: "5-7 business days", price: shipping === 0 ? "Free" : formatMoney(shipping) },
                       { id: "express", label: "Express Shipping", sub: "2-3 business days", price: "$12.99" },
                     ].map((method) => (
                       <label
@@ -180,7 +398,8 @@ export default function CheckoutPage() {
                             type="radio"
                             name="shipping-method"
                             value={method.id}
-                            defaultChecked={method.id === "standard"}
+                            checked={shippingMethodId === method.id}
+                            onChange={(e) => setShippingMethodId(e.target.value)}
                             className="accent-primary"
                           />
                           <div>
@@ -205,9 +424,9 @@ export default function CheckoutPage() {
                   {/* Payment Tabs */}
                   <div className="flex gap-2 mb-5">
                     {([
-                      { id: "card", label: "Credit Card", icon: CreditCard },
                       { id: "paypal", label: "PayPal", icon: null },
-                      { id: "apple", label: "Apple Pay", icon: Smartphone },
+                      { id: "yaad", label: "Yaad Pay", icon: CreditCard },
+                      { id: "card", label: "Credit Card", icon: CreditCard },
                     ] as { id: PaymentMethod; label: string; icon: React.ElementType | null }[]).map((tab) => (
                       <button
                         key={tab.id}
@@ -225,24 +444,19 @@ export default function CheckoutPage() {
                     ))}
                   </div>
 
-                  {paymentMethod === "card" && (
-                    <div className="space-y-4">
-                      <input type="text" placeholder="Card number" required className={inputClass} />
-                      <input type="text" placeholder="Name on card" required className={inputClass} />
-                      <div className="grid grid-cols-2 gap-4">
-                        <input type="text" placeholder="MM / YY" required className={inputClass} />
-                        <input type="text" placeholder="CVC" required className={inputClass} />
-                      </div>
-                    </div>
-                  )}
                   {paymentMethod === "paypal" && (
                     <div className="p-6 bg-card rounded-2xl text-center text-sm text-muted-foreground boty-shadow">
                       You'll be redirected to PayPal to complete your purchase securely.
                     </div>
                   )}
-                  {paymentMethod === "apple" && (
+                  {paymentMethod === "yaad" && (
                     <div className="p-6 bg-card rounded-2xl text-center text-sm text-muted-foreground boty-shadow">
-                      Complete your purchase using Apple Pay on a supported device.
+                      You'll be redirected to Yaad Pay to complete your purchase securely.
+                    </div>
+                  )}
+                  {paymentMethod === "card" && (
+                    <div className="p-6 bg-card rounded-2xl text-center text-sm text-muted-foreground boty-shadow">
+                      Credit card payments are coming soon. Please use PayPal or Yaad Pay.
                     </div>
                   )}
                 </section>
@@ -278,14 +492,56 @@ export default function CheckoutPage() {
                   {!sameAddress && (
                     <div className="space-y-4 mt-2">
                       <div className="grid sm:grid-cols-2 gap-4">
-                        <input type="text" placeholder="First name" required className={inputClass} />
-                        <input type="text" placeholder="Last name" required className={inputClass} />
+                        <input
+                          type="text"
+                          placeholder="First name"
+                          required
+                          value={billingAddress.firstName}
+                          onChange={(e) => setBillingAddress({ ...billingAddress, firstName: e.target.value })}
+                          className={inputClass}
+                        />
+                        <input
+                          type="text"
+                          placeholder="Last name"
+                          required
+                          value={billingAddress.lastName}
+                          onChange={(e) => setBillingAddress({ ...billingAddress, lastName: e.target.value })}
+                          className={inputClass}
+                        />
                       </div>
-                      <input type="text" placeholder="Address" required className={inputClass} />
+                      <input
+                        type="text"
+                        placeholder="Address"
+                        required
+                        value={billingAddress.address1}
+                        onChange={(e) => setBillingAddress({ ...billingAddress, address1: e.target.value })}
+                        className={inputClass}
+                      />
                       <div className="grid sm:grid-cols-3 gap-4">
-                        <input type="text" placeholder="City" required className={inputClass} />
-                        <input type="text" placeholder="State" required className={inputClass} />
-                        <input type="text" placeholder="ZIP code" required className={inputClass} />
+                        <input
+                          type="text"
+                          placeholder="City"
+                          required
+                          value={billingAddress.city}
+                          onChange={(e) => setBillingAddress({ ...billingAddress, city: e.target.value })}
+                          className={inputClass}
+                        />
+                        <input
+                          type="text"
+                          placeholder="State"
+                          required
+                          value={billingAddress.state}
+                          onChange={(e) => setBillingAddress({ ...billingAddress, state: e.target.value })}
+                          className={inputClass}
+                        />
+                        <input
+                          type="text"
+                          placeholder="ZIP code"
+                          required
+                          value={billingAddress.postalCode}
+                          onChange={(e) => setBillingAddress({ ...billingAddress, postalCode: e.target.value })}
+                          className={inputClass}
+                        />
                       </div>
                     </div>
                   )}
@@ -304,7 +560,7 @@ export default function CheckoutPage() {
                       <p className="text-sm text-muted-foreground">Your cart is empty.</p>
                     ) : (
                       items.map((item) => (
-                        <div key={item.id} className="flex gap-3 items-center">
+                        <div key={item.productId} className="flex gap-3 items-center">
                           <div className="relative w-14 h-14 flex-shrink-0 rounded-xl overflow-hidden bg-muted boty-shadow">
                             <Image
                               src={item.image || "/placeholder.svg"}
@@ -321,7 +577,7 @@ export default function CheckoutPage() {
                             <p className="text-xs text-muted-foreground">{item.description}</p>
                           </div>
                           <p className="text-sm font-medium text-foreground">
-                            ${(item.price * item.quantity).toFixed(2)}
+                            {formatMoney(item.unitPrice * item.quantity)}
                           </p>
                         </div>
                       ))
@@ -332,19 +588,25 @@ export default function CheckoutPage() {
                   <div className="space-y-3 pt-4 pb-5 border-b border-border/50">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Subtotal</span>
-                      <span className="text-foreground">${subtotal.toFixed(2)}</span>
+                      <span className="text-foreground">{formatMoney(subtotal)}</span>
                     </div>
+                    {discount > 0 && discountLabel && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-primary">{discountLabel}</span>
+                        <span className="text-primary">-{formatMoney(discount)}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Shipping</span>
                       <span className="text-foreground">
-                        {shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}
+                        {shipping === 0 ? "Free" : formatMoney(shipping)}
                       </span>
                     </div>
                   </div>
 
                   <div className="flex justify-between items-center pt-5 mb-6">
                     <span className="font-medium text-foreground">Total</span>
-                    <span className="font-serif text-2xl text-foreground">${total.toFixed(2)}</span>
+                    <span className="font-serif text-2xl text-foreground">{formatMoney(total)}</span>
                   </div>
 
                   <button

@@ -1,84 +1,16 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useParams } from "next/navigation"
+import { useParams, notFound } from "next/navigation"
 import { ChevronLeft, Minus, Plus, ChevronDown, Leaf, Heart, Award, Recycle, Star, Check } from "lucide-react"
 import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
-
-const products: Record<string, {
-  id: string
-  name: string
-  tagline: string
-  description: string
-  price: number
-  originalPrice: number | null
-  image: string
-  sizes: string[]
-  details: string
-  howToUse: string
-  ingredients: string
-  delivery: string
-}> = {
-  "radiance-serum": {
-    id: "radiance-serum",
-    name: "Radiance Serum",
-    tagline: "Illuminate your natural glow",
-    description: "A lightweight, fast-absorbing serum infused with Vitamin C and botanical extracts. Designed to brighten, even skin tone, and reveal your skin's natural radiance.",
-    price: 68,
-    originalPrice: null,
-    image: "/images/products/serum.jpg",
-    sizes: ["30ml", "50ml"],
-    details: "Our Radiance Serum combines 15% stabilized Vitamin C with rosehip seed oil and sea buckthorn extract. The formula is designed to penetrate deep into the skin, targeting dark spots and uneven tone while protecting against environmental stressors. Suitable for all skin types, this serum is your daily dose of luminosity.",
-    howToUse: "Apply 3-4 drops to cleansed face and neck morning and evening. Gently pat into skin until absorbed. Follow with your favorite Boty moisturizer. For best results, use consistently for 4-6 weeks.",
-    ingredients: "Aqua, Ascorbic Acid (Vitamin C), Rosa Canina Seed Oil, Hippophae Rhamnoides Oil, Glycerin, Niacinamide, Tocopherol (Vitamin E), Ferulic Acid, Aloe Barbadensis Leaf Juice, Citrus Aurantium Dulcis Peel Oil, Lavandula Angustifolia Oil.",
-    delivery: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed."
-  },
-  "hydra-cream": {
-    id: "hydra-cream",
-    name: "Hydra Cream",
-    tagline: "Deep moisture, lasting comfort",
-    description: "A rich yet lightweight moisturizer that delivers intense hydration without heaviness. Formulated with hyaluronic acid and botanical butters for all-day nourishment.",
-    price: 54,
-    originalPrice: null,
-    image: "/images/products/moisturizer.jpg",
-    sizes: ["50ml", "100ml"],
-    details: "Hydra Cream features multi-weight hyaluronic acid to hydrate at every level of the skin. Shea butter and jojoba oil lock in moisture while squalane provides a silky, non-greasy finish. Perfect for normal to dry skin seeking lasting comfort.",
-    howToUse: "After cleansing and serum, apply a small amount to face and neck. Massage gently in upward motions. Use morning and evening as the final step of your skincare routine.",
-    ingredients: "Aqua, Butyrospermum Parkii Butter, Simmondsia Chinensis Seed Oil, Sodium Hyaluronate, Squalane, Glycerin, Cetearyl Alcohol, Calendula Officinalis Extract, Chamomilla Recutita Extract, Tocopherol.",
-    delivery: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed."
-  },
-  "gentle-cleanser": {
-    id: "gentle-cleanser",
-    name: "Gentle Cleanser",
-    tagline: "Cleanse without compromise",
-    description: "A soothing botanical wash that removes impurities while respecting your skin's natural balance. Perfect for sensitive skin and daily use.",
-    price: 38,
-    originalPrice: 48,
-    image: "/images/products/cleanser.jpg",
-    sizes: ["150ml", "250ml"],
-    details: "Our Gentle Cleanser uses coconut-derived surfactants that cleanse effectively without stripping. Enriched with chamomile, oat extract, and aloe vera, it calms and soothes as it cleanses. pH-balanced and dermatologist tested for sensitive skin.",
-    howToUse: "Wet face with lukewarm water. Apply a small amount to fingertips and massage onto face in circular motions. Rinse thoroughly. Use morning and evening.",
-    ingredients: "Aqua, Coco-Glucoside, Glycerin, Avena Sativa Kernel Extract, Aloe Barbadensis Leaf Juice, Chamomilla Recutita Extract, Panthenol, Allantoin, Citric Acid, Benzyl Alcohol, Potassium Sorbate.",
-    delivery: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed."
-  },
-  "renewal-oil": {
-    id: "renewal-oil",
-    name: "Renewal Oil",
-    tagline: "Nourish deeply, glow eternally",
-    description: "A luxurious blend of precious botanical oils that deeply nourish and restore skin overnight. Wake up to softer, more supple skin.",
-    price: 72,
-    originalPrice: null,
-    image: "/images/products/oil.jpg",
-    sizes: ["30ml", "50ml"],
-    details: "Renewal Oil combines argan, rosehip, and marula oils with vitamin E for intensive overnight nourishment. This dry oil absorbs quickly, leaving skin soft without residue. Ideal for mature or dehydrated skin seeking restoration.",
-    howToUse: "Apply 4-6 drops to palms and warm between hands. Press gently onto face and neck as the final step of your evening routine. Can also be mixed with moisturizer for added hydration.",
-    ingredients: "Argania Spinosa Kernel Oil, Rosa Canina Seed Oil, Sclerocarya Birrea Seed Oil, Tocopherol, Rosa Damascena Flower Oil, Lavandula Angustifolia Oil, Helianthus Annuus Seed Oil, Limonene, Linalool.",
-    delivery: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed."
-  }
-}
+import { useCart } from "@/components/boty/cart-context"
+import { getProductBySlug } from "@/lib/catalog"
+import { formatMoney } from "@/lib/pricing"
+import type { Product } from "@/types/catalog"
 
 const benefits = [
   { icon: Leaf, label: "100% Natural" },
@@ -91,23 +23,66 @@ type AccordionSection = "details" | "howToUse" | "ingredients" | "delivery"
 
 export default function ProductPage() {
   const params = useParams()
-  const productId = params.id as string
-  const product = products[productId] || products["radiance-serum"]
+  const productSlug = params.id as string
+  const { addItem } = useCart()
 
-  const [selectedSize, setSelectedSize] = useState(product.sizes[0])
+  // Load product from catalog
+  const product = useMemo(() => getProductBySlug(productSlug), [productSlug])
+
+  const [selectedVariant, setSelectedVariant] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [openAccordion, setOpenAccordion] = useState<AccordionSection | null>("details")
   const [isAdded, setIsAdded] = useState(false)
 
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [productId])
+  }, [productSlug])
+
+  // Reset variant selection when product changes
+  useEffect(() => {
+    setSelectedVariant(0)
+    setQuantity(1)
+  }, [productSlug])
+
+  if (!product) {
+    // Return a fallback UI instead of calling notFound() in client component
+    return (
+      <main className="min-h-screen">
+        <Header />
+        <div className="pt-28 pb-20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+            <h1 className="font-serif text-4xl text-foreground mb-4">Product Not Found</h1>
+            <p className="text-muted-foreground mb-8">The product you're looking for doesn't exist.</p>
+            <Link
+              href="/shop"
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full text-sm boty-transition hover:bg-primary/90"
+            >
+              Browse All Products
+            </Link>
+          </div>
+        </div>
+        <Footer />
+      </main>
+    )
+  }
+
+  const currentVariant = product.variants[selectedVariant]
+  const currentPrice = currentVariant.price.amount
+  const originalPrice = currentVariant.compareAtPrice?.amount
 
   const toggleAccordion = (section: AccordionSection) => {
     setOpenAccordion(openAccordion === section ? null : section)
   }
 
   const handleAddToCart = () => {
+    addItem({
+      productId: product.id,
+      variantId: currentVariant.id,
+      name: product.name,
+      description: product.tagline || product.description.slice(0, 60),
+      unitPrice: currentPrice,
+      image: product.images[0]?.src ?? "/placeholder.svg",
+    })
     setIsAdded(true)
     setTimeout(() => setIsAdded(false), 2000)
   }
@@ -127,7 +102,7 @@ export default function ProductPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Back Link */}
           <Link
-            href="/"
+            href="/shop"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground boty-transition mb-8"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -138,12 +113,25 @@ export default function ProductPage() {
             {/* Product Image */}
             <div className="relative aspect-square rounded-3xl overflow-hidden bg-card boty-shadow">
               <Image
-                src={product.image || "/placeholder.svg"}
+                src={product.images[0]?.src || "/placeholder.svg"}
                 alt={product.name}
                 fill
                 className="object-cover"
                 priority
               />
+              {product.badge && (
+                <span
+                  className={`absolute top-6 left-6 px-4 py-1.5 rounded-full text-sm tracking-wide ${
+                    product.badge === "Sale"
+                      ? "bg-destructive/10 text-destructive"
+                      : product.badge === "New"
+                      ? "bg-primary/10 text-primary"
+                      : "bg-accent text-accent-foreground"
+                  }`}
+                >
+                  {product.badge}
+                </span>
+              )}
             </div>
 
             {/* Product Info */}
@@ -164,10 +152,17 @@ export default function ProductPage() {
                 <div className="flex items-center gap-2 mb-4">
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                      <Star 
+                        key={i} 
+                        className={`w-4 h-4 ${
+                          i < Math.floor(product.rating) 
+                            ? "fill-primary text-primary" 
+                            : "fill-muted text-muted"
+                        }`} 
+                      />
                     ))}
                   </div>
-                  <span className="text-sm text-muted-foreground">(128 reviews)</span>
+                  <span className="text-sm text-muted-foreground">({product.reviewCount} reviews)</span>
                 </div>
 
                 <p className="text-foreground/80 leading-relaxed">
@@ -177,34 +172,36 @@ export default function ProductPage() {
 
               {/* Price */}
               <div className="flex items-center gap-3 mb-8">
-                <span className="text-3xl font-medium text-foreground">${product.price}</span>
-                {product.originalPrice && (
+                <span className="text-3xl font-medium text-foreground">{formatMoney(currentPrice)}</span>
+                {originalPrice && (
                   <span className="text-xl text-muted-foreground line-through">
-                    ${product.originalPrice}
+                    {formatMoney(originalPrice)}
                   </span>
                 )}
               </div>
 
-              {/* Size Selector */}
-              <div className="mb-6">
-                <label className="text-sm font-medium text-foreground mb-3 block">Size</label>
-                <div className="flex gap-3">
-                  {product.sizes.map((size) => (
-                    <button
-                      key={size}
-                      type="button"
-                      onClick={() => setSelectedSize(size)}
-                      className={`px-6 py-3 rounded-full text-sm boty-transition boty-shadow ${
-                        selectedSize === size
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-card text-foreground hover:bg-card/80"
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
+              {/* Variant Selector */}
+              {product.variants.length > 1 && (
+                <div className="mb-6">
+                  <label className="text-sm font-medium text-foreground mb-3 block">Size</label>
+                  <div className="flex gap-3">
+                    {product.variants.map((variant, index) => (
+                      <button
+                        key={variant.id}
+                        type="button"
+                        onClick={() => setSelectedVariant(index)}
+                        className={`px-6 py-3 rounded-full text-sm boty-transition boty-shadow ${
+                          selectedVariant === index
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-card text-foreground hover:bg-card/80"
+                        }`}
+                      >
+                        {variant.title}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Quantity Selector */}
               <div className="mb-8">
@@ -250,12 +247,12 @@ export default function ProductPage() {
                     "Add to Cart"
                   )}
                 </button>
-                <button
-                  type="button"
+                <Link
+                  href="/checkout"
                   className="flex-1 inline-flex items-center justify-center gap-2 bg-transparent border border-foreground/20 text-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-foreground/5"
                 >
                   Buy Now
-                </button>
+                </Link>
               </div>
 
               {/* Benefits */}
