@@ -6,9 +6,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getOrderById, markOrderPaid, markOrderFailed } from "@/lib/orders"
 
-const YAAD_PASSPORT_KEY = process.env.YAAD_PASSPORT_KEY
+const YAAD_API_KEY = process.env.YAAD_API_KEY
 
-function verifyYaadSignature(params: URLSearchParams, passportKey: string): boolean {
+function verifyYaadSignature(params: URLSearchParams, apiKey: string): boolean {
   // Get the signature from params
   const receivedSignature = params.get("Sign") || params.get("signature")
   if (!receivedSignature) return false
@@ -24,7 +24,7 @@ function verifyYaadSignature(params: URLSearchParams, passportKey: string): bool
 
   // Calculate expected signature
   const crypto = require("crypto")
-  const expectedSignature = crypto.createHmac("sha256", passportKey).update(signatureString).digest("hex")
+  const expectedSignature = crypto.createHmac("sha256", apiKey).update(signatureString).digest("hex")
 
   return receivedSignature.toLowerCase() === expectedSignature.toLowerCase()
 }
@@ -64,9 +64,9 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Verify signature if passport key is configured
-    if (YAAD_PASSPORT_KEY) {
-      const isValid = verifyYaadSignature(searchParams, YAAD_PASSPORT_KEY)
+    // Verify signature if API key is configured
+    if (YAAD_API_KEY) {
+      const isValid = verifyYaadSignature(searchParams, YAAD_API_KEY)
       if (!isValid) {
         console.error("Yaad callback: Invalid signature")
         markOrderFailed(order.id)
@@ -136,8 +136,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify signature
-    if (YAAD_PASSPORT_KEY) {
-      const isValid = verifyYaadSignature(params, YAAD_PASSPORT_KEY)
+    if (YAAD_API_KEY) {
+      const isValid = verifyYaadSignature(params, YAAD_API_KEY)
       if (!isValid) {
         console.error("Yaad IPN: Invalid signature")
         return NextResponse.json(

@@ -6,9 +6,14 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getOrderById, attachPaymentProviderId } from "@/lib/orders"
 
-const YAAD_MERCHANT_ID = process.env.YAAD_MERCHANT_ID
-const YAAD_PASSPORT_KEY = process.env.YAAD_PASSPORT_KEY
-const YAAD_API_URL = process.env.YAAD_API_URL || "https://icom.yaad.net/p/"
+const YAAD_TERMINAL_NUMBER = process.env.YAAD_TERMINAL_NUMBER
+const YAAD_API_KEY = process.env.YAAD_API_KEY
+const YAAD_ENV = process.env.YAAD_ENV || "sandbox"
+const YAAD_RETURN_URL = process.env.YAAD_RETURN_URL
+const YAAD_NOTIFY_URL = process.env.YAAD_NOTIFY_URL
+const YAAD_API_URL = YAAD_ENV === "production"
+  ? "https://icom.yaad.net/p/"
+  : "https://sandbox.yaad.net/p/"
 
 interface CreateYaadSessionRequest {
   orderId: string
@@ -47,7 +52,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if Yaad is configured
-    if (!YAAD_MERCHANT_ID || !YAAD_PASSPORT_KEY) {
+    if (!YAAD_TERMINAL_NUMBER || !YAAD_API_KEY) {
       // Return mock response for development
       const mockTransactionId = `YAAD-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
       
@@ -65,10 +70,12 @@ export async function POST(request: NextRequest) {
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+    const returnUrl = YAAD_RETURN_URL || `${baseUrl}/api/yaad/callback?type=success`
+    const notifyUrl = YAAD_NOTIFY_URL || `${baseUrl}/api/yaad/callback`
 
     // Build Yaad Pay parameters
     const yaadParams: Record<string, string> = {
-      Masof: YAAD_MERCHANT_ID,
+      Masof: YAAD_TERMINAL_NUMBER,
       action: "pay",
       Order: order.orderNumber,
       Info: `Boty Order ${order.orderNumber}`,
@@ -88,7 +95,7 @@ export async function POST(request: NextRequest) {
       MoreData: "True",
       sendemail: "True",
       // Callback URLs
-      SuccessUrl: `${baseUrl}/api/yaad/callback?type=success`,
+      SuccessUrl: returnUrl,
       ErrorUrl: `${baseUrl}/api/yaad/callback?type=error`,
       CancelUrl: `${baseUrl}/checkout`,
       // Internal reference
@@ -99,7 +106,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate signature
-    yaadParams.Sign = generateYaadSignature(yaadParams, YAAD_PASSPORT_KEY)
+    yaadParams.Sign = generateYaadSignature(yaadParams, YAAD_API_KEY)
 
     // Build redirect URL
     const queryString = new URLSearchParams(yaadParams).toString()
