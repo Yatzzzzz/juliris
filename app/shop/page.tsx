@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ShoppingBag, SlidersHorizontal, X } from "lucide-react"
+import { useSearchParams } from "next/navigation"
+import { ShoppingBag, SlidersHorizontal, X, Search } from "lucide-react"
 import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
 
@@ -11,160 +12,178 @@ const products = [
   // Serums
   {
     id: "radiance-serum",
-    name: "שרשרת אלה",
-    description: "שרשרת עדינה למראה אלגנטי יומיומי.",
+    name: "Radiance Serum",
+    description: "Vitamin C brightening formula",
     price: 68,
     originalPrice: null,
     image: "/images/products/serum-bottles-1.png",
-    badge: "נמכר ביותר",
-    category: "שרשראות"
+    badge: "Bestseller",
+    category: "serums"
   },
   {
     id: "hydrating-serum",
-    name: "שרשרת נעם",
-    description: "שרשרת נשית בקו מינימליסטי ונוח לענידה.",
+    name: "Hydrating Serum",
+    description: "Hyaluronic acid moisture boost",
     price: 62,
     originalPrice: null,
     image: "/images/products/eye-serum-bottles.png",
     badge: null,
-    category: "שרשראות"
+    category: "serums"
   },
   {
     id: "age-defense-serum",
-    name: "שרשרת יובל",
-    description: "שרשרת אלגנטית עם נוכחות עדינה ומעודנת.",
+    name: "Age Defense Serum",
+    description: "Retinol & peptide complex",
     price: 78,
     originalPrice: null,
     image: "/images/products/amber-dropper-bottles.png",
-    badge: "חדש",
-    category: "שרשראות"
+    badge: "New",
+    category: "serums"
   },
   {
     id: "glow-serum",
-    name: "צמיד דניאל",
-    description: "צמיד יומיומי בקו נקי ונשי.",
+    name: "Glow Serum",
+    description: "Niacinamide brightening boost",
     price: 58,
     originalPrice: 68,
     image: "/images/products/spray-bottles.png",
-    badge: "מבצע",
-    category: "צמידים"
+    badge: "Sale",
+    category: "serums"
   },
   // Creams
   {
     id: "hydra-cream",
-    name: "טבעת נועה",
-    description: "טבעת עדינה במראה נקי שמתאימה לשימוש יומיומי.",
+    name: "Hydra Cream",
+    description: "Deep moisture with hyaluronic acid",
     price: 54,
     originalPrice: null,
     image: "/images/products/cream-jars-colored.png",
     badge: null,
-    category: "טבעות"
+    category: "moisturizers"
   },
   {
     id: "gentle-cleanser",
-    name: "עגילי תמר",
-    description: "עגילים היפואלרגניים בעיצוב אלגנטי ונוח.",
+    name: "Gentle Cleanser",
+    description: "Soothing botanical wash",
     price: 38,
     originalPrice: 48,
     image: "/images/products/tube-bottles.png",
-    badge: "מבצע",
-    category: "עגילים"
+    badge: "Sale",
+    category: "cleansers"
   },
   {
     id: "night-cream",
-    name: "טבעת יעל",
-    description: "טבעת נשית ועדינה שמשלימה מראה יומיומי אלגנטי.",
+    name: "Night Cream",
+    description: "Restorative overnight treatment",
     price: 64,
     originalPrice: null,
     image: "/images/products/jars-wooden-lid.png",
-    badge: "נמכר ביותר",
-    category: "טבעות"
+    badge: "Bestseller",
+    category: "moisturizers"
   },
   {
     id: "day-cream-spf",
-    name: "טבעת מאיה",
-    description: "טבעת מינימליסטית ונוחה לענידה לאורך היום.",
+    name: "Day Cream SPF 30",
+    description: "Protection & hydration",
     price: 58,
     originalPrice: null,
     image: "/images/products/pump-bottles-lavender.png",
     badge: null,
-    category: "טבעות"
+    category: "moisturizers"
   },
   // Oils
   {
     id: "renewal-oil",
-    name: "עגילי ליה",
-    description: "עגילים עדינים עם נוכחות נשית וקלילה.",
+    name: "Renewal Oil",
+    description: "Nourishing facial oil blend",
     price: 72,
     originalPrice: null,
     image: "/images/products/amber-dropper-bottles.png",
-    badge: "חדש",
-    category: "עגילים"
+    badge: "New",
+    category: "oils"
   },
   {
     id: "rosehip-oil",
-    name: "עגילי שירה",
-    description: "עגילים יומיומיים בקווים נקיים ונעימים לענידה.",
+    name: "Rosehip Oil",
+    description: "Pure organic rosehip extract",
     price: 48,
     originalPrice: null,
     image: "/images/products/serum-bottles-1.png",
     badge: null,
-    category: "עגילים"
+    category: "oils"
   },
   {
     id: "jojoba-oil",
-    name: "צמיד מיה",
-    description: "צמיד קליל ועדין למראה נשי ולא מתאמץ.",
+    name: "Jojoba Oil",
+    description: "Balancing & lightweight",
     price: 42,
     originalPrice: null,
     image: "/images/products/spray-bottles.png",
     badge: null,
-    category: "צמידים"
+    category: "oils"
   },
   {
     id: "argan-oil",
-    name: "צמיד רוני",
-    description: "צמיד אלגנטי עם גימור נקי ונוחות יומיומית.",
+    name: "Argan Oil",
+    description: "Moroccan beauty elixir",
     price: 56,
     originalPrice: null,
     image: "/images/products/pump-bottles-cream.png",
-    badge: "נמכר ביותר",
-    category: "צמידים"
+    badge: "Bestseller",
+    category: "oils"
   },
   // Masks & Toners (original products)
   {
     id: "glow-mask",
-    name: "סטיינלס נועם",
-    description: "פריט סטיינלס סטיל עמיד בעיצוב נקי ואלגנטי.",
+    name: "Glow Mask",
+    description: "Weekly brightening treatment",
     price: 45,
     originalPrice: null,
     image: "/images/products/mask.jpg",
     badge: null,
-    category: "סטיינלס סטיל"
+    category: "masks"
   },
   {
     id: "balance-toner",
-    name: "סטיינלס עדן",
-    description: "פריט סטיינלס סטיל יומיומי עם מראה מודרני ונוח.",
+    name: "Balance Toner",
+    description: "pH restoring mist",
     price: 32,
     originalPrice: null,
     image: "/images/products/toner.jpg",
-    badge: "חדש",
-    category: "סטיינלס סטיל"
+    badge: "New",
+    category: "toners"
   }
 ]
 
-const categories = ["הכול", "טבעות", "עגילים", "שרשראות", "צמידים", "סטיינלס סטיל"]
+const categories = ["all", "serums", "moisturizers", "cleansers", "oils", "masks", "toners"]
 
 export default function ShopPage() {
-  const [selectedCategory, setSelectedCategory] = useState("הכול")
+  const searchParams = useSearchParams()
+  const initialSearch = searchParams.get("search") ?? ""
+
+  const [selectedCategory, setSelectedCategory] = useState("all")
+  const [searchQuery, setSearchQuery] = useState(initialSearch)
   const [showFilters, setShowFilters] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const gridRef = useRef<HTMLDivElement>(null)
 
-  const filteredProducts = selectedCategory === "הכול"
-    ? products
-    : products.filter(p => p.category === selectedCategory)
+  // Sync search param on navigation (e.g. from overlay)
+  useEffect(() => {
+    const s = searchParams.get("search") ?? ""
+    setSearchQuery(s)
+    if (s) setSelectedCategory("all")
+  }, [searchParams])
+
+  const filteredProducts = products.filter((p) => {
+    const matchesCategory = selectedCategory === "all" || p.category === selectedCategory
+    const q = searchQuery.trim().toLowerCase()
+    const matchesSearch =
+      !q ||
+      p.name.toLowerCase().includes(q) ||
+      p.description.toLowerCase().includes(q) ||
+      p.category.toLowerCase().includes(q)
+    return matchesCategory && matchesSearch
+  })
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -187,12 +206,12 @@ export default function ShopPage() {
     }
   }, [])
 
-  // Reset animation when category changes
+  // Reset animation when category or search changes
   useEffect(() => {
     setIsVisible(false)
     const timer = setTimeout(() => setIsVisible(true), 50)
     return () => clearTimeout(timer)
-  }, [selectedCategory])
+  }, [selectedCategory, searchQuery])
 
   return (
     <main className="min-h-screen">
@@ -206,11 +225,45 @@ export default function ShopPage() {
               הקולקציה שלנו
             </span>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-4 text-balance">
-              כל המוצרים
+              כל המוצרים שלנו
             </h1>
             <p className="text-lg text-muted-foreground max-w-md mx-auto">
-              גלי את קולקציית Juliris — תכשיטים היפואלרגניים בעיצוב אלגנטי, עם דגש על נוחות יומיומית ועור רגיש.
+              גלו את כל מוצרי הטיפוח שלנו
             </p>
+          </div>
+
+          {/* Search bar */}
+          <div className="max-w-lg mx-auto mb-8">
+            <div className="flex items-center gap-3 bg-card rounded-full px-5 py-3 boty-shadow border border-border/50">
+              <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value)
+                  if (e.target.value) setSelectedCategory("all")
+                }}
+                placeholder="Search products..."
+                className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="text-muted-foreground hover:text-foreground boty-transition"
+                  aria-label="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+            {searchQuery && (
+              <p className="text-center text-sm text-muted-foreground mt-3">
+                {filteredProducts.length === 0
+                  ? `No results for "${searchQuery}"`
+                  : `${filteredProducts.length} result${filteredProducts.length === 1 ? "" : "s"} for "${searchQuery}"`}
+              </p>
+            )}
           </div>
 
           {/* Filter Bar */}
@@ -243,7 +296,7 @@ export default function ShopPage() {
             </div>
 
             <span className="text-sm text-muted-foreground">
-              {filteredProducts.length} מוצרים
+              {filteredProducts.length} {filteredProducts.length === 1 ? "product" : "products"}
             </span>
           </div>
 
@@ -285,6 +338,7 @@ export default function ShopPage() {
           )}
 
           {/* Product Grid */}
+          {filteredProducts.length > 0 ? (
           <div 
             ref={gridRef}
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -298,6 +352,24 @@ export default function ShopPage() {
               />
             ))}
           </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-20 text-center">
+              <div className="w-16 h-16 rounded-full bg-card flex items-center justify-center mb-4 boty-shadow">
+                <Search className="w-7 h-7 text-muted-foreground" />
+              </div>
+              <p className="font-serif text-2xl text-foreground mb-2">לא נמצאו מוצרים</p>
+              <p className="text-sm text-muted-foreground mb-6 max-w-xs">
+                נסה להתאים את החיפוש שלך או לעיין בכל הקטגוריות.
+              </p>
+              <button
+                type="button"
+                onClick={() => { setSearchQuery(""); setSelectedCategory("all") }}
+                className="px-6 py-3 rounded-full bg-primary text-primary-foreground text-sm hover:bg-primary/90 boty-transition"
+              >
+                נקה חיפוש
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -348,9 +420,9 @@ function ProductCard({
           {product.badge && (
             <span
               className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs tracking-wide ${
-                product.badge === "מבצע"
+                product.badge === "Sale"
                   ? "bg-destructive/10 text-destructive"
-                  : product.badge === "חדש"
+                  : product.badge === "New"
                   ? "bg-primary/10 text-primary"
                   : "bg-accent text-accent-foreground"
               }`}
@@ -365,7 +437,7 @@ function ProductCard({
             onClick={(e) => {
               e.preventDefault()
             }}
-            aria-label="הוספה לסל"
+            aria-label="הוסף לעגלה"
           >
             <ShoppingBag className="w-5 h-5 text-foreground" />
           </button>
@@ -376,10 +448,10 @@ function ProductCard({
           <h3 className="font-serif text-xl text-foreground mb-1">{product.name}</h3>
           <p className="text-sm text-muted-foreground mb-4">{product.description}</p>
           <div className="flex items-center gap-2">
-            <span className="text-lg font-medium text-foreground">₪{product.price}</span>
+            <span className="text-lg font-medium text-foreground">${product.price}</span>
             {product.originalPrice && (
               <span className="text-sm text-muted-foreground line-through">
-                ₪{product.originalPrice}
+                ${product.originalPrice}
               </span>
             )}
           </div>
