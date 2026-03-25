@@ -161,7 +161,7 @@ export async function POST(request: NextRequest) {
       const errorName = captureData.name
       const errorDetails = captureData.details?.[0]?.issue
 
-      // If PayPal says order already captured, treat as idempotent success
+      // If PayPal says order already captured, apply same reconciliation as fresh capture
       if (errorName === "UNPROCESSABLE_ENTITY" && errorDetails === "ORDER_ALREADY_CAPTURED") {
         const orderResponse = await fetch(
           `${PAYPAL_API_URL}/v2/checkout/orders/${body.paypalOrderId}`,
@@ -173,13 +173,93 @@ export async function POST(request: NextRequest) {
 
         if (orderData.status === "COMPLETED") {
           const captureId = orderData.purchase_units?.[0]?.payments?.captures?.[0]?.id
+          const capturedAmount = orderData.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.value
+          const capturedCurrency = orderData.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.currency_code
+
+          // CRITICAL: Same amount/currency reconciliation as fresh capture
+          const internalAmount = (order.totals.total.amount / 100).toFixed(2)
+          const internalCurrency = order.totals.total.currency
+
+          if (!capturedAmount || !capturedCurrency) {
+            console.error("PayPal ORDER_ALREADY_CAPTURED: Missing amount/currency", { captureId, orderData })
+            markOrderFailed(order.id, {
+              providerTransactionId: body.paypalOrderId,
+              providerStatus: "MISSING_AMOUNT_CURRENCY",
+              rawResponse: orderData,
+            })
+
+            return NextResponse.json(
+              { error: "PayPal response missing amount/currency. Cannot reconcile. Order marked failed." },
+              { status: 400 }
+            )
+          }
+
+          if (capturedAmount !== internalAmount || capturedCurrency !== internalCurrency) {
+            console.error("PayPal ORDER_ALREADY_CAPTURED: Amount mismatch", {
+              expected: { amount: internalAmount, currency: internalCurrency },
+              captured: { amount: capturedAmount, currency: capturedCurrency },
+              orderId: order.id,
+            })
+
+            markOrderFailed(order.id, {
+              providerTransactionId: body.paypalOrderId,
+              providerStatus: "AMOUNT_MISMATCH",
+              rawResponse: {
+                ...orderData,
+                reconciliation: {
+                  expected: { amount: internalAmount, currency: internalCurrency },
+                  captured: { amount: capturedAmount, currency: capturedCurrency },
+                },
+              },
+            })
+
+            return NextResponse.json(
+              { 
+                error: "Amount mismatch between PayPal and internal order. Order marked failed for manual review.",
+                reconciliation: {
+                  expected: { amount: internalAmount, currency: internalCurrency },
+                  captured: { amount: capturedAmount, currency: capturedCurrency },
+                },
+              },
+              { status: 400 }
+            )
+          }
 
           const result = markOrderPaid(order.id, {
             providerTransactionId: body.paypalOrderId,
             providerCaptureId: captureId,
             providerStatus: "COMPLETED",
-            rawResponse: orderData,
+            rawResponse: {
+              ...orderData,
+              capturedAmount,
+              capturedCurrency,
+            },
           })
+
+          // Check if internal transition succeeded
+          if (!result.success && !result.alreadyInState) {
+            console.error("PayPal ORDER_ALREADY_CAPTURED but state transition failed:", {
+              error: result.error,
+              orderId: order.id,
+              paypalOrderId: body.paypalOrderId,
+              captureId,
+            })
+
+            return NextResponse.json(
+              {
+                success: false,
+                error: "Payment was captured by PayPal but order state update failed. Requires manual reconciliation.",
+                reconciliationRequired: true,
+                captureDetails: {
+                  captureId,
+                  amount: capturedAmount,
+                  currency: capturedCurrency,
+                  paypalOrderId: body.paypalOrderId,
+                },
+              },
+              { status: 500 }
+            )
+          }
 
           return NextResponse.json({
             success: true,
