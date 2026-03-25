@@ -57,6 +57,7 @@ export default function CheckoutPage() {
     if (errorParam) {
       const errorMessages: Record<string, string> = {
         payment_failed: "Payment failed. Please try again.",
+        payment_cancelled: "Payment was cancelled. Your cart has been preserved.",
         missing_order: "Order not found. Please try again.",
         order_not_found: "Order not found. Please try again.",
         invalid_signature: "Payment verification failed. Please try again.",
@@ -138,7 +139,8 @@ export default function CheckoutPage() {
             throw new Error(captureData.error || "Payment capture failed")
           }
         } else {
-          // Redirect to PayPal
+          // Redirect to PayPal for approval
+          // PayPal will redirect back to /api/paypal/return after user approves
           window.location.href = paypalData.approvalUrl
         }
       } else if (paymentMethod === "yaad") {

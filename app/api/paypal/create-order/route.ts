@@ -131,8 +131,8 @@ export async function POST(request: NextRequest) {
         brand_name: "Boty",
         landing_page: "NO_PREFERENCE",
         user_action: "PAY_NOW",
-        return_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/thank-you?orderId=${order.id}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/checkout`,
+        return_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/paypal/return?orderId=${order.id}`,
+        cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/checkout?error=payment_cancelled`,
       },
     }
 

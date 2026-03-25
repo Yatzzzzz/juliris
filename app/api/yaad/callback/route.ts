@@ -69,6 +69,7 @@ function processYaadPayment(
 
   const status = params.get("CCode") || params.get("status")
   const transactionId = params.get("Id") || params.get("trans_id")
+  const callbackAmount = params.get("Amount") // Amount from Yaad callback
   const yaadPayload = extractYaadPayload(params)
 
   // IDEMPOTENCY CHECK: If already paid with this transaction, return success
@@ -93,6 +94,40 @@ function processYaadPayment(
   // Process based on Yaad status code
   // CCode === "0" means success in Yaad
   if (status === "0") {
+    // CRITICAL: Reconcile callback amount against internal order total
+    if (callbackAmount) {
+      // Yaad sends amount in cents, so convert internal total from cents
+      const internalAmount = (order.totals.total.amount / 100).toFixed(2)
+      const yaadAmount = (parseFloat(callbackAmount) / 100).toFixed(2)
+
+      if (yaadAmount !== internalAmount) {
+        console.error("Yaad amount mismatch", {
+          orderId: order.id,
+          expected: internalAmount,
+          received: yaadAmount,
+          transactionId,
+        })
+
+        markOrderFailed(order.id, {
+          providerTransactionId: transactionId || undefined,
+          providerStatus: "AMOUNT_MISMATCH",
+          rawResponse: {
+            ...yaadPayload,
+            reconciliation: {
+              expected: internalAmount,
+              received: yaadAmount,
+            },
+          },
+        })
+
+        return { 
+          success: false, 
+          error: `Amount mismatch: expected ${internalAmount}, received ${yaadAmount}`,
+          idempotent: false,
+        }
+      }
+    }
+
     const result = markOrderPaid(order.id, {
       providerTransactionId: transactionId || undefined,
       providerStatus: "COMPLETED",
