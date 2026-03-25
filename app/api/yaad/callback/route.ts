@@ -186,16 +186,16 @@ export async function GET(request: NextRequest) {
     if (YAAD_API_KEY) {
       signatureValid = verifyYaadSignature(searchParams, YAAD_API_KEY)
       if (!signatureValid) {
-        console.error("Yaad callback: Invalid signature", { orderId, params: Object.fromEntries(searchParams) })
-        
-        // Don't fail the order on signature mismatch from redirect
-        // The IPN will handle authoritative status
-        // But log it for investigation
-        transitionOrderStatus(order.id, "PAYMENT_FAILED", {
-          providerStatus: "SIGNATURE_INVALID",
-          signatureValid: false,
-          rawResponse: extractYaadPayload(searchParams),
+        console.warn("Yaad callback: Invalid signature on redirect", { 
+          orderId, 
+          params: Object.fromEntries(searchParams),
+          note: "IPN will be authoritative confirmation"
         })
+        
+        // Do NOT fail the order on signature mismatch from browser redirect
+        // The POST/IPN is the authoritative payment confirmation
+        // Invalid redirect signature could be tampering, but the user hasn't paid yet at this point
+        // Wait for the server-to-server IPN to confirm payment status
         
         return NextResponse.redirect(
           new URL("/checkout?error=invalid_signature", request.url)

@@ -158,13 +158,11 @@ export async function POST(request: NextRequest) {
     if (!response.ok) {
       console.error("PayPal capture error:", captureData)
 
-      // Check if it's already captured (INSTRUMENT_DECLINED or ORDER_NOT_APPROVED means different things)
       const errorName = captureData.name
       const errorDetails = captureData.details?.[0]?.issue
 
       // If PayPal says order already captured, treat as idempotent success
       if (errorName === "UNPROCESSABLE_ENTITY" && errorDetails === "ORDER_ALREADY_CAPTURED") {
-        // Order was already captured - fetch the order to confirm status
         const orderResponse = await fetch(
           `${PAYPAL_API_URL}/v2/checkout/orders/${body.paypalOrderId}`,
           {
@@ -174,7 +172,6 @@ export async function POST(request: NextRequest) {
         const orderData = await orderResponse.json()
 
         if (orderData.status === "COMPLETED") {
-          // Extract capture ID from the order
           const captureId = orderData.purchase_units?.[0]?.payments?.captures?.[0]?.id
 
           const result = markOrderPaid(order.id, {
@@ -198,15 +195,35 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // Mark internal order as failed
+      // Determine if this is a customer/payment failure or provider/API error
+      const isProviderIssue =
+        errorName === "SERVICE_UNAVAILABLE" ||
+        errorName === "INTERNAL_SERVER_ERROR" ||
+        errorName === "REQUEST_TIMEOUT" ||
+        captureData.message?.toLowerCase().includes("timeout") ||
+        captureData.message?.toLowerCase().includes("temporarily") ||
+        captureData.message?.toLowerCase().includes("service")
+
+      // Customer failures: INSTRUMENT_DECLINED, INSUFFICIENT_FUNDS, etc.
+      const isCustomerFailure =
+        errorDetails?.includes("INSTRUMENT_DECLINED") ||
+        errorDetails?.includes("INSUFFICIENT_FUNDS") ||
+        errorDetails?.includes("AUTHENTICATION_REQUIRED")
+
       markOrderFailed(order.id, {
         providerTransactionId: body.paypalOrderId,
         providerStatus: errorName || "FAILED",
+        isProviderError: isProviderIssue && !isCustomerFailure,
         rawResponse: captureData,
       })
 
       return NextResponse.json(
-        { error: "Failed to capture PayPal payment", details: captureData },
+        {
+          error: "Failed to capture PayPal payment",
+          details: captureData,
+          isProviderError: isProviderIssue && !isCustomerFailure,
+          retryable: isProviderIssue && !isCustomerFailure,
+        },
         { status: 400 }
       )
     }
@@ -214,9 +231,60 @@ export async function POST(request: NextRequest) {
     // Extract capture details
     const captureId = captureData.purchase_units?.[0]?.payments?.captures?.[0]?.id
     const captureStatus = captureData.purchase_units?.[0]?.payments?.captures?.[0]?.status
+    const capturedAmount = captureData.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.value
+    const capturedCurrency = captureData.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.currency_code
 
     // Check capture status
     if (captureData.status === "COMPLETED" && captureStatus === "COMPLETED") {
+      // CRITICAL: Reconcile captured amount and currency against internal order
+      const internalAmount = (order.totals.total.amount / 100).toFixed(2) // Convert cents to dollars
+      const internalCurrency = order.totals.total.currency
+
+      if (!capturedAmount || !capturedCurrency) {
+        console.error("PayPal capture: Missing amount/currency in response", { captureId, captureData })
+        markOrderFailed(order.id, {
+          providerTransactionId: body.paypalOrderId,
+          providerStatus: "MISSING_AMOUNT_CURRENCY",
+          rawResponse: captureData,
+        })
+
+        return NextResponse.json(
+          { error: "PayPal response missing amount/currency. Cannot reconcile. Order marked failed." },
+          { status: 400 }
+        )
+      }
+
+      if (capturedAmount !== internalAmount || capturedCurrency !== internalCurrency) {
+        console.error("PayPal capture: Amount mismatch", {
+          expected: { amount: internalAmount, currency: internalCurrency },
+          captured: { amount: capturedAmount, currency: capturedCurrency },
+          orderId: order.id,
+        })
+
+        markOrderFailed(order.id, {
+          providerTransactionId: body.paypalOrderId,
+          providerStatus: "AMOUNT_MISMATCH",
+          rawResponse: {
+            ...captureData,
+            reconciliation: {
+              expected: { amount: internalAmount, currency: internalCurrency },
+              captured: { amount: capturedAmount, currency: capturedCurrency },
+            },
+          },
+        })
+
+        return NextResponse.json(
+          { 
+            error: "Amount mismatch between PayPal and internal order. Order marked failed for manual review.",
+            reconciliation: {
+              expected: { amount: internalAmount, currency: internalCurrency },
+              captured: { amount: capturedAmount, currency: capturedCurrency },
+            },
+          },
+          { status: 400 }
+        )
+      }
+
       // Mark internal order as paid through state machine
       const result = markOrderPaid(order.id, {
         providerTransactionId: body.paypalOrderId,
@@ -231,13 +299,35 @@ export async function POST(request: NextRequest) {
           payerId: captureData.payer?.payer_id,
           createTime: captureData.create_time,
           updateTime: captureData.update_time,
+          capturedAmount,
+          capturedCurrency,
         },
       })
 
-      if (!result.success) {
-        // State transition failed but PayPal captured - this shouldn't happen
-        // Log for investigation but return success since money was captured
-        console.error("PayPal captured but state transition failed:", result.error)
+      // Check if internal transition succeeded
+      if (!result.success && !result.alreadyInState) {
+        // PayPal captured money but state transition failed - this is a critical issue
+        console.error("PayPal captured but state transition failed:", {
+          error: result.error,
+          orderId: order.id,
+          paypalOrderId: body.paypalOrderId,
+          captureId,
+        })
+
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Payment captured by PayPal but order state update failed. Requires manual reconciliation.",
+            reconciliationRequired: true,
+            captureDetails: {
+              captureId,
+              amount: capturedAmount,
+              currency: capturedCurrency,
+              paypalOrderId: body.paypalOrderId,
+            },
+          },
+          { status: 500 }
+        )
       }
 
       return NextResponse.json({
@@ -252,14 +342,26 @@ export async function POST(request: NextRequest) {
       })
     } else {
       // Payment not completed (PENDING, DECLINED, etc.)
+      // Determine if this is a customer failure or provider error
+      const isProviderIssue =
+        captureData.status === "PENDING" ||
+        captureStatus?.includes("PENDING") ||
+        captureData.message?.toLowerCase().includes("timeout") ||
+        captureData.message?.toLowerCase().includes("service")
+
       markOrderFailed(order.id, {
         providerTransactionId: body.paypalOrderId,
         providerStatus: captureData.status,
+        isProviderError: isProviderIssue,
         rawResponse: captureData,
       })
 
       return NextResponse.json(
-        { error: `Payment not completed. Status: ${captureData.status}` },
+        { 
+          error: `Payment not completed. Status: ${captureData.status}`,
+          isProviderIssue,
+          retryable: isProviderIssue,
+        },
         { status: 400 }
       )
     }

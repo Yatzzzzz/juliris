@@ -22,8 +22,9 @@ import { getCouponDiscount, incrementCouponUsage } from "./coupons"
 const orders: Map<string, Order> = new Map()
 
 /**
- * Track processed provider transaction IDs to prevent double-capture.
- * Map of providerTransactionId -> orderId
+ * Track processed provider captures to prevent double-capture.
+ * Map of providerCaptureId -> orderId
+ * Note: This uses the actual capture ID from the provider, not the order ID.
  */
 const processedCaptures: Map<string, string> = new Map()
 
@@ -204,30 +205,34 @@ export function transitionOrderStatus(
     }
   }
 
-  // Double-capture protection: check if this provider transaction was already processed
-  if (event === "PAYMENT_CAPTURED" && payload.providerTransactionId) {
-    const existingOrderId = processedCaptures.get(payload.providerTransactionId)
-    if (existingOrderId) {
-      if (existingOrderId === orderId) {
-        // Same order, same transaction - idempotent
-        return {
-          success: true,
-          order,
-          error: null,
-          alreadyInState: true,
-        }
-      } else {
-        // Different order trying to use same capture - fraud attempt
-        return {
-          success: false,
-          order,
-          error: "This payment was already applied to a different order.",
-          alreadyInState: false,
+  // Double-capture protection: check if this capture was already processed.
+  // Use providerCaptureId if available (most reliable), fall back to providerTransactionId.
+  if (event === "PAYMENT_CAPTURED") {
+    const captureKey = payload.providerCaptureId || payload.providerTransactionId
+    if (captureKey) {
+      const existingOrderId = processedCaptures.get(captureKey)
+      if (existingOrderId) {
+        if (existingOrderId === orderId) {
+          // Same order, same capture - idempotent
+          return {
+            success: true,
+            order,
+            error: null,
+            alreadyInState: true,
+          }
+        } else {
+          // Different order trying to use same capture - fraud attempt
+          return {
+            success: false,
+            order,
+            error: "This payment was already applied to a different order.",
+            alreadyInState: false,
+          }
         }
       }
+      // Mark this capture as processed
+      processedCaptures.set(captureKey, orderId)
     }
-    // Mark this capture as processed
-    processedCaptures.set(payload.providerTransactionId, orderId)
   }
 
   // Perform the transition
@@ -358,16 +363,45 @@ export function markOrderPaid(
 }
 
 /**
- * Mark an order as failed.
+ * Mark an order as failed, distinguishing between customer/payment failures
+ * and provider/API failures.
  */
 export function markOrderFailed(
   orderId: string,
   payload: {
     providerTransactionId?: string
     providerStatus?: string
+    isProviderError?: boolean
     rawResponse?: Record<string, unknown>
   } = {}
 ): TransitionResult {
+  // Only transition to PAYMENT_FAILED if it's a customer/payment issue
+  // Provider/API errors should be logged but not transition the order state
+  if (payload.isProviderError) {
+    const order = orders.get(orderId)
+    if (order) {
+      // Log to audit trail without transitioning
+      const paymentEvent = createPaymentEvent(
+        "PAYMENT_FAILED",
+        order.paymentProvider,
+        {
+          providerTransactionId: payload.providerTransactionId,
+          providerStatus: `PROVIDER_ERROR_${payload.providerStatus}`,
+          rawResponse: payload.rawResponse,
+          metadata: { isProviderError: true, requiresRetry: true },
+        }
+      )
+      order.paymentEvents.push(paymentEvent)
+      order.updatedAt = new Date().toISOString()
+      return {
+        success: true,
+        order,
+        error: null,
+        alreadyInState: false,
+      }
+    }
+  }
+
   return transitionOrderStatus(orderId, "PAYMENT_FAILED", {
     providerTransactionId: payload.providerTransactionId,
     providerStatus: payload.providerStatus ?? "FAILED",
