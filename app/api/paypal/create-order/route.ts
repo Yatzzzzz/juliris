@@ -66,8 +66,15 @@ export async function POST(request: NextRequest) {
       // Return mock response for development
       const mockPayPalOrderId = `PAYPAL-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
       
-      // Attach mock PayPal ID to order
-      attachPaymentProviderId(order.id, mockPayPalOrderId)
+      // Attach mock PayPal ID to order (transitions to payment_processing)
+      const result = attachPaymentProviderId(order.id, mockPayPalOrderId)
+      
+      if (!result.success && !result.alreadyInState) {
+        return NextResponse.json(
+          { error: result.error || "Failed to initiate payment" },
+          { status: 400 }
+        )
+      }
 
       return NextResponse.json({
         success: true,
@@ -124,16 +131,21 @@ export async function POST(request: NextRequest) {
         brand_name: "Boty",
         landing_page: "NO_PREFERENCE",
         user_action: "PAY_NOW",
-        return_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/thank-you?orderId=${order.id}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/checkout`,
+        return_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/paypal/return?orderId=${order.id}`,
+        cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/checkout?error=payment_cancelled`,
       },
     }
+
+    // Use internal order ID as idempotency key to prevent duplicate PayPal orders
+    // If this request is retried, PayPal returns the same order instead of creating a new one
+    const idempotencyKey = `create-${order.id}`
 
     const response = await fetch(`${PAYPAL_API_URL}/v2/checkout/orders`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
+        "PayPal-Request-Id": idempotencyKey,
       },
       body: JSON.stringify(paypalOrder),
     })
@@ -146,8 +158,13 @@ export async function POST(request: NextRequest) {
 
     const paypalResponse = await response.json()
 
-    // Attach PayPal order ID to internal order
-    attachPaymentProviderId(order.id, paypalResponse.id)
+    // Attach PayPal order ID to internal order (transitions to payment_processing)
+    const attachResult = attachPaymentProviderId(order.id, paypalResponse.id)
+    
+    if (!attachResult.success && !attachResult.alreadyInState) {
+      console.error("Failed to attach PayPal order ID:", attachResult.error)
+      // Continue anyway since PayPal order was created successfully
+    }
 
     // Find approval URL
     const approvalUrl = paypalResponse.links?.find(
