@@ -1,70 +1,75 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden" style={{ backgroundColor: '#e3e1e2' }}>
+    <section
+      dir="rtl"
+      className="relative min-h-screen flex items-center overflow-hidden"
+      style={{ backgroundColor: "#ffffff" }}
+    >
       {/* Background Video */}
-      <div className="border-b border-border/50 p-6 py-2" style={{ backgroundColor: '#e3e1e2' }}>
+      <div className="absolute inset-0 overflow-hidden">
         <video
+          className="h-full w-full object-cover"
           autoPlay
           muted
           loop
           playsInline
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            minWidth: '100%',
-            minHeight: '100%',
-            width: 'auto',
-            height: 'auto',
-            objectFit: 'cover'
-          }}
+          preload="auto"
         >
-          <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/f3d8cad2-8091-4809-aac0-eaac74b0be7c-Z4XUCz3CRR7qjaOsoq6rFmbJfIRdgs.mp4" type="video/mp4" />
+          <source
+            src="https://juliris.com/upload/download2.mp4"
+            type="video/mp4"
+          />
+          הדפדפן שלך אינו תומך בוידאו.
         </video>
-        {/* Bottom fade gradient */}
-        <div className="absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t from-background via-background/50 to-transparent" />
+
+        {/* Subtle overlay to keep text readable */}
+        <div className="absolute inset-0 bg-white/20 z-0" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 w-full pt-20 mr-14 lg:mr-0">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="w-full lg:max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
-            <span className="text-sm uppercase mb-6 block text-black animate-blur-in opacity-0 tracking-normal" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
-              Natural Skincare
-            </span>
-            <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6 text-balance text-black">
-              <span className="block animate-blur-in opacity-0 font-semibold" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>Glow gently.</span>
-              <span className="block animate-blur-in opacity-0 font-semibold xl:text-9xl text-7xl" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>Naturally you.</span>
-            </h2>
-            <p className="text-lg leading-relaxed mb-10 max-w-md mx-auto lg:mx-0 text-black animate-blur-in opacity-0" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
-              Discover skincare that breathes with you. Pure ingredients, gentle rituals, radiant results.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-blur-in opacity-0" style={{ animationDelay: '1s', animationFillMode: 'forwards' }}>
-              <Link
-                href="/shop"
-                className="group inline-flex items-center justify-center gap-3 bg-primary text-primary-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-primary/90 boty-shadow"
-              >
-                Shop Now
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 boty-transition" />
-              </Link>
+      <div className="relative z-10 w-full pt-32 pb-16 md:pt-40 lg:pt-28">
+        <div className="max-w-5xl mx-auto px-6 lg:px-10">
+          <div className="text-center md:text-right">
+            {/* JULIRIS BOUTIQUE */}
+            <div className="font-sans-custom text-[10px] md:text-[12px] tracking-[0.25em] uppercase mb-4 md:mb-6 text-foreground/60">
+              JULIRIS BOUTIQUE
             </div>
+
+            {/* עדינים, נוכחים */}
+            <div className="font-serif-custom text-[24px] md:text-[40px] lg:text-[48px] mb-2 md:mb-4">
+              עדינים, נוכחים
+            </div>
+
+            {/* תכשיטים */}
+            <div className="font-accent-custom leading-none text-[56px] md:text-[96px] lg:text-[128px] text-foreground">
+              תכשיטים
+            </div>
+
+            {/* נצחיים */}
+            <div className="font-accent-custom leading-none text-[48px] md:text-[80px] lg:text-[108px] mb-6 md:mb-10 text-foreground">
+              נצחיים
+            </div>
+
+            {/* טקסט */}
+            <p className="font-sans-custom text-[13px] md:text-[16px] leading-relaxed max-w-lg mx-auto md:mr-0 md:ml-auto mb-10 text-neutral-800">
+              עיצוב מוקפד, חומרים היפו-אלרגניים, ונוכחות אלגנטית שמרגישה טבעית
+              מהרגע הראשון ועד סוף היום.
+            </p>
+
+            <Link
+              href="/shop"
+              className="font-sans-custom inline-flex items-center justify-center gap-3 bg-primary text-primary-foreground px-10 py-4 md:py-3 rounded-full text-[13px] font-medium tracking-wide boty-transition hover:scale-105 boty-shadow"
+            >
+              לצפייה בקולקציה
+              <ArrowLeft className="w-4 h-4 ml-1" />
+            </Link>
           </div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-black">
-        <span className="text-xs tracking-widest uppercase font-bold">Scroll</span>
-        <div className="w-px h-12 bg-foreground/20 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1/2 bg-foreground/60 animate-pulse" />
-        </div>
-      </div>
     </section>
-  )
+  );
 }

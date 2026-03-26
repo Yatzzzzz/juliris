@@ -5,23 +5,23 @@ import { Instagram, Facebook, Twitter } from "lucide-react"
 
 const footerLinks = {
   shop: [
-    { name: "All Products", href: "/shop" },
-    { name: "Serums", href: "/shop?category=serums" },
-    { name: "Moisturizers", href: "/shop?category=moisturizers" },
-    { name: "Cleansers", href: "/shop?category=cleansers" },
-    { name: "Gift Sets", href: "/shop" }
+    { name: "כל המוצרים", href: "/shop" },
+    { name: "טבעות  ", href: "/shop?category=rings" },
+    { name: "עגילים", href: "/shop?category=earrings" },
+    { name: "שרשראות", href: "/shop?category=necklaces" },
+    { name: "צמידים", href: "/shop?category=bracelets" }
   ],
   about: [
-    { name: "Our Story", href: "/about" },
-    { name: "Ingredients", href: "/about#values" },
-    { name: "Sustainability", href: "/about#values" },
-    { name: "Press", href: "/contact" }
+    { name: "הסיפור שלנו", href: "/about" },
+    { name: "המרכיבים שלנו", href: "/about#values" },
+    { name: "קיימות", href: "/about#values" },
+    { name: "תקשורת", href: "/contact" }
   ],
   support: [
-    { name: "Contact Us", href: "/contact" },
-    { name: "FAQ", href: "/faq" },
-    { name: "Shipping", href: "/shipping-returns" },
-    { name: "Returns", href: "/shipping-returns#returns" }
+    { name: "צור קשר", href: "/contact" },
+    { name: "שאלות נפוצות", href: "/faq" },
+    { name: "משלוחים", href: "/shipping-returns" },
+    { name: "החזרות", href: "/shipping-returns#returns" }
   ]
 }
 
@@ -31,7 +31,7 @@ export function Footer() {
       {/* Giant Background Text */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none select-none z-0">
         <span className="font-serif text-[200px] sm:text-[200px] md:text-[400px] lg:text-[400px] xl:text-[400px] font-bold text-white/20 whitespace-nowrap leading-none">
-          Boty
+          Juliris
         </span>
       </div>
       
@@ -39,9 +39,9 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <h2 className="font-serif text-3xl text-foreground mb-4">Boty</h2>
+            <h2 className="font-serif text-3xl text-foreground mb-4">Juliris</h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-              Natural skincare for those who believe beauty should feel as good as it looks.
+              תכשיטים היפואלרגניים שלא מורידים ושומרים על ברק וצבע למשך שנים.
             </p>
             <div className="flex gap-4">
               <a
@@ -76,7 +76,7 @@ export function Footer() {
 
           {/* Shop Links */}
           <div>
-            <h3 className="font-medium text-foreground mb-4">Shop</h3>
+            <h3 className="font-medium text-foreground mb-4">חנות</h3>
             <ul className="space-y-3">
               {footerLinks.shop.map((link) => (
                 <li key={link.name}>
@@ -93,7 +93,7 @@ export function Footer() {
 
           {/* About Links */}
           <div>
-            <h3 className="font-medium text-foreground mb-4">About</h3>
+            <h3 className="font-medium text-foreground mb-4">אודות</h3>
             <ul className="space-y-3">
               {footerLinks.about.map((link) => (
                 <li key={link.name}>
@@ -110,7 +110,7 @@ export function Footer() {
 
           {/* Support Links */}
           <div>
-            <h3 className="font-medium text-foreground mb-4">Support</h3>
+            <h3 className="font-medium text-foreground mb-4">שירות לקוחות</h3>
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
@@ -130,18 +130,20 @@ export function Footer() {
         <div className="pt-10 border-t border-border/50">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Boty. All rights reserved.
+              © {new Date().getFullYear()} Juliris. כל הזכויות שמורות 2026.
             </p>
             <div className="flex gap-6">
               <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
-                Privacy Policy
+                מדיניות פרטיות
               </Link>
               <Link href="/shipping-returns" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
-                Terms of Service
+                תנאי שימוש
               </Link>
+              <Link href="https://dorontishray.com" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
+עיצוב אתר וקידום אורגני על ידי דורון תשרי </Link>
             </div>
           </div>
-        </div>
+        </div>  
       </div>
     </footer>
   )

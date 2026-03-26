@@ -167,7 +167,7 @@ function generateId(prefix: string): string {
 function generateOrderNumber(): string {
   const timestamp = Date.now().toString(36).toUpperCase()
   const random = Math.random().toString(36).substring(2, 6).toUpperCase()
-  return `BOTY-${timestamp}-${random}`
+  return `JLR-${timestamp}-${random}`
 }
 
 /**
@@ -399,11 +399,11 @@ export function createPendingOrder(
     shippingMethodId: input.shippingMethodId,
     promoCode: input.promoCode,
     totals: {
-      subtotal: { amount: pricing.subtotal, currency: "USD" },
-      discount: { amount: pricing.discount, currency: "USD" },
-      shipping: { amount: pricing.shipping, currency: "USD" },
-      tax: { amount: pricing.tax, currency: "USD" },
-      total: { amount: pricing.total, currency: "USD" },
+      subtotal: { amount: pricing.subtotal, currency: "ILS" },
+      discount: { amount: pricing.discount, currency: "ILS" },
+      shipping: { amount: pricing.shipping, currency: "ILS" },
+      tax: { amount: pricing.tax, currency: "ILS" },
+      total: { amount: pricing.total, currency: "ILS" },
     },
     createdAt: now,
     updatedAt: now,

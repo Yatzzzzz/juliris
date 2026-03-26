@@ -3,16 +3,16 @@
 import { useState, useEffect, useRef, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ShoppingBag } from "lucide-react"
+import { ShoppingBag, Heart } from "lucide-react"
 import { useCart } from "./cart-context"
-import { getFeaturedProducts, getProductsByCategory, getAllCategories } from "@/lib/catalog"
+import { getProductsByCategory } from "@/lib/catalog"
 import type { ProductListItem } from "@/types/catalog"
 import { formatMoney } from "@/lib/pricing"
 
-type CategorySlug = "all" | "serums" | "moisturizers" | "cleansers" | "oils" | "masks" | "toners"
+type CategorySlug = "rings" | "necklaces" | "earrings" | "bracelets"
 
 export function ProductGrid() {
-  const [selectedCategory, setSelectedCategory] = useState<CategorySlug>("serums")
+  const [selectedCategory, setSelectedCategory] = useState<CategorySlug>("rings")
   const [isVisible, setIsVisible] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(false)
@@ -20,20 +20,16 @@ export function ProductGrid() {
   const headerRef = useRef<HTMLDivElement>(null)
   const { addItem } = useCart()
 
-  // Load categories from catalog
-  const categories = useMemo(() => {
-    const catalogCategories = getAllCategories()
-    return catalogCategories.slice(0, 3).map((c) => ({
-      value: c.slug as CategorySlug,
-      label: c.name,
-    }))
-  }, [])
+  // Reverted to 4 primary jewelry categories
+  const categories: { value: CategorySlug; label: string }[] = [
+    { value: "rings", label: "טבעות" },
+    { value: "necklaces", label: "שרשראות" },
+    { value: "earrings", label: "עגילים" },
+    { value: "bracelets", label: "צמידים" },
+  ]
 
   // Load products from catalog based on selected category
   const filteredProducts = useMemo(() => {
-    if (selectedCategory === "all") {
-      return getFeaturedProducts(8)
-    }
     return getProductsByCategory(selectedCategory).slice(0, 4)
   }, [selectedCategory])
 
@@ -49,14 +45,7 @@ export function ProductGrid() {
     }
   }
 
-  // Preload all product images on mount
-  useEffect(() => {
-    filteredProducts.forEach((product) => {
-      const img = new window.Image()
-      img.src = product.image
-    })
-  }, [filteredProducts])
-
+  // Restored visibility logic (IntersectionObserver)
   useEffect(() => {
     const gridObserver = new IntersectionObserver(
       ([entry]) => {
@@ -76,21 +65,12 @@ export function ProductGrid() {
       { threshold: 0.1 }
     )
 
-    if (gridRef.current) {
-      gridObserver.observe(gridRef.current)
-    }
-
-    if (headerRef.current) {
-      headerObserver.observe(headerRef.current)
-    }
+    if (gridRef.current) gridObserver.observe(gridRef.current)
+    if (headerRef.current) headerObserver.observe(headerRef.current)
 
     return () => {
-      if (gridRef.current) {
-        gridObserver.unobserve(gridRef.current)
-      }
-      if (headerRef.current) {
-        headerObserver.unobserve(headerRef.current)
-      }
+      if (gridRef.current) gridObserver.unobserve(gridRef.current)
+      if (headerRef.current) headerObserver.unobserve(headerRef.current)
     }
   }, [])
 
@@ -107,35 +87,33 @@ export function ProductGrid() {
     })
   }
 
+  const selectedIndex = categories.findIndex((c) => c.value === selectedCategory)
+
   return (
     <section className="py-24 bg-card">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div ref={headerRef} className="text-center mb-16">
-          <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
-            Our Collection
+        <div ref={headerRef} className="text-center mb-16" dir="rtl">
+          <span className={`font-sans-custom text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
+            הקולקציות שלנו
           </span>
-          <h2 className={`font-serif leading-tight text-foreground mb-4 text-balance text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
-            Gentle essentials
+          <h2 className={`font-serif-custom leading-tight text-foreground mb-4 text-balance text-6xl md:text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
+            עדינות וסטייל
           </h2>
-          <p className={`text-lg text-muted-foreground max-w-md mx-auto ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.6s', animationFillMode: 'forwards' } : {}}>
-            Thoughtfully crafted products for your daily skincare ritual
+          <p className={`font-sans-custom text-lg text-muted-foreground max-w-md mx-auto ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.6s', animationFillMode: 'forwards' } : {}}>
+            תכשיטים מעוצבים שנועדו להיות חלק מהיומיום שלך
           </p>
         </div>
 
         {/* Segmented Control */}
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex bg-background rounded-full p-1 gap-1 relative">
-            {/* Animated background slide */}
+        <div className="flex justify-center mb-12" dir="rtl">
+          <div className="inline-flex bg-background rounded-full p-1.5 gap-0 relative boty-shadow border border-primary/10 w-full max-w-[600px]">
+            {/* Animated background slide - Proportional for 4 items (25% each) */}
             <div
-              className="absolute top-1 bottom-1 bg-foreground rounded-full transition-all duration-300 ease-out shadow-sm"
+              className="absolute top-1.5 bottom-1.5 bg-primary/10 rounded-full transition-all duration-300 ease-out"
               style={{
-                left: categories.findIndex((c) => c.value === selectedCategory) === 0 
-                  ? '4px' 
-                  : categories.findIndex((c) => c.value === selectedCategory) === 1 
-                  ? 'calc(33.333% + 2px)' 
-                  : 'calc(66.666%)',
-                width: 'calc(33.333% - 4px)'
+                right: `calc(${(selectedIndex / categories.length) * 100}% + 6px)`,
+                width: `calc(${100 / categories.length}% - 12px)`,
               }}
             />
             {categories.map((category) => (
@@ -143,9 +121,9 @@ export function ProductGrid() {
                 key={category.value}
                 type="button"
                 onClick={() => handleCategoryChange(category.value)}
-                className={`relative z-10 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`relative z-10 flex-1 px-4 py-2.5 md:py-3 rounded-full text-xs md:text-sm font-sans-custom font-medium transition-all duration-300 whitespace-nowrap ${
                   selectedCategory === category.value
-                    ? "text-background"
+                    ? "text-primary scale-105"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -181,36 +159,52 @@ export function ProductGrid() {
                   {/* Badge */}
                   {product.badge && (
                     <span
-                      className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs tracking-wide bg-white text-black ${
-                        product.badge === "Sale"
+                      className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs tracking-wide ${
+                        product.badge === "Sale" || product.badge === "מבצע"
                           ? "bg-destructive/10 text-destructive"
-                          : product.badge === "New"
+                          : product.badge === "New" || product.badge === "חדש"
                           ? "bg-primary/10 text-primary"
                           : "bg-accent text-accent-foreground"
                       }`}
                     >
-                      {product.badge}
+                      {product.badge === "Sale" ? "מבצע" : product.badge === "New" ? "חדש" : product.badge}
                     </span>
                   )}
-                  {/* Quick add button */}
-                  <button
-                    type="button"
-                    className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 boty-transition boty-shadow"
-                    onClick={(e) => handleAddToCart(product, e)}
-                    aria-label="Add to cart"
-                  >
-                    <ShoppingBag className="w-4 h-4 text-foreground" />
-                  </button>
+                  {/* Interaction buttons */}
+                  <div className="absolute bottom-4 right-4 flex flex-col gap-2">
+                    {/* Quick add button */}
+                    <button
+                      type="button"
+                      className="w-10 h-10 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center opacity-100 md:opacity-0 md:translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 boty-transition boty-shadow"
+                      onClick={(e) => handleAddToCart(product, e)}
+                      aria-label="הוספה לסל"
+                    >
+                      <ShoppingBag className="w-4 h-4 text-foreground" />
+                    </button>
+                    {/* Wishlist button */}
+                    <button
+                      type="button"
+                      className="w-10 h-10 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center opacity-100 md:opacity-0 md:translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 boty-transition boty-shadow"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        // Wishlist logic would go here
+                      }}
+                      aria-label="הוספה למועדפים"
+                    >
+                      <Heart className="w-4 h-4 text-foreground" />
+                    </button>
+                  </div>
                 </div>
 
                 {/* Info */}
-                <div className="p-5">
-                  <h3 className="font-serif text-lg text-foreground mb-1">{product.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-3">{product.description}</p>
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium text-foreground">{formatMoney(product.price)}</span>
+                <div className="p-5 text-right" dir="rtl">
+                  <h3 className="font-serif-custom text-lg text-foreground mb-1">{product.name}</h3>
+                  <p className="font-sans-custom text-sm text-muted-foreground mb-3">{product.description}</p>
+                  <div className="flex items-center gap-2 justify-start">
+                    <span className="font-sans-custom font-medium text-foreground">{formatMoney(product.price)}</span>
                     {product.originalPrice && (
-                      <span className="text-sm text-muted-foreground line-through">
+                      <span className="font-sans-custom text-sm text-muted-foreground line-through">
                         {formatMoney(product.originalPrice)}
                       </span>
                     )}
@@ -225,9 +219,9 @@ export function ProductGrid() {
         <div className="text-center mt-12">
           <Link
             href="/shop"
-            className="inline-flex items-center justify-center gap-2 bg-transparent border border-foreground/20 text-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-foreground/5"
+            className="font-sans-custom inline-flex items-center justify-center gap-2 bg-transparent border border-foreground/20 text-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-foreground/5"
           >
-            View All Products
+            לכל התכשיטים
           </Link>
         </div>
       </div>

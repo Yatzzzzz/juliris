@@ -6,75 +6,75 @@ import { Star } from "lucide-react"
 const testimonials = [
   {
     id: 1,
-    name: "Sarah M.",
-    location: "New York",
+    name: "שירה מ.",
+    location: "תל אביב",
     rating: 5,
-    text: "My skin has never felt so soft and nourished. The Radiance Serum is now a permanent part of my morning routine.",
-    product: "Radiance Serum"
+    text: "התכשיטים פשוט מדהימים. השרשרת החדשה שלי לא יורדת ממני, והיא נראית כמו חדשה גם אחרי מקלחת.",
+    product: "שרשרת לוסיה"
   },
   {
     id: 2,
-    name: "Emma L.",
-    location: "Los Angeles",
+    name: "עדי ל.",
+    location: "חיפה",
     rating: 5,
-    text: "Finally, skincare that actually feels natural. No more harsh chemicals. My sensitive skin loves Boty products.",
-    product: "Gentle Cleanser"
+    text: "חיפשתי הרבה זמן תכשיטים שלא עושים לי פריחה, והנה מצאתי. האיכות פשוט מעולה והעיצובים מהממים.",
+    product: "עגילי מון"
   },
   {
     id: 3,
-    name: "Jessica R.",
-    location: "Chicago",
+    name: "יעל ר.",
+    location: "ירושלים",
     rating: 5,
-    text: "The Hydra Cream is absolutely divine. It absorbs beautifully and keeps my skin hydrated all day long.",
-    product: "Hydra Cream"
+    text: "הטבעת הגיעה באריזה יפהפייה ויוקרתית. שירות לקוחות מעולה ומשלוח סופר מהיר. ממליצה בחום!",
+    product: "טבעת בר"
   },
   {
     id: 4,
-    name: "Maria K.",
-    location: "Miami",
+    name: "מיכל כ.",
+    location: "ראשון לציון",
     rating: 5,
-    text: "I've tried countless serums but nothing compares to the glow I get from Boty. Absolutely transformative.",
-    product: "Glow Serum"
+    text: "העיצוב המינימליסטי פשוט מושלם. זה בדיוק מה שחיפשתי - משהו עדין אבל עם נוכחות.",
+    product: "שרשרת אנה"
   },
   {
     id: 5,
-    name: "Sophie T.",
-    location: "Seattle",
+    name: "דנה ט.",
+    location: "באר שבע",
     rating: 5,
-    text: "The packaging is beautiful and sustainable. I feel good knowing I'm choosing eco-friendly skincare.",
-    product: "Night Cream"
+    text: "אני מתרחצת עם העגילים האלו כבר חודשיים והצבע לא השתנה בכלל. איכות מטורפת!",
+    product: "עגילי סטייטמנט"
   },
   {
     id: 6,
-    name: "Anna P.",
-    location: "Boston",
+    name: "נועה פ.",
+    location: "רמת גן",
     rating: 5,
-    text: "My acne-prone skin has cleared up since switching to Boty. Natural ingredients really make a difference.",
-    product: "Gentle Cleanser"
+    text: "קיבלתי כל כך הרבה מחמאות על השרשרת. היא משדרגת כל הופעה, גם הכי פשוטה שיש.",
+    product: "שרשרת אור"
   },
   {
     id: 7,
-    name: "Claire B.",
-    location: "Austin",
+    name: "חן ב.",
+    location: "נתניה",
     rating: 5,
-    text: "The texture of the Renewal Oil is perfection. It absorbs quickly and leaves my skin glowing.",
-    product: "Renewal Oil"
+    text: "השילוב של הזהב והאבנים פשוט מושלם. התכשיט מרגיש יוקרתי וכבד במידה הנכונה.",
+    product: "טבעת טרילוגיה"
   },
   {
     id: 8,
-    name: "Lily W.",
-    location: "Portland",
+    name: "עמית ו.",
+    location: "רעננה",
     rating: 5,
-    text: "I love that Boty is cruelty-free and vegan. Great products that align with my values.",
-    product: "Hydra Cream"
+    text: "חיפשתי מתנה לחברה והיא פשוט עפה על זה. האריזה הייתה כל כך יפה שלא הייתי צריכה להוסיף כלום.",
+    product: "שרשרת לב"
   },
   {
     id: 9,
-    name: "Rachel D.",
-    location: "Denver",
+    name: "רוני ד.",
+    location: "הרצליה",
     rating: 5,
-    text: "The scent is so subtle and natural. No overpowering fragrances, just pure botanical goodness.",
-    product: "Radiance Serum"
+    text: "הטבעות הפתוחות הן פתרון גאוני. קניתי אחת כמתנה ולא הייתי צריכה לדאוג לגבי המידה.",
+    product: "טבעת וייב"
   }
 ]
 
@@ -138,12 +138,12 @@ export function Testimonials() {
     <section className="py-24 bg-background overflow-hidden pb-24 pt-12">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div ref={headerRef} className="text-center mb-16">
+        <div ref={headerRef} className="text-center mb-16" dir="rtl">
           <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
-            Kind Words
+            מה שאתן אומרות
           </span>
-          <h2 className={`font-serif text-4xl leading-tight text-foreground text-balance md:text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
-            Loved by thousands
+          <h2 className={`font-serif-custom text-4xl leading-tight text-foreground text-balance md:text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
+            אהוב על ידי אלפים
           </h2>
         </div>
 

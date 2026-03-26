@@ -1,0 +1,33 @@
+[
+  {
+    "slug": "",
+    "status": "published",
+    "collectionLabel": "Juliris Collection",
+    "name": "עגילי אדווה ",
+    "subtitle": "אלגנטיים, איכותיים, על-זמניים",
+    "showReviews": true,
+    "reviewCount": 4,
+    "starRating": 4.5,
+    "shortDescription": "עגילי סלוודור",
+    "regularPrice": 20000,
+    "salePrice": null,
+    "variantType": "color",
+    "variantCustomLabel": "",
+    "variantOptions": [
+      "6",
+      "7",
+      "8",
+      "זהב",
+      "כסף"
+    ],
+    "details": "עגילי סטיינלס סטיל ייוחודיים  - בעלי צורה מסולסלת ייחודי, קלים לענידה על באוזן",
+    "howToUse": "מתאים לאירועים רשמיים, \nהתאמה מושלמת לשיק ערב קלאסי ",
+    "ingredients": "סטטיינלס-סטיל 316 היפואלרגני, ",
+    "imageUrl": "blob:http://localhost:3000/b954d312-c521-4a15-8c49-959e7f802de8",
+    "imageAlt": "category 1.png",
+    "ijewelModelId": "",
+    "id": "prod_1774462041346_5ut2j",
+    "createdAt": "2026-03-25T18:07:21.346Z",
+    "updatedAt": "2026-03-25T18:07:21.346Z"
+  }
+]

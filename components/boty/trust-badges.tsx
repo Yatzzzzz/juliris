@@ -6,23 +6,23 @@ import { Leaf, Droplets, Sparkles, Flower2 } from "lucide-react"
 const badges = [
   {
     icon: Leaf,
-    title: "Organic Certified",
-    description: "100% organic ingredients"
+    title: "עמידות למים",
+    description: "מתאים לים, לבריכה ולמקלחת וללא חשש מהשחרה"
   },
   {
     icon: Droplets,
-    title: "Natural Extracts",
-    description: "Pure botanical formulas"
+    title: "היפואלרגני",
+    description: "בטוח לעור רגיש, ללא ניקל או חומרים מגירים"
   },
   {
     icon: Sparkles,
-    title: "Clean Beauty",
-    description: "No toxic chemicals"
+    title: "איכות פרימיום",
+    description: "סטיינלס סטיל בציפוי זהב 18K עמיד"
   },
   {
     icon: Flower2,
-    title: "Vegan Formula",
-    description: "Plant-powered skincare"
+    title: "משלוח מהיר",
+    description: "משלוחים לכל הארץ תוך 3-5 ימי עסקים"
   }
 ]
 
@@ -69,8 +69,8 @@ export function TrustBadges() {
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               <badge.icon className="text-primary mb-4 mx-auto size-12" strokeWidth={1} />
-              <h3 className="font-serif text-foreground mb-2 text-2xl">{badge.title}</h3>
-              <p className="text-sm text-muted-foreground">{badge.description}</p>
+              <h3 className="font-serif-custom text-foreground mb-2 text-2xl">{badge.title}</h3>
+              <p className="font-sans-custom text-sm text-muted-foreground">{badge.description}</p>
             </div>
           ))}
         </div>

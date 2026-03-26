@@ -3,20 +3,21 @@
 import { useState, useEffect, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useParams, notFound } from "next/navigation"
-import { ChevronLeft, Minus, Plus, ChevronDown, Leaf, Heart, Award, Recycle, Star, Check } from "lucide-react"
+import { useParams } from "next/navigation"
+import { ChevronRight, Minus, Plus, ChevronDown, Leaf, Heart, Award, Sparkles, Star, Check } from "lucide-react"
 import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
 import { useCart } from "@/components/boty/cart-context"
 import { getProductBySlug } from "@/lib/catalog"
 import { formatMoney } from "@/lib/pricing"
 import type { Product } from "@/types/catalog"
+import JewelryViewer from "@/components/JewelryViewer"
 
 const benefits = [
-  { icon: Leaf, label: "100% Natural" },
-  { icon: Heart, label: "Cruelty-Free" },
-  { icon: Recycle, label: "Eco-Friendly" },
-  { icon: Award, label: "Expert Approved" }
+  { icon: Leaf, label: "מתאים לעור רגיש" },
+  { icon: Heart, label: "נוח לענידה" },
+  { icon: Sparkles, label: "עיצוב אלגנטי" },
+  { icon: Award, label: "אהוב על לקוחות" }
 ]
 
 type AccordionSection = "details" | "howToUse" | "ingredients" | "delivery"
@@ -38,26 +39,24 @@ export default function ProductPage() {
     window.scrollTo(0, 0)
   }, [productSlug])
 
-  // Reset variant selection when product changes
   useEffect(() => {
     setSelectedVariant(0)
     setQuantity(1)
   }, [productSlug])
 
   if (!product) {
-    // Return a fallback UI instead of calling notFound() in client component
     return (
       <main className="min-h-screen">
         <Header />
         <div className="pt-28 pb-20">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-            <h1 className="font-serif text-4xl text-foreground mb-4">Product Not Found</h1>
-            <p className="text-muted-foreground mb-8">The product you're looking for doesn't exist.</p>
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center" dir="rtl">
+            <h1 className="font-serif-custom text-4xl text-foreground mb-4">המוצר לא נמצא</h1>
+            <p className="font-sans-custom text-muted-foreground mb-8">הדף שחיפשת אינו קיים במערכת.</p>
             <Link
               href="/shop"
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full text-sm boty-transition hover:bg-primary/90"
+              className="font-sans-custom inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full text-sm boty-transition hover:bg-primary/90"
             >
-              Browse All Products
+              צפייה בכל המוצרים
             </Link>
           </div>
         </div>
@@ -88,10 +87,10 @@ export default function ProductPage() {
   }
 
   const accordionItems: { key: AccordionSection; title: string; content: string }[] = [
-    { key: "details", title: "Details", content: product.details },
-    { key: "howToUse", title: "How to Use", content: product.howToUse },
-    { key: "ingredients", title: "Ingredients", content: product.ingredients },
-    { key: "delivery", title: "Delivery & Returns", content: product.delivery }
+    { key: "details", title: "פרטים", content: product.details },
+    { key: "howToUse", title: "איך לענוד", content: product.howToUse },
+    { key: "ingredients", title: "חומר וגימור", content: product.ingredients },
+    { key: "delivery", title: "משלוחים והחזרות", content: product.delivery }
   ]
 
   return (
@@ -101,17 +100,19 @@ export default function ProductPage() {
       <div className="pt-28 pb-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Back Link */}
-          <Link
-            href="/shop"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground boty-transition mb-8"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Back to Shop
-          </Link>
+          <div dir="rtl">
+            <Link
+              href="/shop"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground boty-transition mb-8"
+            >
+              <ChevronRight className="w-4 h-4" />
+              חזרה לחנות
+            </Link>
+          </div>
 
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
             {/* Product Image */}
-            <div className="relative aspect-square rounded-3xl overflow-hidden bg-card boty-shadow">
+            <div className="relative aspect-square rounded-3xl overflow-hidden bg-card boty-shadow order-1 lg:order-none">
               <Image
                 src={product.images[0]?.src || "/placeholder.svg"}
                 alt={product.name}
@@ -121,35 +122,35 @@ export default function ProductPage() {
               />
               {product.badge && (
                 <span
-                  className={`absolute top-6 left-6 px-4 py-1.5 rounded-full text-sm tracking-wide ${
-                    product.badge === "Sale"
+                  className={`absolute top-6 right-6 px-4 py-1.5 rounded-full text-sm tracking-wide ${
+                    product.badge === "מבצע" || product.badge === "Sale"
                       ? "bg-destructive/10 text-destructive"
-                      : product.badge === "New"
+                      : product.badge === "חדש" || product.badge === "New"
                       ? "bg-primary/10 text-primary"
                       : "bg-accent text-accent-foreground"
                   }`}
                 >
-                  {product.badge}
+                  {product.badge === "Sale" ? "מבצע" : product.badge === "New" ? "חדש" : product.badge}
                 </span>
               )}
             </div>
 
             {/* Product Info */}
-            <div className="flex flex-col">
+            <div className="flex flex-col text-right" dir="rtl">
               {/* Header */}
               <div className="mb-8">
-                <span className="text-sm tracking-[0.3em] uppercase text-primary mb-2 block">
-                  Boty Essentials
+                <span className="font-sans-custom text-sm tracking-[0.3em] uppercase text-primary mb-2 block">
+                  קולקציית Juliris
                 </span>
-                <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-3">
+                <h1 className="font-serif-custom text-4xl md:text-5xl text-foreground mb-3">
                   {product.name}
                 </h1>
-                <p className="text-lg text-muted-foreground italic mb-4">
+                <p className="font-sans-custom text-lg text-muted-foreground italic mb-4">
                   {product.tagline}
                 </p>
                 
                 {/* Rating */}
-                <div className="flex items-center gap-2 mb-4">
+                <div className="flex items-center gap-2 mb-4 justify-start">
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
                       <Star 
@@ -162,19 +163,19 @@ export default function ProductPage() {
                       />
                     ))}
                   </div>
-                  <span className="text-sm text-muted-foreground">({product.reviewCount} reviews)</span>
+                  <span className="font-sans-custom text-sm text-muted-foreground">(128 חוות דעת)</span>
                 </div>
 
-                <p className="text-foreground/80 leading-relaxed">
+                <p className="font-sans-custom text-foreground/80 leading-relaxed">
                   {product.description}
                 </p>
               </div>
 
               {/* Price */}
-              <div className="flex items-center gap-3 mb-8">
-                <span className="text-3xl font-medium text-foreground">{formatMoney(currentPrice)}</span>
+              <div className="flex items-center gap-3 mb-8 justify-start">
+                <span className="font-sans-custom text-3xl font-medium text-foreground">{formatMoney(currentPrice)}</span>
                 {originalPrice && (
-                  <span className="text-xl text-muted-foreground line-through">
+                  <span className="font-sans-custom text-xl text-muted-foreground line-through">
                     {formatMoney(originalPrice)}
                   </span>
                 )}
@@ -183,14 +184,14 @@ export default function ProductPage() {
               {/* Variant Selector */}
               {product.variants.length > 1 && (
                 <div className="mb-6">
-                  <label className="text-sm font-medium text-foreground mb-3 block">Size</label>
-                  <div className="flex gap-3">
+                  <label className="font-sans-custom text-sm font-medium text-foreground mb-3 block">בחירה</label>
+                  <div className="flex gap-3 justify-start">
                     {product.variants.map((variant, index) => (
                       <button
                         key={variant.id}
                         type="button"
                         onClick={() => setSelectedVariant(index)}
-                        className={`px-6 py-3 rounded-full text-sm boty-transition boty-shadow ${
+                        className={`font-sans-custom px-6 py-3 rounded-full text-sm boty-transition boty-shadow ${
                           selectedVariant === index
                             ? "bg-primary text-primary-foreground"
                             : "bg-card text-foreground hover:bg-card/80"
@@ -205,22 +206,22 @@ export default function ProductPage() {
 
               {/* Quantity Selector */}
               <div className="mb-8">
-                <label className="text-sm font-medium text-foreground mb-3 block">Quantity</label>
+                <label className="font-sans-custom text-sm font-medium text-foreground mb-3 block">כמות</label>
                 <div className="inline-flex items-center gap-4 bg-card rounded-full px-2 py-2 boty-shadow">
                   <button
                     type="button"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     className="w-10 h-10 rounded-full bg-background flex items-center justify-center text-foreground/60 hover:text-foreground boty-transition"
-                    aria-label="Decrease quantity"
+                    aria-label="הפחתת כמות"
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="w-8 text-center font-medium text-foreground">{quantity}</span>
+                  <span className="font-sans-custom w-8 text-center font-medium text-foreground">{quantity}</span>
                   <button
                     type="button"
                     onClick={() => setQuantity(quantity + 1)}
                     className="w-10 h-10 rounded-full bg-background flex items-center justify-center text-foreground/60 hover:text-foreground boty-transition"
-                    aria-label="Increase quantity"
+                    aria-label="הגדלת כמות"
                   >
                     <Plus className="w-4 h-4" />
                   </button>
@@ -232,7 +233,7 @@ export default function ProductPage() {
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  className={`flex-1 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm tracking-wide boty-transition boty-shadow ${
+                  className={`font-sans-custom flex-1 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm tracking-wide boty-transition boty-shadow ${
                     isAdded
                       ? "bg-primary/80 text-primary-foreground"
                       : "bg-primary text-primary-foreground hover:bg-primary/90"
@@ -241,17 +242,17 @@ export default function ProductPage() {
                   {isAdded ? (
                     <>
                       <Check className="w-4 h-4" />
-                      Added to Cart
+                      נוסף לסל
                     </>
                   ) : (
-                    "Add to Cart"
+                    "הוספה לסל"
                   )}
                 </button>
                 <Link
                   href="/checkout"
-                  className="flex-1 inline-flex items-center justify-center gap-2 bg-transparent border border-foreground/20 text-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-foreground/5"
+                  className="font-sans-custom flex-1 inline-flex items-center justify-center gap-2 bg-transparent border border-foreground/20 text-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-foreground/5"
                 >
-                  Buy Now
+                  קנייה מהירה
                 </Link>
               </div>
 
@@ -263,7 +264,7 @@ export default function ProductPage() {
                     className="flex flex-col items-center gap-2 p-4 boty-shadow bg-transparent shadow-none rounded-md"
                   >
                     <benefit.icon className="w-5 h-5 text-primary" />
-                    <span className="text-xs text-muted-foreground text-center">{benefit.label}</span>
+                    <span className="font-sans-custom text-[10px] text-muted-foreground text-center">{benefit.label}</span>
                   </div>
                 ))}
               </div>
@@ -275,9 +276,9 @@ export default function ProductPage() {
                     <button
                       type="button"
                       onClick={() => toggleAccordion(item.key)}
-                      className="w-full flex items-center justify-between py-5 text-left"
+                      className="w-full flex items-center justify-between py-5 text-right"
                     >
-                      <span className="font-medium text-foreground">{item.title}</span>
+                      <span className="font-sans-custom font-medium text-foreground">{item.title}</span>
                       <ChevronDown
                         className={`w-5 h-5 text-muted-foreground boty-transition ${
                           openAccordion === item.key ? "rotate-180" : ""
@@ -287,9 +288,9 @@ export default function ProductPage() {
                     <div
                       className={`overflow-hidden boty-transition ${
                         openAccordion === item.key ? "max-h-96 pb-5" : "max-h-0"
-                      }`}
+                       }`}
                     >
-                      <p className="text-sm text-muted-foreground leading-relaxed">
+                      <p className="font-sans-custom text-sm text-muted-foreground leading-relaxed">
                         {item.content}
                       </p>
                     </div>
@@ -298,6 +299,19 @@ export default function ProductPage() {
               </div>
             </div>
           </div>
+          
+          {/* 3D Viewer — only if product has a model */}
+          {product.ijewelModelId && (
+            <section className="mt-20 border-t border-border/50 pt-20" dir="rtl">
+              <h2 className="font-serif-custom text-3xl text-foreground mb-8">צפייה בתלת-מימד</h2>
+              <div className="rounded-3xl overflow-hidden boty-shadow bg-card">
+                <JewelryViewer
+                  modelId={product.ijewelModelId}
+                  className="jewelry-3d-viewer"
+                />
+              </div>
+            </section>
+          )}
         </div>
       </div>
 

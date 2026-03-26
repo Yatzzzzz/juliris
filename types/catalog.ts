@@ -60,6 +60,7 @@ export interface Product {
   rating: number              // 0–5
   reviewCount: number
   tags: string[]
+  ijewelModelId?: string      // iJewel Drive 3D model File ID
   createdAt: string
   updatedAt: string
 }

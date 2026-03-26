@@ -1,0 +1,1039 @@
+[
+  [
+    "order_1774408014060_1grkcoh",
+    {
+      "id": "order_1774408014060_1grkcoh",
+      "orderNumber": "BOTY-MN5GPU5O-4JNR",
+      "email": "test@example.com",
+      "status": "pending_payment",
+      "paymentProvider": "paypal",
+      "paymentProviderId": null,
+      "providerRefs": {
+        "orderId": null,
+        "captureId": null,
+        "status": null,
+        "lastUpdated": null
+      },
+      "paymentEvents": [],
+      "lines": [
+        {
+          "productId": "radiance-serum",
+          "variantId": "radiance-30ml",
+          "name": "Radiance Serum",
+          "description": "Illuminate your natural glow",
+          "image": "/images/products/serum-bottles-1.png",
+          "unitPrice": 68,
+          "quantity": 1
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Test Street",
+        "address2": "",
+        "city": "Tel Aviv",
+        "state": "CA",
+        "postalCode": "90210",
+        "country": "US",
+        "phone": ""
+      },
+      "billingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Test Street",
+        "address2": "",
+        "city": "Tel Aviv",
+        "state": "CA",
+        "postalCode": "90210",
+        "country": "US",
+        "phone": ""
+      },
+      "shippingMethodId": "standard",
+      "promoCode": null,
+      "totals": {
+        "subtotal": {
+          "amount": 68,
+          "currency": "USD"
+        },
+        "discount": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "shipping": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "tax": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "total": {
+          "amount": 68,
+          "currency": "USD"
+        }
+      },
+      "createdAt": "2026-03-25T03:06:54.060Z",
+      "updatedAt": "2026-03-25T03:06:54.060Z",
+      "paidAt": null,
+      "shippedAt": null,
+      "deliveredAt": null
+    }
+  ],
+  [
+    "order_1774408492638_2hvdjv8",
+    {
+      "id": "order_1774408492638_2hvdjv8",
+      "orderNumber": "BOTY-MN5H03FI-5HC2",
+      "email": "test@example.com",
+      "status": "paid",
+      "paymentProvider": "paypal",
+      "paymentProviderId": "PAYPAL-1774408492812-NFK3WW",
+      "providerRefs": {
+        "orderId": "PAYPAL-1774408492812-NFK3WW",
+        "captureId": "MOCK_CAPTURE_1774408492965",
+        "status": "COMPLETED",
+        "lastUpdated": "2026-03-25T03:14:52.966Z"
+      },
+      "paymentEvents": [
+        {
+          "id": "evt_1774408492812_cd2m0t4",
+          "timestamp": "2026-03-25T03:14:52.812Z",
+          "event": "PAYMENT_INITIATED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774408492812-NFK3WW",
+          "providerCaptureId": null,
+          "providerStatus": "created",
+          "signatureValid": null,
+          "rawResponse": null,
+          "metadata": {}
+        },
+        {
+          "id": "evt_1774408492966_tie3nlo",
+          "timestamp": "2026-03-25T03:14:52.966Z",
+          "event": "PAYMENT_CAPTURED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774408492812-NFK3WW",
+          "providerCaptureId": "MOCK_CAPTURE_1774408492965",
+          "providerStatus": "COMPLETED",
+          "signatureValid": null,
+          "rawResponse": {
+            "mock": true,
+            "timestamp": "2026-03-25T03:14:52.965Z"
+          },
+          "metadata": {}
+        }
+      ],
+      "lines": [
+        {
+          "productId": "radiance-serum",
+          "variantId": "radiance-30ml",
+          "name": "Radiance Serum",
+          "description": "Illuminate your natural glow",
+          "image": "/images/products/serum-bottles-1.png",
+          "unitPrice": 68,
+          "quantity": 1
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Test Street",
+        "address2": "",
+        "city": "Tel Aviv",
+        "state": "CA",
+        "postalCode": "90210",
+        "country": "US",
+        "phone": ""
+      },
+      "billingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Test Street",
+        "address2": "",
+        "city": "Tel Aviv",
+        "state": "CA",
+        "postalCode": "90210",
+        "country": "US",
+        "phone": ""
+      },
+      "shippingMethodId": "standard",
+      "promoCode": null,
+      "totals": {
+        "subtotal": {
+          "amount": 68,
+          "currency": "USD"
+        },
+        "discount": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "shipping": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "tax": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "total": {
+          "amount": 68,
+          "currency": "USD"
+        }
+      },
+      "createdAt": "2026-03-25T03:14:52.638Z",
+      "updatedAt": "2026-03-25T03:14:52.966Z",
+      "paidAt": "2026-03-25T03:14:52.966Z",
+      "shippedAt": null,
+      "deliveredAt": null
+    }
+  ],
+  [
+    "order_1774441723480_xurralg",
+    {
+      "id": "order_1774441723480_xurralg",
+      "orderNumber": "BOTY-MN60SCIG-ZA7E",
+      "email": "test@example.com",
+      "status": "paid",
+      "paymentProvider": "paypal",
+      "paymentProviderId": "PAYPAL-1774441723640-1OUJEB",
+      "providerRefs": {
+        "orderId": "PAYPAL-1774441723640-1OUJEB",
+        "captureId": "MOCK_CAPTURE_1774441723774",
+        "status": "COMPLETED",
+        "lastUpdated": "2026-03-25T12:28:43.776Z"
+      },
+      "paymentEvents": [
+        {
+          "id": "evt_1774441723641_bbla69y",
+          "timestamp": "2026-03-25T12:28:43.641Z",
+          "event": "PAYMENT_INITIATED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774441723640-1OUJEB",
+          "providerCaptureId": null,
+          "providerStatus": "created",
+          "signatureValid": null,
+          "rawResponse": null,
+          "metadata": {}
+        },
+        {
+          "id": "evt_1774441723776_ak9mmfp",
+          "timestamp": "2026-03-25T12:28:43.776Z",
+          "event": "PAYMENT_CAPTURED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774441723640-1OUJEB",
+          "providerCaptureId": "MOCK_CAPTURE_1774441723774",
+          "providerStatus": "COMPLETED",
+          "signatureValid": null,
+          "rawResponse": {
+            "mock": true,
+            "timestamp": "2026-03-25T12:28:43.774Z"
+          },
+          "metadata": {}
+        }
+      ],
+      "lines": [
+        {
+          "productId": "radiance-serum",
+          "variantId": "radiance-30ml",
+          "name": "Radiance Serum",
+          "description": "Illuminate your natural glow",
+          "image": "/images/products/serum-bottles-1.png",
+          "unitPrice": 68,
+          "quantity": 1
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Test Street",
+        "address2": "",
+        "city": "Tel Aviv",
+        "state": "CA",
+        "postalCode": "90210",
+        "country": "US",
+        "phone": ""
+      },
+      "billingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Test Street",
+        "address2": "",
+        "city": "Tel Aviv",
+        "state": "CA",
+        "postalCode": "90210",
+        "country": "US",
+        "phone": ""
+      },
+      "shippingMethodId": "standard",
+      "promoCode": null,
+      "totals": {
+        "subtotal": {
+          "amount": 68,
+          "currency": "USD"
+        },
+        "discount": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "shipping": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "tax": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "total": {
+          "amount": 68,
+          "currency": "USD"
+        }
+      },
+      "createdAt": "2026-03-25T12:28:43.480Z",
+      "updatedAt": "2026-03-25T12:28:43.776Z",
+      "paidAt": "2026-03-25T12:28:43.776Z",
+      "shippedAt": null,
+      "deliveredAt": null
+    }
+  ],
+  [
+    "order_1774441788741_cy2wtpe",
+    {
+      "id": "order_1774441788741_cy2wtpe",
+      "orderNumber": "BOTY-MN60TQV9-S1OI",
+      "email": "test@example.com",
+      "status": "paid",
+      "paymentProvider": "paypal",
+      "paymentProviderId": "PAYPAL-1774441788768-R6INM1",
+      "providerRefs": {
+        "orderId": "PAYPAL-1774441788768-R6INM1",
+        "captureId": "MOCK_CAPTURE_1774441788785",
+        "status": "COMPLETED",
+        "lastUpdated": "2026-03-25T12:29:48.785Z"
+      },
+      "paymentEvents": [
+        {
+          "id": "evt_1774441788768_6y7qfiw",
+          "timestamp": "2026-03-25T12:29:48.768Z",
+          "event": "PAYMENT_INITIATED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774441788768-R6INM1",
+          "providerCaptureId": null,
+          "providerStatus": "created",
+          "signatureValid": null,
+          "rawResponse": null,
+          "metadata": {}
+        },
+        {
+          "id": "evt_1774441788785_5u3whox",
+          "timestamp": "2026-03-25T12:29:48.785Z",
+          "event": "PAYMENT_CAPTURED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774441788768-R6INM1",
+          "providerCaptureId": "MOCK_CAPTURE_1774441788785",
+          "providerStatus": "COMPLETED",
+          "signatureValid": null,
+          "rawResponse": {
+            "mock": true,
+            "timestamp": "2026-03-25T12:29:48.785Z"
+          },
+          "metadata": {}
+        }
+      ],
+      "lines": [
+        {
+          "productId": "radiance-serum",
+          "variantId": "radiance-30ml",
+          "name": "Radiance Serum",
+          "description": "Illuminate your natural glow",
+          "image": "/images/products/serum-bottles-1.png",
+          "unitPrice": 68,
+          "quantity": 1
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Test Street",
+        "address2": "",
+        "city": "Tel Aviv",
+        "state": "CA",
+        "postalCode": "90210",
+        "country": "US",
+        "phone": ""
+      },
+      "billingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Test Street",
+        "address2": "",
+        "city": "Tel Aviv",
+        "state": "CA",
+        "postalCode": "90210",
+        "country": "US",
+        "phone": ""
+      },
+      "shippingMethodId": "standard",
+      "promoCode": null,
+      "totals": {
+        "subtotal": {
+          "amount": 68,
+          "currency": "USD"
+        },
+        "discount": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "shipping": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "tax": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "total": {
+          "amount": 68,
+          "currency": "USD"
+        }
+      },
+      "createdAt": "2026-03-25T12:29:48.741Z",
+      "updatedAt": "2026-03-25T12:29:48.785Z",
+      "paidAt": "2026-03-25T12:29:48.785Z",
+      "shippedAt": null,
+      "deliveredAt": null
+    }
+  ],
+  [
+    "order_1774441930746_8agcle2",
+    {
+      "id": "order_1774441930746_8agcle2",
+      "orderNumber": "BOTY-MN60WSFU-DKVX",
+      "email": "test@example.com",
+      "status": "paid",
+      "paymentProvider": "paypal",
+      "paymentProviderId": "PAYPAL-1774441930774-M4WW86",
+      "providerRefs": {
+        "orderId": "PAYPAL-1774441930774-M4WW86",
+        "captureId": "MOCK_CAPTURE_1774441930795",
+        "status": "COMPLETED",
+        "lastUpdated": "2026-03-25T12:32:10.796Z"
+      },
+      "paymentEvents": [
+        {
+          "id": "evt_1774441930774_ejkhfpm",
+          "timestamp": "2026-03-25T12:32:10.774Z",
+          "event": "PAYMENT_INITIATED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774441930774-M4WW86",
+          "providerCaptureId": null,
+          "providerStatus": "created",
+          "signatureValid": null,
+          "rawResponse": null,
+          "metadata": {}
+        },
+        {
+          "id": "evt_1774441930796_7cbu4yw",
+          "timestamp": "2026-03-25T12:32:10.796Z",
+          "event": "PAYMENT_CAPTURED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774441930774-M4WW86",
+          "providerCaptureId": "MOCK_CAPTURE_1774441930795",
+          "providerStatus": "COMPLETED",
+          "signatureValid": null,
+          "rawResponse": {
+            "mock": true,
+            "timestamp": "2026-03-25T12:32:10.795Z"
+          },
+          "metadata": {}
+        }
+      ],
+      "lines": [
+        {
+          "productId": "radiance-serum",
+          "variantId": "radiance-30ml",
+          "name": "Radiance Serum",
+          "description": "Illuminate your natural glow",
+          "image": "/images/products/serum-bottles-1.png",
+          "unitPrice": 68,
+          "quantity": 1
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Main Street",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001",
+        "country": "US",
+        "phone": ""
+      },
+      "billingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Main Street",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001",
+        "country": "US",
+        "phone": ""
+      },
+      "shippingMethodId": "standard",
+      "promoCode": null,
+      "totals": {
+        "subtotal": {
+          "amount": 68,
+          "currency": "USD"
+        },
+        "discount": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "shipping": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "tax": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "total": {
+          "amount": 68,
+          "currency": "USD"
+        }
+      },
+      "createdAt": "2026-03-25T12:32:10.746Z",
+      "updatedAt": "2026-03-25T12:32:10.796Z",
+      "paidAt": "2026-03-25T12:32:10.796Z",
+      "shippedAt": null,
+      "deliveredAt": null
+    }
+  ],
+  [
+    "order_1774442006076_25vjpf3",
+    {
+      "id": "order_1774442006076_25vjpf3",
+      "orderNumber": "BOTY-MN60YEKC-MM6O",
+      "email": "test@example.com",
+      "status": "payment_processing",
+      "paymentProvider": "yaad",
+      "paymentProviderId": "YAAD-1774442006210-VZY2WC",
+      "providerRefs": {
+        "orderId": "YAAD-1774442006210-VZY2WC",
+        "captureId": null,
+        "status": "created",
+        "lastUpdated": "2026-03-25T12:33:26.210Z"
+      },
+      "paymentEvents": [
+        {
+          "id": "evt_1774442006210_sjs5kz1",
+          "timestamp": "2026-03-25T12:33:26.210Z",
+          "event": "PAYMENT_INITIATED",
+          "provider": "yaad",
+          "providerTransactionId": "YAAD-1774442006210-VZY2WC",
+          "providerCaptureId": null,
+          "providerStatus": "created",
+          "signatureValid": null,
+          "rawResponse": null,
+          "metadata": {}
+        }
+      ],
+      "lines": [
+        {
+          "productId": "radiance-serum",
+          "variantId": "radiance-30ml",
+          "name": "Radiance Serum",
+          "description": "Illuminate your natural glow",
+          "image": "/images/products/serum-bottles-1.png",
+          "unitPrice": 68,
+          "quantity": 1
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Main Street",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001",
+        "country": "US",
+        "phone": ""
+      },
+      "billingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Main Street",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001",
+        "country": "US",
+        "phone": ""
+      },
+      "shippingMethodId": "standard",
+      "promoCode": null,
+      "totals": {
+        "subtotal": {
+          "amount": 68,
+          "currency": "USD"
+        },
+        "discount": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "shipping": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "tax": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "total": {
+          "amount": 68,
+          "currency": "USD"
+        }
+      },
+      "createdAt": "2026-03-25T12:33:26.076Z",
+      "updatedAt": "2026-03-25T12:33:26.210Z",
+      "paidAt": null,
+      "shippedAt": null,
+      "deliveredAt": null
+    }
+  ],
+  [
+    "order_1774444537530_0h1i4tf",
+    {
+      "id": "order_1774444537530_0h1i4tf",
+      "orderNumber": "BOTY-MN62GNUI-8J0Z",
+      "email": "test@example.com",
+      "status": "paid",
+      "paymentProvider": "paypal",
+      "paymentProviderId": "PAYPAL-1774444537686-1RNUZ4",
+      "providerRefs": {
+        "orderId": "PAYPAL-1774444537686-1RNUZ4",
+        "captureId": "MOCK_CAPTURE_1774444537823",
+        "status": "COMPLETED",
+        "lastUpdated": "2026-03-25T13:15:37.824Z"
+      },
+      "paymentEvents": [
+        {
+          "id": "evt_1774444537686_30sylb8",
+          "timestamp": "2026-03-25T13:15:37.686Z",
+          "event": "PAYMENT_INITIATED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774444537686-1RNUZ4",
+          "providerCaptureId": null,
+          "providerStatus": "created",
+          "signatureValid": null,
+          "rawResponse": null,
+          "metadata": {}
+        },
+        {
+          "id": "evt_1774444537824_odblo4p",
+          "timestamp": "2026-03-25T13:15:37.824Z",
+          "event": "PAYMENT_CAPTURED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774444537686-1RNUZ4",
+          "providerCaptureId": "MOCK_CAPTURE_1774444537823",
+          "providerStatus": "COMPLETED",
+          "signatureValid": null,
+          "rawResponse": {
+            "mock": true,
+            "timestamp": "2026-03-25T13:15:37.823Z"
+          },
+          "metadata": {}
+        }
+      ],
+      "lines": [
+        {
+          "productId": "radiance-serum",
+          "variantId": "radiance-30ml",
+          "name": "Radiance Serum",
+          "description": "Illuminate your natural glow",
+          "image": "/images/products/serum-bottles-1.png",
+          "unitPrice": 68,
+          "quantity": 1
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Main Street",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001",
+        "country": "US",
+        "phone": ""
+      },
+      "billingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Main Street",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001",
+        "country": "US",
+        "phone": ""
+      },
+      "shippingMethodId": "standard",
+      "promoCode": null,
+      "totals": {
+        "subtotal": {
+          "amount": 68,
+          "currency": "USD"
+        },
+        "discount": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "shipping": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "tax": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "total": {
+          "amount": 68,
+          "currency": "USD"
+        }
+      },
+      "createdAt": "2026-03-25T13:15:37.530Z",
+      "updatedAt": "2026-03-25T13:15:37.824Z",
+      "paidAt": "2026-03-25T13:15:37.824Z",
+      "shippedAt": null,
+      "deliveredAt": null
+    }
+  ],
+  [
+    "order_1774445439508_h2w09kz",
+    {
+      "id": "order_1774445439508_h2w09kz",
+      "orderNumber": "BOTY-MN62ZZTH-FZX5",
+      "email": "test@example.com",
+      "status": "paid",
+      "paymentProvider": "paypal",
+      "paymentProviderId": "PAYPAL-1774445439647-Y9FJ5Q",
+      "providerRefs": {
+        "orderId": "PAYPAL-1774445439647-Y9FJ5Q",
+        "captureId": "MOCK_CAPTURE_1774445439790",
+        "status": "COMPLETED",
+        "lastUpdated": "2026-03-25T13:30:39.791Z"
+      },
+      "paymentEvents": [
+        {
+          "id": "evt_1774445439647_4t4zqhv",
+          "timestamp": "2026-03-25T13:30:39.647Z",
+          "event": "PAYMENT_INITIATED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774445439647-Y9FJ5Q",
+          "providerCaptureId": null,
+          "providerStatus": "created",
+          "signatureValid": null,
+          "rawResponse": null,
+          "metadata": {}
+        },
+        {
+          "id": "evt_1774445439791_93q0k0q",
+          "timestamp": "2026-03-25T13:30:39.791Z",
+          "event": "PAYMENT_CAPTURED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774445439647-Y9FJ5Q",
+          "providerCaptureId": "MOCK_CAPTURE_1774445439790",
+          "providerStatus": "COMPLETED",
+          "signatureValid": null,
+          "rawResponse": {
+            "mock": true,
+            "timestamp": "2026-03-25T13:30:39.790Z"
+          },
+          "metadata": {}
+        }
+      ],
+      "lines": [
+        {
+          "productId": "radiance-serum",
+          "variantId": "radiance-30ml",
+          "name": "Radiance Serum",
+          "description": "Illuminate your natural glow",
+          "image": "/images/products/serum-bottles-1.png",
+          "unitPrice": 68,
+          "quantity": 1
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Main Street",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001",
+        "country": "US",
+        "phone": ""
+      },
+      "billingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Main Street",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001",
+        "country": "US",
+        "phone": ""
+      },
+      "shippingMethodId": "standard",
+      "promoCode": null,
+      "totals": {
+        "subtotal": {
+          "amount": 68,
+          "currency": "USD"
+        },
+        "discount": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "shipping": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "tax": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "total": {
+          "amount": 68,
+          "currency": "USD"
+        }
+      },
+      "createdAt": "2026-03-25T13:30:39.508Z",
+      "updatedAt": "2026-03-25T13:30:39.791Z",
+      "paidAt": "2026-03-25T13:30:39.791Z",
+      "shippedAt": null,
+      "deliveredAt": null
+    }
+  ],
+  [
+    "order_1774446100996_qbp8thm",
+    {
+      "id": "order_1774446100996_qbp8thm",
+      "orderNumber": "BOTY-MN63E684-PHWM",
+      "email": "test@example.com",
+      "status": "paid",
+      "paymentProvider": "paypal",
+      "paymentProviderId": "PAYPAL-1774446101149-9BZCMR",
+      "providerRefs": {
+        "orderId": "PAYPAL-1774446101149-9BZCMR",
+        "captureId": "MOCK_CAPTURE_1774446101290",
+        "status": "COMPLETED",
+        "lastUpdated": "2026-03-25T13:41:41.291Z"
+      },
+      "paymentEvents": [
+        {
+          "id": "evt_1774446101149_0enxv12",
+          "timestamp": "2026-03-25T13:41:41.149Z",
+          "event": "PAYMENT_INITIATED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774446101149-9BZCMR",
+          "providerCaptureId": null,
+          "providerStatus": "created",
+          "signatureValid": null,
+          "rawResponse": null,
+          "metadata": {}
+        },
+        {
+          "id": "evt_1774446101291_8tk1796",
+          "timestamp": "2026-03-25T13:41:41.291Z",
+          "event": "PAYMENT_CAPTURED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774446101149-9BZCMR",
+          "providerCaptureId": "MOCK_CAPTURE_1774446101290",
+          "providerStatus": "COMPLETED",
+          "signatureValid": null,
+          "rawResponse": {
+            "mock": true,
+            "timestamp": "2026-03-25T13:41:41.290Z"
+          },
+          "metadata": {}
+        }
+      ],
+      "lines": [
+        {
+          "productId": "radiance-serum",
+          "variantId": "radiance-30ml",
+          "name": "Radiance Serum",
+          "description": "Illuminate your natural glow",
+          "image": "/images/products/serum-bottles-1.png",
+          "unitPrice": 68,
+          "quantity": 1
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Main Street",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001",
+        "country": "US",
+        "phone": ""
+      },
+      "billingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Main Street",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001",
+        "country": "US",
+        "phone": ""
+      },
+      "shippingMethodId": "standard",
+      "promoCode": null,
+      "totals": {
+        "subtotal": {
+          "amount": 68,
+          "currency": "USD"
+        },
+        "discount": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "shipping": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "tax": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "total": {
+          "amount": 68,
+          "currency": "USD"
+        }
+      },
+      "createdAt": "2026-03-25T13:41:40.996Z",
+      "updatedAt": "2026-03-25T13:41:41.291Z",
+      "paidAt": "2026-03-25T13:41:41.291Z",
+      "shippedAt": null,
+      "deliveredAt": null
+    }
+  ],
+  [
+    "order_1774446546370_9swpwel",
+    {
+      "id": "order_1774446546370_9swpwel",
+      "orderNumber": "BOTY-MN63NPVM-JQP3",
+      "email": "test@example.com",
+      "status": "paid",
+      "paymentProvider": "paypal",
+      "paymentProviderId": "PAYPAL-1774446546529-JFQRZI",
+      "providerRefs": {
+        "orderId": "PAYPAL-1774446546529-JFQRZI",
+        "captureId": "MOCK_CAPTURE_1774446546654",
+        "status": "COMPLETED",
+        "lastUpdated": "2026-03-25T13:49:06.654Z"
+      },
+      "paymentEvents": [
+        {
+          "id": "evt_1774446546530_6p8xikh",
+          "timestamp": "2026-03-25T13:49:06.530Z",
+          "event": "PAYMENT_INITIATED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774446546529-JFQRZI",
+          "providerCaptureId": null,
+          "providerStatus": "created",
+          "signatureValid": null,
+          "rawResponse": null,
+          "metadata": {}
+        },
+        {
+          "id": "evt_1774446546654_3njpc8a",
+          "timestamp": "2026-03-25T13:49:06.654Z",
+          "event": "PAYMENT_CAPTURED",
+          "provider": "paypal",
+          "providerTransactionId": "PAYPAL-1774446546529-JFQRZI",
+          "providerCaptureId": "MOCK_CAPTURE_1774446546654",
+          "providerStatus": "COMPLETED",
+          "signatureValid": null,
+          "rawResponse": {
+            "mock": true,
+            "timestamp": "2026-03-25T13:49:06.654Z"
+          },
+          "metadata": {}
+        }
+      ],
+      "lines": [
+        {
+          "productId": "radiance-serum",
+          "variantId": "radiance-30ml",
+          "name": "Radiance Serum",
+          "description": "Illuminate your natural glow",
+          "image": "/images/products/serum-bottles-1.png",
+          "unitPrice": 68,
+          "quantity": 1
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Main Street",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001",
+        "country": "US",
+        "phone": ""
+      },
+      "billingAddress": {
+        "firstName": "Test",
+        "lastName": "User",
+        "address1": "123 Main Street",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001",
+        "country": "US",
+        "phone": ""
+      },
+      "shippingMethodId": "standard",
+      "promoCode": null,
+      "totals": {
+        "subtotal": {
+          "amount": 68,
+          "currency": "USD"
+        },
+        "discount": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "shipping": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "tax": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "total": {
+          "amount": 68,
+          "currency": "USD"
+        }
+      },
+      "createdAt": "2026-03-25T13:49:06.370Z",
+      "updatedAt": "2026-03-25T13:49:06.654Z",
+      "paidAt": "2026-03-25T13:49:06.654Z",
+      "shippedAt": null,
+      "deliveredAt": null
+    }
+  ]
+]

@@ -1,56 +1,38 @@
 [
   {
-    "id": "serums",
-    "slug": "serums",
-    "name": "Serums",
-    "description": "Concentrated formulas with active ingredients for targeted skin concerns.",
-    "image": "/images/products/serum-bottles-1.png",
+    "id": "modern-look",
+    "slug": "modern-look",
+    "name": "Modern Look",
+    "description": "הקולקציה המודרנית שלנו - תכשיטים בקו נקי, עמידים במים והיפואלרגניים.",
+    "image": "https://www.juliris.com/wp-content/uploads/2026/03/necklace_13.webp",
     "parentId": null,
     "position": 0
   },
   {
-    "id": "moisturizers",
-    "slug": "moisturizers",
-    "name": "Moisturizers",
-    "description": "Hydrating creams and lotions for all-day skin nourishment.",
-    "image": "/images/products/cream-jars-colored.png",
+    "id": "rings",
+    "slug": "rings",
+    "name": "טבעות",
+    "description": "טבעות סטיינלס סטיל בעיצובים ייחודיים, עמידות במים ולא משחירות.",
+    "image": "https://www.juliris.com/wp-content/uploads/2026/03/ring-10_48.webp",
     "parentId": null,
     "position": 1
   },
   {
-    "id": "cleansers",
-    "slug": "cleansers",
-    "name": "Cleansers",
-    "description": "Gentle formulas to cleanse without stripping natural oils.",
-    "image": "/images/products/tube-bottles.png",
+    "id": "necklaces",
+    "slug": "necklaces",
+    "name": "שרשראות",
+    "description": "שרשראות עדינות ומרשימות המשדרגות כל הופעה.",
+    "image": "https://www.juliris.com/wp-content/uploads/2026/03/necklace-3_8.webp",
     "parentId": null,
     "position": 2
   },
   {
-    "id": "oils",
-    "slug": "oils",
-    "name": "Oils",
-    "description": "Pure botanical oils for deep nourishment and radiance.",
-    "image": "/images/products/amber-dropper-bottles.png",
+    "id": "earrings",
+    "slug": "earrings",
+    "name": "עגילים",
+    "description": "עגילים מעוצבים שמוסיפים את הניצוץ הנכון לכל לוק.",
+    "image": "https://www.juliris.com/wp-content/uploads/2026/03/earrings_3.webp",
     "parentId": null,
     "position": 3
-  },
-  {
-    "id": "masks",
-    "slug": "masks",
-    "name": "Masks",
-    "description": "Weekly treatments for deep cleansing and rejuvenation.",
-    "image": "/images/products/mask.jpg",
-    "parentId": null,
-    "position": 4
-  },
-  {
-    "id": "toners",
-    "slug": "toners",
-    "name": "Toners",
-    "description": "pH-balancing mists to prep skin for better absorption.",
-    "image": "/images/products/toner.jpg",
-    "parentId": null,
-    "position": 5
   }
 ]

@@ -8,7 +8,7 @@ import { Search, X, ArrowRight } from "lucide-react"
 import { searchProducts, getAllCategories } from "@/lib/catalog"
 import { formatMoney } from "@/lib/pricing"
 
-const popularSearches = ["serum", "moisturizer", "oil", "cleanser", "vitamin C"]
+const popularSearches = ["שרשרת", "טבעת", "עגילים", "זהב", "מתנה", "צ'אקי"]
 
 interface SearchOverlayProps {
   isOpen: boolean
@@ -89,15 +89,15 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
       <div className="relative z-10 bg-background mx-4 mt-24 md:mx-auto md:w-full md:max-w-2xl rounded-3xl boty-shadow overflow-hidden animate-scale-fade-in">
         {/* Search Input */}
         <form onSubmit={handleSubmit}>
-          <div className="flex items-center gap-3 px-5 py-4 border-b border-border/60">
+          <div className="flex items-center gap-3 px-5 py-4 border-b border-border/60" dir="rtl">
             <Search className="w-5 h-5 text-muted-foreground flex-shrink-0" />
             <input
               ref={inputRef}
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search for serums, oils, creams..."
-              className="flex-1 bg-transparent text-foreground placeholder:text-muted-foreground text-base focus:outline-none"
+              placeholder="חפשי שרשראות, טבעות, עגילים..."
+              className="font-sans-custom flex-1 bg-transparent text-foreground placeholder:text-muted-foreground text-base focus:outline-none"
               autoComplete="off"
               spellCheck={false}
             />
@@ -126,8 +126,8 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
         <div className="max-h-[60vh] overflow-y-auto">
           {results.length > 0 ? (
             <div className="p-3">
-              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground px-3 py-2">
-                Products
+              <p className="font-sans-custom text-xs tracking-[0.2em] uppercase text-muted-foreground px-3 py-2 text-right">
+                מוצרים
               </p>
               {results.map((product) => (
                 <Link
@@ -135,6 +135,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   href={`/product/${product.slug}`}
                   onClick={handleProductClick}
                   className="flex items-center gap-4 px-3 py-3 rounded-2xl hover:bg-card boty-transition group"
+                  dir="rtl"
                 >
                   <div className="w-12 h-12 rounded-xl overflow-hidden bg-muted flex-shrink-0">
                     <Image
@@ -145,13 +146,13 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       className="w-full h-full object-cover group-hover:scale-105 boty-transition"
                     />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-foreground truncate">{product.name}</p>
-                    <p className="text-xs text-muted-foreground capitalize">{product.category}</p>
+                  <div className="flex-1 min-w-0 text-right">
+                    <p className="font-sans-custom text-sm font-medium text-foreground truncate">{product.name}</p>
+                    <p className="font-sans-custom text-xs text-muted-foreground capitalize">{product.category}</p>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className="text-sm font-medium text-foreground">{formatMoney(product.price)}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 boty-transition" />
+                    <span className="font-sans-custom text-sm font-medium text-foreground">{formatMoney(product.price)}</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 boty-transition rotate-180" />
                   </div>
                 </Link>
               ))}
@@ -163,37 +164,37 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   router.push(`/shop?search=${encodeURIComponent(query.trim())}`)
                   handleClose()
                 }}
-                className="w-full flex items-center justify-center gap-2 mt-2 px-4 py-3 rounded-2xl bg-card text-sm text-foreground hover:bg-muted boty-transition"
+                className="font-sans-custom w-full flex items-center justify-center gap-2 mt-2 px-4 py-3 rounded-2xl bg-card text-sm text-foreground hover:bg-muted boty-transition"
               >
-                View all results for &ldquo;{query}&rdquo;
-                <ArrowRight className="w-3.5 h-3.5" />
+                צפי בכל התוצאות עבור &ldquo;{query}&rdquo;
+                <ArrowRight className="w-3.5 h-3.5 rotate-180" />
               </button>
             </div>
           ) : query.trim().length > 0 ? (
-            <div className="px-6 py-10 text-center">
-              <p className="text-foreground font-medium mb-1">No results for &ldquo;{query}&rdquo;</p>
-              <p className="text-sm text-muted-foreground">Try a different term or browse all products</p>
+            <div className="px-6 py-10 text-center" dir="rtl">
+              <p className="font-sans-custom text-foreground font-medium mb-1">לא נמצאו תוצאות עבור &ldquo;{query}&rdquo;</p>
+              <p className="font-sans-custom text-sm text-muted-foreground">נסי חיפוש אחר או דפדפי בכל המוצרים</p>
               <Link
                 href="/shop"
                 onClick={handleClose}
-                className="inline-flex items-center gap-1.5 mt-4 px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm boty-transition hover:bg-primary/90"
+                className="font-sans-custom inline-flex items-center gap-1.5 mt-4 px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm boty-transition hover:bg-primary/90"
               >
-                Browse All Products
-                <ArrowRight className="w-3.5 h-3.5" />
+                דפדפי בכל המוצרים
+                <ArrowRight className="w-3.5 h-3.5 rotate-180" />
               </Link>
             </div>
           ) : (
             <div className="p-5">
-              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-3">
-                Popular Searches
+              <p className="font-sans-custom text-xs tracking-[0.2em] uppercase text-muted-foreground mb-3 text-right">
+                חיפושים נפוצים
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 justify-end">
                 {popularSearches.map((term) => (
                   <button
                     key={term}
                     type="button"
                     onClick={() => handlePopularClick(term)}
-                    className="px-4 py-2 rounded-full bg-card text-sm text-foreground hover:bg-primary hover:text-primary-foreground boty-transition boty-shadow capitalize"
+                    className="font-sans-custom px-4 py-2 rounded-full bg-card text-sm text-foreground hover:bg-primary hover:text-primary-foreground boty-transition boty-shadow capitalize"
                   >
                     {term}
                   </button>

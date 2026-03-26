@@ -1,357 +1,464 @@
 [
   {
-    "id": "radiance-serum",
-    "slug": "radiance-serum",
-    "name": "Radiance Serum",
-    "tagline": "Illuminate your natural glow",
-    "description": "A lightweight, fast-absorbing serum infused with Vitamin C and botanical extracts. Designed to brighten, even skin tone, and reveal your skin's natural radiance.",
-    "details": "Our Radiance Serum combines 15% stabilized Vitamin C with rosehip seed oil and sea buckthorn extract. The formula is designed to penetrate deep into the skin, targeting dark spots and uneven tone while protecting against environmental stressors. Suitable for all skin types, this serum is your daily dose of luminosity.",
-    "howToUse": "Apply 3-4 drops to cleansed face and neck morning and evening. Gently pat into skin until absorbed. Follow with your favorite Boty moisturizer. For best results, use consistently for 4-6 weeks.",
-    "ingredients": "Aqua, Ascorbic Acid (Vitamin C), Rosa Canina Seed Oil, Hippophae Rhamnoides Oil, Glycerin, Niacinamide, Tocopherol (Vitamin E), Ferulic Acid, Aloe Barbadensis Leaf Juice, Citrus Aurantium Dulcis Peel Oil, Lavandula Angustifolia Oil.",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed.",
+    "id": "8712",
+    "slug": "necklace-lucia",
+    "name": "שרשרת לוסיה",
+    "tagline": "שרשרת לוסיה — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "שרשרת חוליות “נחש” חלקות ותליון גל בגוון זהב, שמוסיפה ברגע טאץ’ יוקרתי לכל אאוטפיט. סטיינלס סטיל היפואלרגני, עמיד למים, 18k Gold PVD",
+    "details": "שרשרת עדינה עם חוליות “נחש” חלקות ותליון גל, שמוסיפה ברגע טאץ’ יוקרתי לכל אאוטפיט. העיצוב הגלי והזורם נותן וייב חופשי וקליל, כאילו חזרת הרגע מהים אבל בסטייל של העיר. מושלמת לשילוב עם חולצות בסיס, שמלות סטריט או לוק ערב עדין, ואפשר לשלב אותה בקלות בשכבות עם עוד שרשראות זהובות.",
+    "howToUse": "ענידי את השרשרת לבד למראה מינימליסטי או בשילוב עם שרשראות נוספות למראה שכבות עשיר.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD, עמיד למים",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
     "status": "active",
-    "categoryId": "serums",
+    "categoryId": "modern-look",
     "images": [
-      { "id": "img-1", "src": "/images/products/serum-bottles-1.png", "alt": "Radiance Serum bottles", "position": 0 }
+      { "id": "8712-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/necklace_13.webp", "alt": "שרשרת לוסיה", "position": 0 },
+      { "id": "8712-2", "src": "https://www.juliris.com/wp-content/uploads/2026/03/necklace_12.webp", "alt": "שרשרת לוסיה כסף", "position": 1 }
     ],
     "variants": [
-      { "id": "radiance-30ml", "sku": "RAD-30", "title": "30ml", "price": { "amount": 68, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 150, "reserved": 5, "incoming": 0 }, "position": 0 },
-      { "id": "radiance-50ml", "sku": "RAD-50", "title": "50ml", "price": { "amount": 98, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 80, "reserved": 2, "incoming": 0 }, "position": 1 }
+      { "id": "8713", "sku": "LUC-G", "title": "זהב", "price": { "amount": 150, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8714", "sku": "LUC-S", "title": "כסף", "price": { "amount": 150, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 1 }
     ],
     "badge": "Bestseller",
     "rating": 4.9,
-    "reviewCount": 128,
-    "tags": ["vitamin c", "brightening", "serum", "glow"],
-    "createdAt": "2024-01-15T00:00:00Z",
-    "updatedAt": "2025-03-20T00:00:00Z"
+    "reviewCount": 24,
+    "tags": ["Modern Look", "שרשראות", "סטיינלס סטיל"],
+    "ijewelModelId": "ThWX3yXbSqygIcRbS2ODGw",
+    "createdAt": "2025-03-01T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
   },
   {
-    "id": "hydrating-serum",
-    "slug": "hydrating-serum",
-    "name": "Hydrating Serum",
-    "tagline": "Quench your skin's thirst",
-    "description": "Hyaluronic acid moisture boost that delivers deep hydration for plump, supple skin.",
-    "details": "Formulated with multi-weight hyaluronic acid to hydrate at every level of the skin. Lightweight and fast-absorbing, this serum locks in moisture for all-day comfort.",
-    "howToUse": "Apply to cleansed face morning and evening before moisturizer. Pat gently until absorbed.",
-    "ingredients": "Aqua, Sodium Hyaluronate, Glycerin, Panthenol, Aloe Barbadensis Leaf Juice, Niacinamide, Tocopherol.",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
+    "id": "8734",
+    "slug": "ring-leni",
+    "name": "טבעת לני",
+    "tagline": "טבעת לני — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "טבעת פפיון עדינה ומודרנית, עשויה סטיינלס סטיל היפואלרגני מתאימה גם לעור רגיש וללבישה יומיומית ללא דהייה.",
+    "details": "העיצוב הנקי של הפפיון משתלב בקלות עם כל לוק, מהמשרד ועד לדייט בערב, וניתן לשלב אותה עם טבעות דקות נוספות לסטאקינג שיקי. עשויה סטיינלס סטיל בציפוי 18k Gold PVD איכותי.",
+    "howToUse": "מתאימה לענידה יומיומית. מומלץ לשלב עם טבעות דקות נוספות למראה שכבות.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
     "status": "active",
-    "categoryId": "serums",
+    "categoryId": "modern-look",
     "images": [
-      { "id": "img-2", "src": "/images/products/eye-serum-bottles.png", "alt": "Hydrating Serum bottles", "position": 0 }
+      { "id": "8734-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/ring-10_48.webp", "alt": "טבעת לני", "position": 0 }
     ],
     "variants": [
-      { "id": "hydra-serum-30ml", "sku": "HYD-30", "title": "30ml", "price": { "amount": 62, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 200, "reserved": 8, "incoming": 0 }, "position": 0 }
+      { "id": "8737", "sku": "LEN-G", "title": "זהב", "price": { "amount": 99, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8738", "sku": "LEN-S", "title": "כסף", "price": { "amount": 99, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 9, "reserved": 0, "incoming": 0 }, "position": 1 }
     ],
     "badge": null,
-    "rating": 4.7,
-    "reviewCount": 89,
-    "tags": ["hyaluronic acid", "hydrating", "serum"],
-    "createdAt": "2024-02-10T00:00:00Z",
-    "updatedAt": "2025-03-18T00:00:00Z"
+    "rating": 4.8,
+    "reviewCount": 18,
+    "tags": ["Modern Look", "טבעות", "פפיון"],
+    "ijewelModelId": "Ep9bWZIlTSG6_8DH7QDc1w",
+    "createdAt": "2025-03-01T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
   },
   {
-    "id": "age-defense-serum",
-    "slug": "age-defense-serum",
-    "name": "Age Defense Serum",
-    "tagline": "Turn back time naturally",
-    "description": "Retinol & peptide complex that visibly reduces fine lines and wrinkles.",
-    "details": "A powerful anti-aging formula combining encapsulated retinol with peptide technology. Reduces the appearance of fine lines while improving skin texture and firmness.",
-    "howToUse": "Apply in the evening to cleansed skin. Start with every other night, building to nightly use. Always follow with SPF in the morning.",
-    "ingredients": "Aqua, Retinol, Palmitoyl Tripeptide-1, Palmitoyl Tetrapeptide-7, Squalane, Glycerin, Tocopherol, Jojoba Esters.",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
+    "id": "8847",
+    "slug": "ring-flame",
+    "name": "טבעת להבה",
+    "tagline": "טבעת להבה — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "טבעת statement בזהב מבריק בעיצוב אורגני זורם, עם שתי צורות שעוטפות את האצבע ויוצרות תחושת תנועה.",
+    "details": "מושלמת למי שאוהבת עיצוב נקי אבל מחפשת טוויסט לא שגרתי. עשויה סטיינלס סטיל היפואלרגני בציפוי 18k gold PVD שלא משחיר ולא מכתים את העור. אפשר לענוד אותה כל היום, במקלחת, בים ובאימונים, בלי דאגות.",
+    "howToUse": "טבעת נוכחות מדהימה כטבעת יחידה על האצבע האמצעית או המורה.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
     "status": "active",
-    "categoryId": "serums",
+    "categoryId": "modern-look",
     "images": [
-      { "id": "img-3", "src": "/images/products/amber-dropper-bottles.png", "alt": "Age Defense Serum", "position": 0 }
+      { "id": "8847-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/Untitled-1920-x-720-px-1920-x-720-px_30.webp", "alt": "טבעת להבה זהב", "position": 0 },
+      { "id": "8847-2", "src": "https://www.juliris.com/wp-content/uploads/2026/03/Untitled-1920-x-720-px-1920-x-720-px_31.webp", "alt": "טבעת להבה כסף", "position": 1 }
     ],
     "variants": [
-      { "id": "age-def-30ml", "sku": "AGE-30", "title": "30ml", "price": { "amount": 78, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 100, "reserved": 3, "incoming": 50 }, "position": 0 }
+      { "id": "8848", "sku": "FLM-G", "title": "זהב", "price": { "amount": 140, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8849", "sku": "FLM-S", "title": "כסף", "price": { "amount": 140, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 5, "reserved": 0, "incoming": 0 }, "position": 1 }
     ],
     "badge": "New",
-    "rating": 4.8,
-    "reviewCount": 45,
-    "tags": ["retinol", "peptides", "anti-aging", "serum"],
-    "createdAt": "2025-01-05T00:00:00Z",
-    "updatedAt": "2025-03-15T00:00:00Z"
+    "rating": 5.0,
+    "reviewCount": 12,
+    "tags": ["Modern Look", "טבעות", "Chunky"],
+    "ijewelModelId": "Ep9bWZIlTSG6_8DH7QDc1w",
+    "createdAt": "2025-03-05T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
   },
   {
-    "id": "glow-serum",
-    "slug": "glow-serum",
-    "name": "Glow Serum",
-    "tagline": "Radiance in a bottle",
-    "description": "Niacinamide brightening boost that refines pores and evens skin tone.",
-    "details": "10% Niacinamide paired with zinc PCA to control sebum production, minimize pores, and brighten the complexion. Suitable for all skin types including sensitive.",
-    "howToUse": "Apply 2-3 drops to cleansed face morning and evening. Follow with moisturizer.",
-    "ingredients": "Aqua, Niacinamide, Zinc PCA, Glycerin, Hyaluronic Acid, Panthenol, Allantoin.",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
+    "id": "8858",
+    "slug": "ring-gemini",
+    "name": "טבעת Gemini",
+    "tagline": "טבעת Gemini — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "טבעת פתוחה כפולה בעיצוב אליפטי מודרני, המשלבת שני אלמנטים מוארכים שיושבים זה מול זה.",
+    "details": "החלקים העליונים משולבים בזירקון שקוף ונוצץ לצד אבן דומיננטית במרקם חלק או טבעי (עין הנמר או פנינה). המבנה הפתוח מאפשר התאמה נוחה למידת האצבע.",
+    "howToUse": "ניתן להצר או להרחיב מעט את הטבעת להתאמה מושלמת לאצבע.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD, אבן זירקון, פנינה/עין הנמר",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
     "status": "active",
-    "categoryId": "serums",
+    "categoryId": "modern-look",
     "images": [
-      { "id": "img-4", "src": "/images/products/spray-bottles.png", "alt": "Glow Serum", "position": 0 }
+      { "id": "8858-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/rings-7_38.webp", "alt": "טבעת Gemini זהב", "position": 0 },
+      { "id": "8858-2", "src": "https://www.juliris.com/wp-content/uploads/2026/03/rings-7_41.webp", "alt": "טבעת Gemini כסף", "position": 1 }
     ],
     "variants": [
-      { "id": "glow-30ml", "sku": "GLO-30", "title": "30ml", "price": { "amount": 58, "currency": "USD" }, "compareAtPrice": { "amount": 68, "currency": "USD" }, "inventory": { "available": 180, "reserved": 10, "incoming": 0 }, "position": 0 }
-    ],
-    "badge": "Sale",
-    "rating": 4.6,
-    "reviewCount": 112,
-    "tags": ["niacinamide", "brightening", "pores", "serum"],
-    "createdAt": "2024-03-20T00:00:00Z",
-    "updatedAt": "2025-03-10T00:00:00Z"
-  },
-  {
-    "id": "hydra-cream",
-    "slug": "hydra-cream",
-    "name": "Hydra Cream",
-    "tagline": "Deep moisture, lasting comfort",
-    "description": "A rich yet lightweight moisturizer that delivers intense hydration without heaviness.",
-    "details": "Hydra Cream features multi-weight hyaluronic acid to hydrate at every level of the skin. Shea butter and jojoba oil lock in moisture while squalane provides a silky, non-greasy finish. Perfect for normal to dry skin seeking lasting comfort.",
-    "howToUse": "After cleansing and serum, apply a small amount to face and neck. Massage gently in upward motions. Use morning and evening as the final step of your skincare routine.",
-    "ingredients": "Aqua, Butyrospermum Parkii Butter, Simmondsia Chinensis Seed Oil, Sodium Hyaluronate, Squalane, Glycerin, Cetearyl Alcohol, Calendula Officinalis Extract, Chamomilla Recutita Extract, Tocopherol.",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
-    "status": "active",
-    "categoryId": "moisturizers",
-    "images": [
-      { "id": "img-5", "src": "/images/products/cream-jars-colored.png", "alt": "Hydra Cream jars", "position": 0 }
-    ],
-    "variants": [
-      { "id": "hydra-50ml", "sku": "HYDRA-50", "title": "50ml", "price": { "amount": 54, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 220, "reserved": 12, "incoming": 0 }, "position": 0 },
-      { "id": "hydra-100ml", "sku": "HYDRA-100", "title": "100ml", "price": { "amount": 92, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 90, "reserved": 4, "incoming": 0 }, "position": 1 }
-    ],
-    "badge": null,
-    "rating": 4.8,
-    "reviewCount": 156,
-    "tags": ["moisturizer", "hydrating", "hyaluronic acid", "shea butter"],
-    "createdAt": "2024-01-10T00:00:00Z",
-    "updatedAt": "2025-03-22T00:00:00Z"
-  },
-  {
-    "id": "gentle-cleanser",
-    "slug": "gentle-cleanser",
-    "name": "Gentle Cleanser",
-    "tagline": "Cleanse without compromise",
-    "description": "A soothing botanical wash that removes impurities while respecting your skin's natural balance.",
-    "details": "Our Gentle Cleanser uses coconut-derived surfactants that cleanse effectively without stripping. Enriched with chamomile, oat extract, and aloe vera, it calms and soothes as it cleanses. pH-balanced and dermatologist tested for sensitive skin.",
-    "howToUse": "Wet face with lukewarm water. Apply a small amount to fingertips and massage onto face in circular motions. Rinse thoroughly. Use morning and evening.",
-    "ingredients": "Aqua, Coco-Glucoside, Glycerin, Avena Sativa Kernel Extract, Aloe Barbadensis Leaf Juice, Chamomilla Recutita Extract, Panthenol, Allantoin, Citric Acid, Benzyl Alcohol, Potassium Sorbate.",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
-    "status": "active",
-    "categoryId": "cleansers",
-    "images": [
-      { "id": "img-6", "src": "/images/products/tube-bottles.png", "alt": "Gentle Cleanser tubes", "position": 0 }
-    ],
-    "variants": [
-      { "id": "cleanser-150ml", "sku": "CLN-150", "title": "150ml", "price": { "amount": 38, "currency": "USD" }, "compareAtPrice": { "amount": 48, "currency": "USD" }, "inventory": { "available": 300, "reserved": 15, "incoming": 0 }, "position": 0 },
-      { "id": "cleanser-250ml", "sku": "CLN-250", "title": "250ml", "price": { "amount": 58, "currency": "USD" }, "compareAtPrice": { "amount": 72, "currency": "USD" }, "inventory": { "available": 140, "reserved": 6, "incoming": 0 }, "position": 1 }
+      { "id": "8863", "sku": "GEM-G-T", "title": "זהב / עין הנמר", "price": { "amount": 150, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 7, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8859", "sku": "GEM-G-P", "title": "זהב / פנינה", "price": { "amount": 150, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 1 }
     ],
     "badge": "Sale",
     "rating": 4.7,
-    "reviewCount": 203,
-    "tags": ["cleanser", "gentle", "sensitive skin", "botanical"],
-    "createdAt": "2024-02-05T00:00:00Z",
-    "updatedAt": "2025-03-20T00:00:00Z"
+    "reviewCount": 15,
+    "tags": ["Modern Look", "טבעות", "Gemstone"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-05T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
   },
   {
-    "id": "night-cream",
-    "slug": "night-cream",
-    "name": "Night Cream",
-    "tagline": "Restore while you rest",
-    "description": "Restorative overnight treatment that works with your skin's natural renewal cycle.",
-    "details": "A rich, nourishing formula designed for overnight repair. Ceramides strengthen the skin barrier while peptides support collagen production. Wake up to visibly refreshed, plumper skin.",
-    "howToUse": "Apply generously to cleansed face and neck as the last step of your evening routine. For best results, use nightly.",
-    "ingredients": "Aqua, Ceramide NP, Ceramide AP, Ceramide EOP, Palmitoyl Tripeptide-1, Squalane, Shea Butter, Jojoba Oil, Vitamin E.",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
+    "id": "8874",
+    "slug": "ring-infinity",
+    "name": "טבעת אינפיניטי",
+    "tagline": "טבעת אינפיניטי — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "טבעת ספירלה מודרנית עם עיצוב מתפתל שמתחיל במרכז וזורם החוצה.",
+    "details": "ליצירת מראה מינימליסטי אבל מלא אנרגיה. המבנה הנוח והחלק שלה יושב יפה באמצע האצבע ומתאים גם ללבישה יומיומית וגם לשדרוג לוק לערב.",
+    "howToUse": "מומלצת לשילוב עם טבעות נוספות למראה סטאקינג.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
     "status": "active",
-    "categoryId": "moisturizers",
+    "categoryId": "rings",
     "images": [
-      { "id": "img-7", "src": "/images/products/jars-wooden-lid.png", "alt": "Night Cream jar", "position": 0 }
+      { "id": "8874-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/rings-6_34.webp", "alt": "טבעת אינפיניטי זהב", "position": 0 }
     ],
     "variants": [
-      { "id": "night-50ml", "sku": "NGHT-50", "title": "50ml", "price": { "amount": 64, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 175, "reserved": 8, "incoming": 0 }, "position": 0 }
+      { "id": "8875", "sku": "INF-G-6", "title": "זהב / מידה 6", "price": { "amount": 120, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8877", "sku": "INF-G-7", "title": "זהב / מידה 7", "price": { "amount": 120, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 1 }
     ],
-    "badge": "Bestseller",
+    "badge": null,
+    "rating": 4.6,
+    "reviewCount": 9,
+    "tags": ["Modern Look", "טבעות"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-05T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
+  },
+  {
+    "id": "8906",
+    "slug": "ring-leaf",
+    "name": "טבעת עלה",
+    "tagline": "טבעת עלה — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "טבעת עם שני אלמנטים ארוכים בצורת עלי-טיפה ועוד אלמנט בצורת עלה קטן במרכז.",
+    "details": "יוצרים יחד מראה אורגנית ומודרנית על האצבע. המבנה המינימליסטי אך הבולט שלה משתלב מעולה גם כלוק יומיומי עדין.",
+    "howToUse": "ענידי אותה כטבעת סטייטמנט או כחלק מסטאקינג.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
+    "status": "active",
+    "categoryId": "rings",
+    "images": [
+      { "id": "8906-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/rings-5_32.webp", "alt": "טבעת עלה זהב", "position": 0 }
+    ],
+    "variants": [
+      { "id": "8907", "sku": "LEAF-G", "title": "זהב", "price": { "amount": 130, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8908", "sku": "LEAF-S", "title": "כסף", "price": { "amount": 130, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 7, "reserved": 0, "incoming": 0 }, "position": 1 }
+    ],
+    "badge": "New",
     "rating": 4.9,
-    "reviewCount": 187,
-    "tags": ["night cream", "moisturizer", "ceramides", "restorative"],
-    "createdAt": "2024-01-20T00:00:00Z",
-    "updatedAt": "2025-03-18T00:00:00Z"
+    "reviewCount": 14,
+    "tags": ["Modern Look", "טבעות", "Nature"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-05T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
   },
   {
-    "id": "day-cream-spf",
-    "slug": "day-cream-spf",
-    "name": "Day Cream SPF 30",
-    "tagline": "Protection meets hydration",
-    "description": "Protection & hydration in one lightweight formula with broad-spectrum SPF 30.",
-    "details": "A daily moisturizer with mineral SPF 30 protection. Non-greasy, no white cast. Antioxidant-rich formula shields against environmental damage while keeping skin hydrated all day.",
-    "howToUse": "Apply liberally as the last step of your morning skincare routine, 15 minutes before sun exposure. Reapply every 2 hours if outdoors.",
-    "ingredients": "Aqua, Zinc Oxide, Titanium Dioxide, Squalane, Glycerin, Niacinamide, Vitamin E, Green Tea Extract.",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
+    "id": "8914",
+    "slug": "ring-star",
+    "name": "טבעת סטאר",
+    "tagline": "טבעת סטאר — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "טבעת סוליטר מינימליסטית עם זירקון שקוף במרכז.",
+    "details": "משובץ במסגרת מתעגלת שיוצרת תחושה רכה וזורמת על האצבע. העיצוב הנמוך והנוח שלה מושלם ללבישה יומיומית.",
+    "howToUse": "מושלמת כטבעת עדינה ליומיום.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD, זירקון",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
     "status": "active",
-    "categoryId": "moisturizers",
+    "categoryId": "rings",
     "images": [
-      { "id": "img-8", "src": "/images/products/pump-bottles-lavender.png", "alt": "Day Cream SPF 30", "position": 0 }
+      { "id": "8914-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/star.webp", "alt": "טבעת סטאר זהב", "position": 0 }
     ],
     "variants": [
-      { "id": "day-spf-50ml", "sku": "DAY-50", "title": "50ml", "price": { "amount": 58, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 200, "reserved": 10, "incoming": 0 }, "position": 0 }
-    ],
-    "badge": null,
-    "rating": 4.6,
-    "reviewCount": 134,
-    "tags": ["spf", "sunscreen", "moisturizer", "daily"],
-    "createdAt": "2024-04-01T00:00:00Z",
-    "updatedAt": "2025-03-15T00:00:00Z"
-  },
-  {
-    "id": "renewal-oil",
-    "slug": "renewal-oil",
-    "name": "Renewal Oil",
-    "tagline": "Nourish deeply, glow eternally",
-    "description": "A luxurious blend of precious botanical oils that deeply nourish and restore skin overnight.",
-    "details": "Renewal Oil combines argan, rosehip, and marula oils with vitamin E for intensive overnight nourishment. This dry oil absorbs quickly, leaving skin soft without residue. Ideal for mature or dehydrated skin seeking restoration.",
-    "howToUse": "Apply 4-6 drops to palms and warm between hands. Press gently onto face and neck as the final step of your evening routine. Can also be mixed with moisturizer for added hydration.",
-    "ingredients": "Argania Spinosa Kernel Oil, Rosa Canina Seed Oil, Sclerocarya Birrea Seed Oil, Tocopherol, Rosa Damascena Flower Oil, Lavandula Angustifolia Oil, Helianthus Annuus Seed Oil.",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
-    "status": "active",
-    "categoryId": "oils",
-    "images": [
-      { "id": "img-9", "src": "/images/products/amber-dropper-bottles.png", "alt": "Renewal Oil", "position": 0 }
-    ],
-    "variants": [
-      { "id": "renewal-30ml", "sku": "RNW-30", "title": "30ml", "price": { "amount": 72, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 120, "reserved": 5, "incoming": 0 }, "position": 0 },
-      { "id": "renewal-50ml", "sku": "RNW-50", "title": "50ml", "price": { "amount": 105, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 60, "reserved": 2, "incoming": 0 }, "position": 1 }
-    ],
-    "badge": "New",
-    "rating": 4.8,
-    "reviewCount": 67,
-    "tags": ["facial oil", "argan", "rosehip", "nourishing"],
-    "createdAt": "2025-01-10T00:00:00Z",
-    "updatedAt": "2025-03-20T00:00:00Z"
-  },
-  {
-    "id": "rosehip-oil",
-    "slug": "rosehip-oil",
-    "name": "Rosehip Oil",
-    "tagline": "Nature's skin perfector",
-    "description": "Pure organic rosehip extract rich in vitamins A and C for skin renewal.",
-    "details": "Cold-pressed from organic rosehip seeds, this oil is packed with essential fatty acids and antioxidants. Helps reduce the appearance of scars, fine lines, and hyperpigmentation.",
-    "howToUse": "Apply 2-3 drops to face morning or evening. Can be used alone or mixed with moisturizer.",
-    "ingredients": "Rosa Canina Seed Oil (100% Pure Organic).",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
-    "status": "active",
-    "categoryId": "oils",
-    "images": [
-      { "id": "img-10", "src": "/images/products/serum-bottles-1.png", "alt": "Rosehip Oil", "position": 0 }
-    ],
-    "variants": [
-      { "id": "rosehip-30ml", "sku": "RSH-30", "title": "30ml", "price": { "amount": 48, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 180, "reserved": 7, "incoming": 0 }, "position": 0 }
+      { "id": "8915", "sku": "STAR-G", "title": "זהב", "price": { "amount": 145, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 5, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8916", "sku": "STAR-S", "title": "כסף", "price": { "amount": 145, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 8, "reserved": 0, "incoming": 0 }, "position": 1 }
     ],
     "badge": null,
     "rating": 4.7,
-    "reviewCount": 98,
-    "tags": ["rosehip", "facial oil", "organic", "vitamin c"],
-    "createdAt": "2024-03-15T00:00:00Z",
-    "updatedAt": "2025-03-12T00:00:00Z"
+    "reviewCount": 11,
+    "tags": ["Modern Look", "טבעות", "סוליטר"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-10T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
   },
   {
-    "id": "jojoba-oil",
-    "slug": "jojoba-oil",
-    "name": "Jojoba Oil",
-    "tagline": "Balance in a bottle",
-    "description": "Balancing & lightweight oil that mimics skin's natural sebum.",
-    "details": "Golden jojoba oil closely resembles your skin's natural oils, making it ideal for all skin types. Absorbs quickly without clogging pores. Great for face, hair, and body.",
-    "howToUse": "Apply a few drops to face, hair ends, or body as needed. Excellent as a makeup remover or carrier oil.",
-    "ingredients": "Simmondsia Chinensis Seed Oil (100% Pure).",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
+    "id": "8936",
+    "slug": "necklace-ana",
+    "name": "שרשרת אנה",
+    "tagline": "שרשרת אנה — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "שרשרת עדינה עם תליון קמור וחלק שיושב יפה על עצם הבריח.",
+    "details": "יוצר קו נקי ומואר לאורך הצוואר. העיצוב המינימליסטי שלה מושלם ללבישה יומיומית ונוח לשילוב עם תליונים נוספים בשכבות.",
+    "howToUse": "ענידי כבסיס למראה שכבות או לבד למראה נקי ביותר.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
     "status": "active",
-    "categoryId": "oils",
+    "categoryId": "necklaces",
     "images": [
-      { "id": "img-11", "src": "/images/products/spray-bottles.png", "alt": "Jojoba Oil", "position": 0 }
+      { "id": "8936-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/ring3_18.webp", "alt": "שרשרת אנה זהב", "position": 0 }
     ],
     "variants": [
-      { "id": "jojoba-30ml", "sku": "JJB-30", "title": "30ml", "price": { "amount": 42, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 220, "reserved": 9, "incoming": 0 }, "position": 0 }
+      { "id": "8937", "sku": "ANA-G", "title": "זהב", "price": { "amount": 130, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 7, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8938", "sku": "ANA-S", "title": "כסף", "price": { "amount": 130, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 8, "reserved": 0, "incoming": 0 }, "position": 1 }
     ],
     "badge": null,
-    "rating": 4.5,
-    "reviewCount": 76,
-    "tags": ["jojoba", "facial oil", "balancing", "multipurpose"],
-    "createdAt": "2024-04-10T00:00:00Z",
-    "updatedAt": "2025-03-08T00:00:00Z"
-  },
-  {
-    "id": "argan-oil",
-    "slug": "argan-oil",
-    "name": "Argan Oil",
-    "tagline": "Moroccan beauty elixir",
-    "description": "Luxurious Moroccan argan oil for face, hair, and nails.",
-    "details": "Sourced from Morocco, this 100% pure argan oil is rich in vitamin E and fatty acids. Deeply moisturizes and restores elasticity. A true multi-tasker for your beauty routine.",
-    "howToUse": "Apply 2-4 drops to face, hair, or nails. For hair, focus on ends to tame frizz and add shine.",
-    "ingredients": "Argania Spinosa Kernel Oil (100% Pure Organic).",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
-    "status": "active",
-    "categoryId": "oils",
-    "images": [
-      { "id": "img-12", "src": "/images/products/pump-bottles-cream.png", "alt": "Argan Oil", "position": 0 }
-    ],
-    "variants": [
-      { "id": "argan-30ml", "sku": "ARG-30", "title": "30ml", "price": { "amount": 56, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 150, "reserved": 6, "incoming": 0 }, "position": 0 }
-    ],
-    "badge": "Bestseller",
     "rating": 4.8,
-    "reviewCount": 142,
-    "tags": ["argan", "facial oil", "moroccan", "multipurpose"],
-    "createdAt": "2024-02-20T00:00:00Z",
-    "updatedAt": "2025-03-18T00:00:00Z"
+    "reviewCount": 21,
+    "tags": ["Modern Look", "שרשראות"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-10T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
   },
   {
-    "id": "glow-mask",
-    "slug": "glow-mask",
-    "name": "Glow Mask",
-    "tagline": "Weekly radiance ritual",
-    "description": "Weekly brightening treatment that reveals smoother, more radiant skin.",
-    "details": "A creamy kaolin clay mask infused with turmeric and vitamin C. Draws out impurities, refines pores, and leaves skin visibly brighter after just one use.",
-    "howToUse": "Apply an even layer to clean, dry face avoiding eye area. Leave on for 10-15 minutes. Rinse with warm water. Use 1-2 times weekly.",
-    "ingredients": "Kaolin, Curcuma Longa Root Extract, Ascorbic Acid, Aloe Vera, Glycerin, Honey Extract, Chamomile Extract.",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
+    "id": "8945",
+    "slug": "ring-bar",
+    "name": "טבעת בר",
+    "tagline": "טבעת בר — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "טבעת פתוחה מינימליסטית עם אלמנט בר אנכי ארוך לצד בר קצר יותר.",
+    "details": "יוצרים גאומטרית נקייה על האצבע. המבנה הפתוח מאפשר התאמה נוחה למידת האצבע, והעיצוב המודרני שלה נראה מעולה גם כטבעת סטייטמנט בודדת.",
+    "howToUse": "ניתן להתאים את גודל הטבעת על ידי לחיצה עדינה או הרחבה.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
     "status": "active",
-    "categoryId": "masks",
+    "categoryId": "rings",
     "images": [
-      { "id": "img-13", "src": "/images/products/mask.jpg", "alt": "Glow Mask", "position": 0 }
+      { "id": "8945-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/ring2_29.webp", "alt": "טבעת בר זהב", "position": 0 }
     ],
     "variants": [
-      { "id": "mask-75ml", "sku": "MSK-75", "title": "75ml", "price": { "amount": 45, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 160, "reserved": 4, "incoming": 0 }, "position": 0 }
+      { "id": "8946", "sku": "BAR-G", "title": "זהב", "price": { "amount": 130, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8947", "sku": "BAR-S", "title": "כסף", "price": { "amount": 130, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 1 }
     ],
     "badge": null,
     "rating": 4.6,
-    "reviewCount": 88,
-    "tags": ["mask", "clay", "brightening", "weekly treatment"],
-    "createdAt": "2024-05-01T00:00:00Z",
-    "updatedAt": "2025-03-10T00:00:00Z"
+    "reviewCount": 8,
+    "tags": ["Modern Look", "טבעות", "Geometric"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-10T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
   },
   {
-    "id": "balance-toner",
-    "slug": "balance-toner",
-    "name": "Balance Toner",
-    "tagline": "Refresh and restore",
-    "description": "pH restoring mist that preps skin for better product absorption.",
-    "details": "A gentle, alcohol-free toner with rose water and witch hazel. Balances skin's pH, tightens pores, and provides a refreshing spritz of hydration anytime.",
-    "howToUse": "Spritz onto cleansed face or apply with a cotton pad. Use morning and evening before serums. Can also be used throughout the day for a refresh.",
-    "ingredients": "Rosa Damascena Flower Water, Hamamelis Virginiana Water, Glycerin, Aloe Vera, Panthenol, Niacinamide.",
-    "delivery": "Free standard shipping on orders over $50. Express shipping available at checkout.",
+    "id": "8952",
+    "slug": "ring-trilogy",
+    "name": "טבעת Trilogy",
+    "tagline": "טבעת Trilogy — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "טבעת עדינה עם שלוש אבנים ירוקות עגולות המשובצות בשורה קדמית.",
+    "details": "בתוך מסגרת מתעגלת שמדגישה את הברק והצבע שלהן. העיצוב הנמוך והנוח שלה מתאים ללבישה יומיומית, נראה נהדר לבד או כחלק מסטאקינג.",
+    "howToUse": "מושלמת כטבעת צבעונית עדינה ליומיום.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD, זירקון ירוק",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
     "status": "active",
-    "categoryId": "toners",
+    "categoryId": "rings",
     "images": [
-      { "id": "img-14", "src": "/images/products/toner.jpg", "alt": "Balance Toner", "position": 0 }
+      { "id": "8952-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/ring-11_49.webp", "alt": "טבעת טרילוגיה זהב", "position": 0 }
     ],
     "variants": [
-      { "id": "toner-100ml", "sku": "TNR-100", "title": "100ml", "price": { "amount": 32, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 250, "reserved": 12, "incoming": 0 }, "position": 0 },
-      { "id": "toner-200ml", "sku": "TNR-200", "title": "200ml", "price": { "amount": 52, "currency": "USD" }, "compareAtPrice": null, "inventory": { "available": 120, "reserved": 5, "incoming": 0 }, "position": 1 }
+      { "id": "8953", "sku": "TRI-G-7", "title": "זהב / מידה 7", "price": { "amount": 140, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 9, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8956", "sku": "TRI-S-7", "title": "כסף / מידה 7", "price": { "amount": 140, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 1 }
+    ],
+    "badge": null,
+    "rating": 4.8,
+    "reviewCount": 16,
+    "tags": ["Modern Look", "טבעות", "Gemstone"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-12T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
+  },
+  {
+    "id": "8963",
+    "slug": "ring-chunky",
+    "name": "טבעת צ׳אנקי",
+    "tagline": "טבעת צ׳אנקי — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "טבעת סטייטמנט צ’אנקית בעיצוב מתפתל וגולש שנותן תחושה של מתכת נוזלית.",
+    "details": "בזכות הרוחב והנוכחות שלה היא מושלמת כטבעת סטייטמנט בודדת שמושכת את כל הפוקוס. עשויה סטיינלס סטיל היפואלרגני עמיד במים ובשחיקה.",
+    "howToUse": "ענידי כטבעת דומיננטית על האצבע המורה.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
+    "status": "active",
+    "categoryId": "rings",
+    "images": [
+      { "id": "8963-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/ring-9_46.webp", "alt": "טבעת צ'אנקי זהב", "position": 0 }
+    ],
+    "variants": [
+      { "id": "8977", "sku": "CHK-G", "title": "זהב", "price": { "amount": 130, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8976", "sku": "CHK-S", "title": "כסף", "price": { "amount": 130, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 1 }
+    ],
+    "badge": "Bestseller",
+    "rating": 4.7,
+    "reviewCount": 19,
+    "tags": ["Modern Look", "טבעות", "Chunky"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-12T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
+  },
+  {
+    "id": "8985",
+    "slug": "necklace-moon",
+    "name": "שרשרת מון",
+    "tagline": "שרשרת מון — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "שרשרת עדינה עם תליון מונסטון בצורת טיפה, בעל ברק חלבי שנותן תחושה של אור ירח.",
+    "details": "המונסטון נחשב אבן של אינטואיציה ושקט פנימי. התליון תלוי על שרשרת חוליות דקה מסטיינלס סטיל היפואלרגני עמיד במים ובשחיקה.",
+    "howToUse": "ענידי קרוב ללב למזל טוב ושלווה.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD, מונסטון",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
+    "status": "active",
+    "categoryId": "necklaces",
+    "images": [
+      { "id": "8985-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/necklace-3_8.webp", "alt": "שרשרת מון זהב", "position": 0 }
+    ],
+    "variants": [
+      { "id": "8986", "sku": "MOON-G", "title": "זהב / מונסטון", "price": { "amount": 150, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8987", "sku": "MOON-S", "title": "כסף / מונסטון", "price": { "amount": 150, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 1 }
+    ],
+    "badge": null,
+    "rating": 4.5,
+    "reviewCount": 14,
+    "tags": ["Modern Look", "שרשראות", "Gemstone"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-15T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
+  },
+  {
+    "id": "8992",
+    "slug": "necklace-light",
+    "name": "שרשרת אור",
+    "tagline": "שרשרת אור — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "שרשרת עדינה עם תליון עגול במראה מטבע, משובץ בזירקון ירוק נוצץ במרכז.",
+    "details": "התליון והשרשרת עשויים סטיינלס סטיל היפואלרגני, עמידים במים ובשחיקה. העיצוב הקומפקטי והמינימליסטי משתלב מעולה עם שרשראות נוספות.",
+    "howToUse": "מושלם למראה שכבות (Layering).",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD, זירקון ירוק",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
+    "status": "active",
+    "categoryId": "necklaces",
+    "images": [
+      { "id": "8992-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/necklac-2_11.webp", "alt": "שרשרת אור זהב", "position": 0 }
+    ],
+    "variants": [
+      { "id": "8993", "sku": "LGT-G", "title": "זהב", "price": { "amount": 150, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8994", "sku": "LGT-S", "title": "כסף", "price": { "amount": 150, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 9, "reserved": 0, "incoming": 0 }, "position": 1 }
     ],
     "badge": "New",
-    "rating": 4.5,
-    "reviewCount": 64,
-    "tags": ["toner", "rose water", "pH balance", "hydrating"],
-    "createdAt": "2025-02-01T00:00:00Z",
-    "updatedAt": "2025-03-20T00:00:00Z"
+    "rating": 4.6,
+    "reviewCount": 10,
+    "tags": ["Modern Look", "שרשראות", "Coin"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-15T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
+  },
+  {
+    "id": "8996",
+    "slug": "earrings-statement",
+    "name": "עגילי סטייטמנט",
+    "tagline": "עגילי סטייטמנט — עגילי חישוק בעיצוב אורגני-מודרני.",
+    "description": "עגילי חישוק סטייטמנט עם אלמנטים עגולים-אורגניים שמתחברים זה לזה.",
+    "details": "חישוק רחב במראה נוזלי ומודרני. עשויים סטיינלס סטיל היפואלרגני, קלים יחסית למשקל שלהם ונוחים ללבישה לאורך כל היום.",
+    "howToUse": "מתאימים לכל לוק - מג'ינס וטי-שירט ועד שמלת ערב.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
+    "status": "active",
+    "categoryId": "earrings",
+    "images": [
+      { "id": "8996-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/earrings_3.webp", "alt": "עגילי סטייטמנט זהב", "position": 0 }
+    ],
+    "variants": [
+      { "id": "8997", "sku": "STT-G", "title": "זהב", "price": { "amount": 140, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "8999", "sku": "STT-S", "title": "כסף", "price": { "amount": 140, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 1 }
+    ],
+    "badge": "New",
+    "rating": 4.9,
+    "reviewCount": 24,
+    "tags": ["Modern Look", "עגילים", "Chunky"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-18T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
+  },
+  {
+    "id": "9003",
+    "slug": "ring-vibe",
+    "name": "טבעת וייב",
+    "tagline": "טבעת וייב — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "טבעת פתוחה בסגנון ים, עם קונכייה חרוטה בצד אחד וכוכב קטן בצד השני.",
+    "details": "יוצרים יחד וייב קיצי וקליל על האצבע. עשויה סטיינלס סטיל היפואלרגני בציפוי 18k gold PVD, עמידה במים ובשחיקה.",
+    "howToUse": "מושלמת לקיץ ולחופשה בים.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
+    "status": "active",
+    "categoryId": "rings",
+    "images": [
+      { "id": "9003-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/vibe.webp", "alt": "טבעת וייב זהב", "position": 0 }
+    ],
+    "variants": [
+      { "id": "9040", "sku": "VIBE-G", "title": "זהב", "price": { "amount": 120, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "9041", "sku": "VIBE-S", "title": "כסף", "price": { "amount": 120, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 1 }
+    ],
+    "badge": null,
+    "rating": 4.7,
+    "reviewCount": 13,
+    "tags": ["Modern Look", "טבעות", "Summer"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-18T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
+  },
+  {
+    "id": "9013",
+    "slug": "necklace-sun",
+    "name": "שרשרת שמש",
+    "tagline": "שרשרת שמש — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "שרשרת עדינה עם תליון שמש, בעל זרועות גולשות ופתוחות.",
+    "details": "נותן תחושה של קרני אור זורמות על העור. העיצוב המינימליסטי-אבל-בולט שלה מוסיף נגיעה מוארת לכל לוק, לבד או בשכבות.",
+    "howToUse": "ענידי כשמש מרכזית בסט השרשראות שלך.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
+    "status": "active",
+    "categoryId": "necklaces",
+    "images": [
+      { "id": "9013-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/aaa_50.webp", "alt": "שרשרת שמש זהב", "position": 0 }
+    ],
+    "variants": [
+      { "id": "9016", "sku": "SUN-G", "title": "זהב", "price": { "amount": 140, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 8, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "9017", "sku": "SUN-S", "title": "כסף", "price": { "amount": 140, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 1 }
+    ],
+    "badge": null,
+    "rating": 4.8,
+    "reviewCount": 17,
+    "tags": ["Modern Look", "שרשראות", "Sun"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-20T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
+  },
+  {
+    "id": "9131",
+    "slug": "necklace-heart",
+    "name": "שרשרת לב",
+    "tagline": "שרשרת לב — תכשיט מעוצב באיכות גבוהה, עמיד למים והיפואלרגני.",
+    "description": "שרשרת עדינה עם תליון לב מופשט ומעוגל, שנראה כאילו צויר בתנועה אחת.",
+    "details": "מראה רך ומודרני על הצוואר. שרשרת לב שהיא יותר עיצובית ופחות “רומנטית”, מושלמת לשכבות עם שרשראות נוספות.",
+    "howToUse": "מתנה מושלמת לעצמך או לאהובה.",
+    "ingredients": "סטיינלס סטיל היפואלרגני, 18k Gold PVD",
+    "delivery": "משלוח חינם בקנייה מעל ₪250. זמן אספקה: 1-3 ימי עסקים.",
+    "status": "active",
+    "categoryId": "necklaces",
+    "images": [
+      { "id": "9131-1", "src": "https://www.juliris.com/wp-content/uploads/2026/03/aaa_52.webp", "alt": "שרשרת לב זהב", "position": 0 }
+    ],
+    "variants": [
+      { "id": "9132", "sku": "HRT-G", "title": "זהב", "price": { "amount": 140, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 0 },
+      { "id": "9133", "sku": "HRT-S", "title": "כסף", "price": { "amount": 140, "currency": "ILS" }, "compareAtPrice": null, "inventory": { "available": 10, "reserved": 0, "incoming": 0 }, "position": 1 }
+    ],
+    "badge": "New",
+    "rating": 4.9,
+    "reviewCount": 31,
+    "tags": ["Modern Look", "שרשראות", "Heart"],
+    "ijewelModelId": "",
+    "createdAt": "2025-03-22T00:00:00Z",
+    "updatedAt": "2025-03-26T00:00:00Z"
   }
 ]

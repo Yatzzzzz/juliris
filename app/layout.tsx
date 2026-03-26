@@ -1,27 +1,15 @@
 import React from "react"
 import type { Metadata, Viewport } from 'next'
-import { DM_Sans, Playfair_Display } from 'next/font/google'
+import { heebo, libreFranklin, montserrat } from "./fonts"
 import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/components/boty/cart-context'
 import './globals.css'
 
-const dmSans = DM_Sans({ 
-  subsets: ["latin"],
-  variable: '--font-dm-sans',
-  weight: ['300', '400', '500', '600']
-});
-
-const playfairDisplay = Playfair_Display({ 
-  subsets: ["latin"],
-  variable: '--font-playfair',
-  weight: ['400', '500', '600', '700']
-});
-
 export const metadata: Metadata = {
-  title: 'Boty — Natural Skincare',
-  description: 'Premium natural skincare and body care products. Glow gently with Boty.',
-  generator: 'v0.app',
-  keywords: ['skincare', 'natural', 'organic', 'beauty', 'body care', 'cruelty-free'],
+  title: 'Juliris — תכשיטים היפואלרגניים',
+  description: 'תכשיטים היפואלרגניים לנשים עם עור רגיש. עגילים, טבעות, שרשראות וצמידים בעיצוב אלגנטי.',
+  generator: 'Next.js',
+  keywords: ['תכשיטים', 'היפואלרגני', 'עגילים', 'טבעות', 'שרשראות', 'צמידים', 'סטיינלס סטיל', 'עור רגיש', 'Juliris'],
   icons: {
     icon: [
       {
@@ -51,8 +39,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${dmSans.variable} ${playfairDisplay.variable} font-sans antialiased`}>
+    <html lang="he" dir="rtl">
+      <body className={`${heebo.variable} ${libreFranklin.variable} ${montserrat.variable} font-sans antialiased text-right`}>
         <CartProvider>
           {children}
         </CartProvider>

@@ -11,9 +11,9 @@ export interface PricingConfig {
 }
 
 export const DEFAULT_PRICING_CONFIG: PricingConfig = {
-  freeShippingThreshold: 50,
-  standardShippingRate: 6.99,
-  taxRate: 0, // No tax by default; adjust per region
+  freeShippingThreshold: 999999, // Effectively disabled
+  standardShippingRate: 39,
+  taxRate: 0,
 }
 
 /**
@@ -91,10 +91,10 @@ export function calculatePricing(
 }
 
 /**
- * Format a number as USD currency string.
+ * Format a number as ILS currency string.
  */
 export function formatMoney(amount: number): string {
-  return `$${amount.toFixed(2)}`
+  return `₪${amount.toFixed(2)}`
 }
 
 /**
@@ -106,6 +106,5 @@ export function getShippingMessage(
 ): string | null {
   if (subtotal <= 0) return null
   if (subtotal >= config.freeShippingThreshold) return null
-  const remaining = config.freeShippingThreshold - subtotal
-  return `Add ${formatMoney(remaining)} more for free shipping`
+  return null // Disable the "spend more" message for now as per fixed shipping request
 }
